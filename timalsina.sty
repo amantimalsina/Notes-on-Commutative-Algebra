@@ -1,0 +1,360 @@
+% This was first copied from Ryan O'Donnell's style file, but I suppose I have modified this quite a bit.
+
+\usepackage{amsmath,amssymb,amsthm,amsfonts,latexsym,bbm,xspace,graphicx,float,mathtools,mathdots}
+\usepackage{import}
+\usepackage{dirtytalk}
+\usepackage{braket,caption,subcaption,ellipsis,xcolor,textcomp, setspace, tikz}
+\usepackage{combelow} %for you, Rusins Freivalds
+\usepackage[backref,colorlinks,citecolor=blue,bookmarks=true]{hyperref}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{blkarray}
+\usepackage{wrapfig}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{bm}
+\usepackage[all]{xy}
+
+% FONT STUFF
+\RequirePackage{csquotes}
+%% Nicer looking fonts
+\usepackage{mathpazo}
+\usepackage{microtype}
+\usepackage{sectsty}
+\allsectionsfont{\sffamily}
+
+\usepackage{hyperref}% http://ctan.org/pkg/hyperref
+\hypersetup{
+     colorlinks=true,
+     linkcolor=purple,
+     filecolor=blue,
+     citecolor = purple,      
+     urlcolor=cyan,
+     }
+\usepackage[capitalise]{cleveref}% http://ctan.org/pkg/cleveref
+
+
+\usepackage{lipsum}% http://ctan.org/pkg/lipsum
+
+% Detailed APA Citation:
+% \usepackage[natbibapa]{apacite}
+% Default IEEE Citation:
+\usepackage[numbers]{natbib}
+%\usepackage[protrusion=true,expansion=true]{microtype}   % slows compilation a lot
+%\usepackage[all]{xy}
+
+% environments
+\newtheorem{theorem}{Theorem}[section]
+
+%TODO: change this old hack to a better one from: http://tex.stackexchange.com/questions/51286/recalling-a-theorem
+\newtheorem*{namedtheorem}{\theoremname}
+\newcommand{\theoremname}{testing}
+\newenvironment{named}[1]{ \renewcommand{\theoremname}{#1} \begin{namedtheorem}} {\end{namedtheorem}}
+
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{answer}[theorem]{Answer}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{note}[theorem]{Note}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{examples}[theorem]{Example}
+
+
+% probability and other mathops
+\renewcommand{\Pr}{\text{Pr\/}}
+\newcommand{\E}{\mathbb{E}} 
+\newcommand{\Ex}{\mathop{\bf E\/}}
+\newcommand{\Var}{\text{Var\/}}
+\newcommand{\cov}{\text{cov\/}}
+\newcommand{\stddev}{\mathop{\bf stddev\/}}
+\newcommand{\littlesum}{\mathop{{\textstyle \sum}}}
+\newcommand{\littleprod}{\mathop{{\textstyle \prod}}}
+
+
+% math terms -- figure out which are supposed to be operatorname / textnormal or what
+\newcommand{\poly}{\operatorname{poly}}
+\newcommand{\polylog}{\operatorname{polylog}}
+\newcommand{\size}{\textnormal{size}}
+\newcommand{\avg}{\mathop{\textnormal{avg}}}
+\newcommand{\sgn}{\textnormal{sgn}}
+\newcommand{\dist}{\textnormal{dist}}
+\newcommand{\vol}{\textnormal{vol}}
+\newcommand{\spn}{\textnormal{span}}
+\newcommand{\supp}{\textnormal{supp}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\codim}{\operatorname{codim}}
+\newcommand{\diag}{\operatorname{diag}}
+
+% number systems
+\newcommand{\R}{\mathbbm R}
+\newcommand{\C}{\mathbbm C}
+\newcommand{\N}{\mathbbm N}
+\newcommand{\Z}{\mathbbm Z}
+\newcommand{\F}{\mathbbm F}
+\newcommand{\Q}{\mathbbm Q}
+
+\newcommand{\bbone}{\mathbbm 1}
+\newcommand{\Id}{\bbone}
+\DeclareMathAlphabet{\mymathbb}{U}{BOONDOX-ds}{m}{n}
+\newcommand{\bzero}{\mymathbb{0}}
+
+% complexity classes
+\newcommand{\PTIME}{\mathsf{P}}
+\newcommand{\LOGSPACE}{\mathsf{L}}
+\newcommand{\ZPP}{\mathsf{ZPP}}
+\newcommand{\RP}{\mathsf{RP}}
+\newcommand{\BPP}{\mathsf{BPP}}
+\newcommand{\NP}{\mathsf{NP}}
+\newcommand{\PCP}{\mathsf{PCP}}
+\newcommand{\TC}{\mathsf{TC}}
+\newcommand{\AC}{\mathsf{AC}}
+\newcommand{\SC}{\mathsf{SC}}
+\newcommand{\SZK}{\mathsf{SZK}}
+\newcommand{\IP}{\mathsf{IP}}
+\newcommand{\PSPACE}{\mathsf{PSPACE}}
+\newcommand{\EXP}{\mathsf{EXP}}
+\newcommand{\MIP}{\mathsf{MIP}}
+\newcommand{\NEXP}{\mathsf{NEXP}}
+\newcommand{\BQP}{\mathsf{BQP}}
+
+% For a CSP P:
+\newcommand{\unsat}[1]{\textsc{Unsat}(#1)}
+
+% Asymptotic symbols
+\newcommand{\bigO}{\mathcal{O}}
+
+% short forms
+\newcommand{\eps}{\epsilon}
+\newcommand{\lam}{\lambda}
+\newcommand{\dleta}{\delta}
+\newcommand{\simga}{\sigma}
+\newcommand{\vphi}{\varphi}
+\newcommand{\la}{\langle}
+\newcommand{\ra}{\rangle}
+\newcommand{\wt}[1]{\widetilde{#1}}
+\newcommand{\wh}[1]{\widehat{#1}}
+\newcommand{\ol}[1]{\overline{#1}}
+\newcommand{\ul}[1]{\underline{#1}}
+\newcommand{\ot}{\otimes}
+\newcommand{\zo}{\{0,1\}}
+\newcommand{\co}{:}               
+\renewcommand{\ss}{\subseteq}
+%\newcommand{\co}{\colon}
+\newcommand{\bdry}{\partial}
+\newcommand{\grad}{\nabla}
+\newcommand{\symmdiff}{\triangle} \newcommand{\symdiff}{\symmdiff}
+\newcommand{\half}{\tfrac{1}{2}}
+
+
+% calligraphic letters
+\newcommand{\calA}{\mathcal{A}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calC}{\mathcal{C}}
+\newcommand{\calD}{\mathcal{D}}
+\newcommand{\calE}{\mathcal{E}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\calG}{\mathcal{G}}
+\newcommand{\calH}{\mathcal{H}}
+\newcommand{\calI}{\mathcal{I}}
+\newcommand{\calJ}{\mathcal{J}}
+\newcommand{\calK}{\mathcal{K}}
+\newcommand{\calL}{\mathcal{L}}
+\newcommand{\calM}{\mathcal{M}}
+\newcommand{\calN}{\mathcal{N}}
+\newcommand{\calO}{\mathcal{O}}
+\newcommand{\calP}{\mathcal{P}}
+\newcommand{\calQ}{\mathcal{Q}}
+\newcommand{\calR}{\mathcal{R}}
+\newcommand{\calS}{\mathcal{S}}
+\newcommand{\calT}{\mathcal{T}}
+\newcommand{\calU}{\mathcal{U}}
+\newcommand{\calV}{\mathcal{V}}
+\newcommand{\calW}{\mathcal{W}}
+\newcommand{\calX}{\mathcal{X}}
+\newcommand{\calY}{\mathcal{Y}}
+\newcommand{\calZ}{\mathcal{Z}}
+
+% mathbb
+\newcommand{\bone}{\mathbb{1}}
+\newcommand{\dual}[1]{{#1}^*}
+\newcommand{\bbeta}{\mathbb{\beta}}
+\newcommand{\bdelta}{\mathbb{\delta}}
+\newcommand{\bepsilon}{\mathbb{\epsilon}}
+\newcommand{\blambda}{\mathbb{\lambda}}
+\newcommand{\bomega}{\mathbb{\omega}}
+\newcommand{\bpi}{\mathbb{\pi}}
+\newcommand{\bphi}{\mathbb{\phi}}
+\newcommand{\bvphi}{\mathbb{\varphi}}
+\newcommand{\bpsi}{\mathbb{\psi}}
+\newcommand{\bsigma}{\mathbb{\sigma}}
+\newcommand{\btheta}{\mathbb{\theta}}
+\newcommand{\btau}{\mathbb{\tau}}
+\newcommand{\ba}{\mathbb{a}}
+\newcommand{\bb}{\mathbb{b}}
+\newcommand{\bc}{\mathbb{c}}
+\newcommand{\bd}{\mathbb{d}}
+\newcommand{\be}{\mathbb{e}}
+\newcommand{\boldf}{\mathbb{f}}
+\newcommand{\bg}{\mathbb{g}}
+\newcommand{\bh}{\mathbb{h}}
+\newcommand{\bi}{\mathbb{i}}
+\newcommand{\bj}{\mathbb{j}}
+\newcommand{\bk}{\mathbb{k}}
+\newcommand{\bell}{\mathbb{\ell}}
+\newcommand{\bp}{\mathbb{p}}
+\newcommand{\bq}{\mathbb{q}}
+\newcommand{\br}{\mathbb{r}}
+\newcommand{\bs}{\mathbb{s}}
+\newcommand{\bt}{\mathbb{t}}
+\newcommand{\bu}{\mathbb{u}}
+\newcommand{\bv}{\mathbb{v}}
+\newcommand{\bw}{\mathbb{w}}
+\newcommand{\bx}{{\mathbb{x}}}
+\newcommand{\by}{\mathbb{y}}
+\newcommand{\bz}{\mathbb{z}}
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bH}{\mathbb{H}}
+\newcommand{\bI}{\mathbb{I}}
+\newcommand{\bJ}{\mathbb{J}}
+\newcommand{\bL}{\mathbb{L}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bS}{\mathbb{S}}
+\newcommand{\bT}{\mathbb{T}}
+\newcommand{\bU}{\mathbb{U}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bW}{\mathbb{W}}
+\newcommand{\bX}{\mathbb{X}}
+\newcommand{\bY}{\mathbb{Y}}
+\newcommand{\bZ}{\mathbb{Z}}
+
+%% An alternative when \bbone defines the all 1 vector.
+\usepackage{stmaryrd}
+\DeclarePairedDelimiter{\iverson}{\llbracket}{\rrbracket}
+
+% bold calligraphic
+\newcommand{\bcalG}{\mathbb{\calG}} \newcommand{\calbG}{\bcalG}
+\newcommand{\bcalX}{\mathbb{\calX}} \newcommand{\calbX}{\bcalX}
+\newcommand{\bcalY}{\mathbb{\calY}} \newcommand{\calbY}{\bcalY}
+\newcommand{\bcalZ}{\mathbb{\calZ}} \newcommand{\calbZ}{\bcalZ}
+
+% left-right wrappers
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\braces{\lbrace}{\rbrace}
+\newcommand{\brac}[1]{\left[#1\right]}
+\DeclarePairedDelimiter\angles{\langle}{\rangle}
+\newcommand{\paren}[1]{\left(#1\right)}
+% words -- there's supposed to be something better than xspace though
+\newcommand{\Hastad}{H{\aa}stad\xspace}
+\newcommand{\Holder}{H{\"o}lder\xspace}
+\newcommand{\ErdosRenyi}{Erd\H{o}s--R\'{e}nyi\xspace}
+
+
+%%%%%%%%%%%%% hyphenation %%%%%%%%%%%%%
+\hyphenation{Naka-shima}
+
+
+%%%%%%%%%%%% document-writing macros %%%%%%%%%%%%
+
+%\newcommand{\ignore}[1]{*\marginpar{\tiny \em ignored part}}
+\newcommand{\ignore}[1]{}
+
+\newcommand{\myfig}[5]{\begin{figure}[#1] \centering \includegraphics[width=#2\textwidth]{#3} \caption{#4} \label{#5} \end{figure}}
+
+%%%%%%%%%%%%% The following are shorthands and textual representations organized according to specific fields %%%%%%%%%%%%%
+
+
+%%% Linear Algebra
+\DeclareMathOperator{\image}{\text{im\/}} %Image of a transformation [\Im is the imaginary part of a complex number].
+\DeclareMathOperator{\Ker}{\text{ker\/}} %Image of a transformation [\Im is the imaginary part of a complex number].
+\DeclareMathOperator{\Coker}{\text{coker\/}} %Image of a transformation [\Im is the imaginary part of a complex number].
+
+%%%% Algorithms:
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\algtext*{EndWhile}
+\algtext*{EndIf}
+\algtext*{EndFor}
+\algtext*{EndElse}
+
+%%%% Analysis
+\renewcommand{\d}[1]{\text{\ d}{#1}}
+
+%%% Topology
+\newcommand{\colim}[5]{\text{colim}\paren{{#1} \overset{#2}{\leftarrow}{#3} \overset{#4}{\rightarrow}{#5}}} %Image of a transformation [\Im is the imaginary part of a complex number].
+\DeclareMathOperator{\id}{\text{id\/}}
+\DeclareMathOperator{\pr}{\text{pr\/}}
+\DeclareMathOperator{\Cl}{\text{Cl\/}}
+\DeclareMathOperator{\Del}{\text{Del\/}}
+\DeclareMathOperator{\Hom}{\text{Hom\/}}
+\DeclareMathOperator{\End}{\text{End\/}}
+
+
+%%%% Typeset shortcuts:
+\newcommand{\AT}[1]{\textcolor{magenta}{[AT: #1]}}
+\newcommand{\AM}[1]{\textcolor{gray}{[AM: #1]}}
+\newcommand{\CITE}{\textcolor{red}{[CITE]~}}
+\newcommand{\REF}{\textcolor{blue}{[REF]~}}
+\newcommand{\Exp}{\mathbb{E}} 
+% The expectation.
+\renewcommand{\P}{\mathbb{P}} 
+% The distribution
+
+% For defining exercises:
+\usepackage{etoolbox}
+\usepackage[lastexercise]{exercise}  \newcounter{pbone}[section]
+\renewcommand*{\thepbone}{\thesection.\arabic{pbone}}
+
+\renewcommand{\theExercise}{\arabic{Exercise}}
+\makeatletter
+\patchcmd{\@@@ExeEnv}{\theExercise}%
+  {\csname the\@ExerciseCounter\endcsname}{}{Failed}
+\patchcmd{\@@@ExeEnv}{\addcontentsline}%
+  {\if@ExeStared\else\addcontentsline}{}{Failed}
+\patchcmd{\@@@ExeEnv}{\endgroup}{\fi\endgroup}{}{Failed}
+\renewcommand{\ExerciseHeaderNB}{\csname the\@ExerciseCounter\endcsname}
+\patchcmd{\@getExerciseInfo}{\p@Exercise\theExercise}%
+  {\csname p@\@ExerciseCounter\endcsname
+  \csname the\@ExerciseCounter\endcsname}{}{Failed}
+\patchcmd{\@@@ExeCmd}{\theExercise}%
+  {\csname the\@ExerciseCounter\endcsname}{}{Failed}
+\makeatother
+
+%%% For algorithm
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\algtext*{EndWhile}
+\algtext*{EndIf}
+\algtext*{EndFor}
+\algtext*{EndElse}
+
+
+%% For labels
+\newcommand{\algc}[1]{\Comment{\textcolor{teal}{#1}}}
+
+% short-hands
+\newcommand{\us}[2]{\underset{#2}{#1}}
+\newcommand{\os}[2]{\overset{#1}{#2}}

@@ -1,0 +1,1540 @@
+\chapter{Review of Ring Theory}
+\section{Introduction}
+We will start by recalling some basic concepts concerning rings from a first course in algebra.
+\begin{definition}[Ring]\label{def: ring}
+    $A$ ring $A$ is a set with two binary operations called addition $(+)$ and multiplication $(\cdot)$ such that
+    \begin{enumerate}
+    \item $(A,+)$ is an {\it Abelian} group, and
+
+    \item the multiplication operation $(\cdot)$ is {\it associative} and is {\it distributive} over the addition.
+    \end{enumerate}
+\end{definition}
+
+Since these notes deal with commutative algebra, we will add two more hypotheses to the above set of hypotheses:
+\begin{enumerate}
+ \setcounter{enumi}{2}
+\item The multiplication operation $(\cdot)$ is {\it commutative}: for $x, y \in A, x y = y x$.
+\end{enumerate}
+Further, we will also assume that our rings contain the identity element.
+\begin{enumerate}
+ \setcounter{enumi}{2}
+\item The exists a {\it multiplicative identity } $1_{A} \in A$ such that $\forall x \in A,\ 1_{A} \cdot x = x$.
+\end{enumerate}
+
+\begin{example} We now examine some examples of rings.
+\begin{enumerate}
+    \setcounter{enumi}{-1}
+    \item Our zeroth example is the ring $A=(0).$ This is a commutative ring with multiplicative identity $1_A = 0.$ In addition, the standard sequence of rings is given by ${\Z}\ss {\Q}\ss {\R}\ss {\C}$. 
+    \item Similarly, if $A$ is a commutative ring then so is $A[x]$,
+    given by
+    \[A[x]=\left\{a_{0}+a_{1}x+\cdots+a_{n} x^{n}: n \in \Z_{\ge 0}, a_{i} \in A \right\}.\]
+    This is the collection of all polynomials with natural addition and multiplication operations. In a similar manner, one can define polynomial rings over several variables
+    \[ A\left[x_{1}, \ldots, x_{n}\right]=\left\{\sum a_{i_{1}, \ldots, i_{n}} x_{1}^{i_{1}} \cdots x_{n}^{i_{n}}: i_{j} \in \Z_{\ge 0}, a_{i} \in A\right\},    \]
+    \item Another collection of nice examples comes from the set of all functions. For any set $S$, the set of all functions on $S$ is given by 
+    \(\mathcal{F}(S)\triangleq\{f: S \rightarrow {\R}\}.\)
+    Using point-wise addition and multiplication,
+    it is easy to see that this is a commutative ring with identity. 
+\end{enumerate}
+\end{example}
+
+\subsection{Subrings}
+Now that we have defined rings and thought of some natural examples, the first thing that we do here is to think about the substructures. 
+
+\begin{definition}[Subring]\label{def: subring}
+    Let $A$ be a ring. A subset $B \subseteq A$ is a {\it subring} of $A$, if $B$ itself is a ring with respect to the same binary operations on $A$.
+\end{definition}
+
+Notice for this definition that we do not need a subring to contain the identity element\footnote{Notice that the identity of a subring need not necessarily be the identity of the bigger ring; an example is, in ${\Z}_{6}$, the subring $\{\ol{0}, \ol{3}\}$ has $\ol{3}$ as its multiplicative identity.}. It is our convention that our rings contain identity element. But, in the subring case, we do not enforce this. 
+
+\begin{example}
+    We now discuss some examples of subrings where we have seen the standard ones above:
+    \begin{enumerate}
+        \item All of the following are subrings of ${\C}$: ${\Z} \subseteq {\Q} \subseteq {\R} \subseteq C$.
+        \item Similarly, for $A[x]$, $A \subseteq A[x]$ must be a subring. A more interesting example is the following set of polynomials
+        \[A_{1}=\{p(x) \in A[x]\colon \text{constant term of $p(x)$ is zero}\}.\]
+        Here, the natural addition and multiplication operations take two constant polynomials with no constant term, and after adding and multiplying them, the result is going to remain another polynomial in the same set because it cannot have a constant term by the usual addition and multiplication of polynomials. 
+    \end{enumerate}
+    
+\end{example} 
+
+\subsection{Homomorphisms}
+We now move on to another important aspect of ring theory: homomorphisms. 
+\begin{definition}[Ring Homomorphism]
+    \label{def: ring-homo}
+    A map $f: A \rightarrow B$ where $A$ and $B$ are rings is said to be a {\it ring homomorphism} if 
+    \begin{enumerate}
+        \item $\forall x, y \in A, f(x+y)=f(x)+f(y)$, and
+        \item $\forall x, y \in A, f(x y)=f(x) f(y)$.
+    \end{enumerate}
+\end{definition}
+\begin{observation}
+We now observe the following properties about homomorphisms that follows directly from \cref{def: ring-homo}:
+    \begin{enumerate}
+        \item\label{item: homo-1} The image of $f$, denoted by $\image{f}$, is a subring of $B$.
+        \item\label{item: homo-2} The kernel of $f$, denoted by $\Ker{f}$,
+        is also a subring of $A$.
+    \end{enumerate} 
+\end{observation}
+Since $A$ contains a multiplicative identity\footnote{Recall that all our rings are commutative and contain the multiplicative identity.} $1_A$, we have $f\left(1_{A}\right)=1_{f(A)}$. Note that we have only asserted that it should be a multiplicative identity of the image subring. 
+
+
+
+\subsection{Zero Divisors, Nilpotents, and Units}
+Now, we look at a set of definitions about some important classes of elements in a ring.
+\begin{definition}\label{def: zero-nil-unit}
+Let $A$ be a commutative ring with identity.
+    \begin{enumerate}
+        \item An element $x \in A$ is a {\it zero divisor}, if there exists $0 \neq y \in A$ such that $x y=0$.
+        \item An element $x \in A$ is a {\it nilpotent} if there exists $n \geq 1$ such that $x^{n}=0$.
+        \item An element $x \in A$ is a {\it unit} if there exists $y \in A$ such that $x y=1$.
+    \end{enumerate}
+\end{definition} 
+\begin{example}
+    We first go over some examples of each of the above classes: 
+    \begin{enumerate}
+    \item An example of zero divisors is given by \(\ol{2}, \ol{3}\) in \({\Z}_{6}\). One more important example of a zero divisor in any ring is 0 itself\footnote{By convention, we do not talk about zero divisors in a zero ring. In a zero ring, the element 0 is not really a zero divisor because this does not satisfy the requirement on the existence of a non-zero element.}. 
+    \item Similarly,  an example of a nilpotent element is $2$ in the ring ${\Z}_{4}$.
+    \item Of course, we have seen units. Indeed, any non-zero element in a field is a unit.
+    \end{enumerate}
+\end{example}
+
+More importantly, let us discuss some relations among these three classes. First, a nilpotent is always a zero divisor. But, the converse is not true as we have seen that $3$ is a zero divisor in $\Z_6$ 
+ but $3^{n}$ is never 0. That is, the set of nilpotents is contained in the set of zero divisors. However, we see that the set of units and the set of all zero divisors are disjoint.
+ 
+\section{Ideals}
+
+A slightly more general object that we are interested in  are ideals. 
+\begin{definition}[Ideal]\label{def: ideal}
+    A subset $I \subseteq A$ is an {\it ideal} of $A$ if $(I,+)$ is an Abelian group, and for every $a \in A$ and $x \in I$, we have $a x \in I$.
+\end{definition}
+
+\begin{example}
+We now look at some examples of ideals in a ring.
+    \begin{enumerate}
+    \setcounter{enumi}{2}
+        \item Again, the zeroth example is, for any ring $A$, the set 
+        $\{0\} \subseteq A$.
+        \item Similarly, for ${\Z}$, we have the ideal $n {\Z} \subseteq {\Z}$. For ${\Q}$, we know that the only ideals are 0 and ${\Q}$ itself.
+        \item Obviously, $A$ is an ideal of $A$ itself. Finally, in $A[x]$, we consider the {\it ideal generated by $x$}, given by the collection of polynomials with constant term zero
+        \[\{x \cdot p(x): p(x) \in A[x]\}.\]
+        \item Finally, for $\mathcal{F}(S)$, take a nonempty subset $\emptyset \neq X \subseteq S$, then the collection
+        \[I_{X}=\{f \in \mathcal{F}(S)\colon \forall x \in X,\ f(x)=0 \},\] is an ideal in $\calF(S)$.
+    \end{enumerate}
+\end{example}
+
+Let us go back to ring homomorphisms here. We know that the kernel is a subring, but in fact, much more is true.
+\begin{observation}\label{obs: ker-ideal}
+If $f: A \rightarrow B$ is a ring homomorphism. Then ker $f$ is an ideal of $A$.
+\end{observation}
+
+Another natural question concerning ideals and homomorphisms is whether homomorphisms preserve ideals and to what extent. That is, for $f: A \rightarrow B$ and an ideal $I \subseteq A$, we ask $f(I)$ is an ideal in B. This, however, is not true in general. A quick counterexample is given by the canonical injection ${\Z} \rightarrow {\Q}$ that takes the ideal $n {\Z} \mapsto n {\Z}$ via an identity map, but we know that $n {\Z}$ is not an ideal in ${\Q}$ since the only ideals of ${\Q}$ are either $(0)$ or the whole of ${\Q}$. Conversely, if $J \subseteq B$ is an ideal, then we can check that the preimage $f^{-1}(J) \subseteq A$ is an ideal. This is because for any $a\in A, x  \in f^{-1}(J),$ we have
+\[
+f(ax) = f(a)f(x) \in J.
+\]
+It is also easy to see that the same argument can be adjusted to show that a surjective homomorphism preserves ideals. Overall, we have sketched why the following claim holds true.
+\begin{observation}
+    \label{obs: phi-preserves-ideal}
+    For a ring homomorphism $\varphi: A \rightarrow B$ and an ideal $I \subsetneq B$, 
+    the inverse image $\varphi^{-1}(I)$ is a prime ideal in $A$. Further, if $\varphi$ is surjective, then for an ideal $J \ss A$, the image $\varphi(J)$ is a prime ideal in $B$.
+\end{observation}
+
+\subsection{Quotient Rings}
+Once we have the concept of ideals, this gives us an equivalence relation that we can define as 
+\begin{displayquote}
+    $a \sim b$ if and only if $a-b \in I$.
+\end{displayquote} 
+We denote the collection of all equivalence classes by $A / I$, and call it the {\it quotient of $A$ with respect to $I$}. In our situation, since $I$ is an ideal in a commutative ring, there is a natural addition and multiplication defined on $A/I$ which is inherited from the natural addition and multiplication defined on $A$. That is, for $a+ I,b+I \in A/I$, we have
+\begin{align*}
+    (a+I)+(b+I)=(a+b)+I, \quad (a+I)(b+I)=a b+I
+\end{align*}
+
+This natural definition of addition and multiplication gives a ring structure to $A / I$. In fact, it is a commutative ring with identity with respect to the above binary operations. We first observe that there exists a natural map, called the {\it quotient map}, $\varphi: A \rightarrow A / I$ given by $\varphi(a)=a+I$. Moreover, it is easy to see that $\varphi$ is a ring homomorphism. And, slightly more, we note that $\varphi$ is a surjective ring homomorphism. We can use this fact to assert the first isomorphism theorem for rings.
+\begin{theorem}[First Isomorphism Theorem for Rings]\label{thm: first-iso-ring}
+    Let $A$ and $B$ be commutative rings with identity. If $f: A \rightarrow B$ is a ring homomorphism. Then, we have
+    \[ A / \Ker{f} \cong \image{f} .\]
+\end{theorem}
+\begin{proof}
+    Put $I = \Ker{f}$. Define $\psi  : A/I \to \image{f}$ by $\psi (a + I) = f(a)$. We see that for $a_1, a_2 \in A$ and $a_1 - a_2 \in I$, we have 
+    \[f(a_1 - a_2) = f(a_1) - f(a_2) = 0.\]
+    Since $f(a_1) = \psi(a_1+I) = \psi(a_2+I) = f(a_2)$, we see that $\psi$ is a well-defined map. Moreover, for $\psi(a_1+I) =  \psi(a_2+I)$, we have
+    \begin{align*}
+        f(a_1) - f(a_2) = f(a_1 - a_2) = 0.
+    \end{align*}
+    That is, $a_1 - a_2 \in I$, and thus, $(a_1+I) =  (a_2+I)$. Hence, $\psi$ is a bijective map between $A/I$ and $\image{f}$. Furthermore, we can see that $\psi$ is a ring homomorphism directly from the fact that $f$ is a ring homomorphism. Overall, we have shown that there exists an explicit isomorphism $\psi$ between $A / I$ and $\image{f}$.
+\end{proof}
+\subsection{Ideals in Quotient Rings}
+So, we have a ring $A$ which induces a ring $A / I$. One of the natural questions to think about is what are the ideals in $A / I$. So, this is again explained by looking at the natural ring homomorphism; one can immediately obtain an explicit expression of all the ideals of $A / I$. 
+Indeed, the ideals of $A / I$ are in one-to-one correspondence with the ideals of $A$ containing $I$. To see this, take any ideal in $A/I$, we claim that its preimage must contain $I$ because $(0)$ is in any ideal and its preimage, $\varphi^{-1}(0) = I$, is always there in the preimage of such ideal. And, if we take any ideal in $A$, its image will obviously be an ideal in $A / I$ as the quotient map is a surjective homomorphism. One can readily rigorize this argument to show that the following result holds.
+\begin{theorem}[The Correspondence Theorem]\label{thm: ideal-correspondence}
+    Let $A$ be a commutative ring with identity and $I\ss A$ be an ideal of $A$. Then, the ideals of $A / I$ are in one-to-one correspondence with the ideals of $A$ containing $I$.
+\end{theorem}
+
+We now assert the second isomorphism theorem relating the quotient rings of two ideals.
+\begin{theorem}[Second Isomorphism Theorem for Rings]\label{thm: second-iso-ring}
+Let $A$ be a commutative ring with identity. If $I \subseteq J \subseteq A$ are ideals of $A$, then we have
+    \[(A / I) /(J / I) \cong A / J.\]
+\end{theorem}
+\begin{proof}
+    Define the map $f: A / I \cong A / J$ by $\psi(x+I) = x+J$. It is easy to see that $f$ is surjective. Now, we also claim that the kernel of $f$, $\Ker{f}$, equals $J/I$.
+    To see this, note that the kernel must consist of all cosets from $A/I$ that contain the elements from $J$. This is precisely the quotient ring $J/I$.
+\end{proof}
+
+ \subsection{Integral Domains and Fields}
+ Recall the definitions from \cref{def: zero-nil-unit}. We can use those definitions to classify types of rings. We will start with integral domains.
+\begin{definition}
+    Let $A$ be a commutative ring with identity. If the only zero divisor of $A$ is 0 , then $A$ is called an {\it integral domain}.
+\end{definition}
+\begin{example}
+    Almost all of the examples that we have been looking at are integral domains: ${\Q}, {\R}, {\C}, {\Z}$. In contrast, if we look at $\mathcal{F}(S)$ with $S\triangleq\{a,b\}$ and construct functions $f(x) = \iverson{x = a}, g(x) = \iverson{x = b}$, then we can see that $\calF(S)$ is {\it not} an integral domain.
+\end{example}
+
+Another important class of examples in this direction consist of the ring of polynomials over integral domains. 
+\begin{proposition}\label{prop: poly-integral-domain}
+    If $A$ is an integral domain, then $A[x]$ is also an integral domain. 
+\end{proposition}
+\begin{proof}
+     Take any product 
+     \(\left(a_{0}+a_{1} x+\cdots+a_{n} x^{n}\right)\left(b_{0}+b_{1} x+\cdots+b_{m} x^{m}\right)=0\)
+     with $a_{n} \neq 0, b_{m} \neq 0$. 
+     Assume that both of the polynomials are non-zero. But, since the product is a zero polynomial, each of its coefficients are 0, including its leading coefficient given by $a_{n} b_{m}=0$. However, our assumption that $A$ is an integral domain implies that either $a_{n}=0$ or $b_{m}=0$. This is a contradiction, and therefore, we see that if $A$ is an integral domain, then so is $A[x]$.
+\end{proof}
+
+Now, recall that if $a$ is a unit and there exists a $b$ such that $a b=1$, where $b$ is called the {\it inverse of $a$} and denoted by $a^{-1}$. We again assert a simple observation regarding units:
+\begin{proposition}\label{prop: improper-ideal-unit}
+    An ideal $I$ is the entire ring if and only if $I$ contains a unit.
+\end{proposition}
+\begin{proof}
+    Since we are considering commutative rings with identity, the forward implication is trivial. But, if $I$ contains a unit $a$ with inverse $a^{-1}$, then we have 
+    \(
+    A = aAa^{-1} \ss I.
+    \)
+\end{proof}
+
+This brings a nice characterization of fields.\footnote{Recall that a commutative ring is a {\it field} if $0\neq 1$ and all of its elements are units.}
+\begin{proposition}\label{prop: char-field}
+    Let $A$ be a commutative ring with identity, then TFAE\footnote{The following are equivalent.}:
+    \begin{enumerate}
+        \item $A$ is a field;
+        \item The only ideals of $A$ are $(0)$ and $A$;
+        \item Any non-zero homomorphism from $A$ to a nonzero ring $B$ is injective.
+    \end{enumerate}
+\end{proposition} 
+\begin{proof}
+    ($1 \implies 2$) Take an ideal $I \ss A$ and suppose it is a non-zero ideal. Since $A$ is a field, any non-zero element is a unit which implies that $I$ contains a unit. Using \cref{prop: improper-ideal-unit}, we can conclude that $I$ is the entire ring $A$.\\
+    
+    ($2 \implies 3$) Let $\varphi: A \rightarrow B$ be a non-zero homomorphism. Then, we know that the kernel $\Ker{\varphi}$ is an ideal of $A$. Further, we know that $\Ker{\varphi}$ can be either $(0)$ or the whole of $A$. However, the latter cannot be true since we are assuming that $\varphi$ is a non-zero ring homomorphism. Therefore, $\Ker{\varphi} =(0)$, and hence, $\varphi$ is injective.\\
+    
+    ($3 \implies 1$) Here, it suffices to show  every non-zero element of $A$ is a unit. Fix an element $0 \neq x \in A$, and consider the ideal generated by $(x)$. Assuming that $x$ is not a unit, we know that $(x) \subsetneq A$ is a proper ideal. To see this, if $x$ is not a unit, then for any $y$ in $A$, $x y$ cannot be 1, and thus, $(x)$ has to be a proper ideal.
+    
+    We now take the quotient map $\varphi: A \rightarrow A /(x)$, which must be a non-zero ring homomorphism since $(x)$ is a proper ideal. The kernel of the quotient map $\Ker{\varphi}$ is $(x)$, but our hypothesis asserts that any non-zero homomorphism is injective. Hence, $x$ has to be zero which contradicts our assumption. Therefore, we assert that a nonzero element of $A$ has to be a unit, whence we conclude that $A$ is a field.
+\end{proof}
+
+\subsection{Prime and Maximal Ideals}
+Now that we have characterized fields, let us look for a slightly bigger class of rings. For this purpose, we require another set of definitions. 
+ \begin{definition}[Prime Ideals]\label{def: prime-ideals}
+     Let $A$ be a commutative ring with identity.\footnote{For the definition of prime ideals, we do not really require ring to be commutative with identity, but we need it for some of the properties that we want to assert.} An ideal $I$ of $A$ is said to be a {\it prime ideal} if $I \subsetneq A$ and for $a, b \in A$ with $a b \in I$, either $a \in I$ or $b \in I$.\footnote{Obviously, this condition is satisfied by the whole ring and it is an ideal, but notice that we avoid the whole ring in the definition.}
+ \end{definition}
+ \begin{example}
+     Some standard examples of prime ideal include the ideal $p {\Z} \in {\Z}$ and  the ideal generated by $(x)$ in ${\R}$.
+ \end{example}
+Of course, our zeroth example is the ideal $(0)$, which is a prime ideal in ${\Z}$. In fact, we can make a more general statement:
+\begin{proposition}\label{prop: zero-ideal-prime}
+    The zero ideal $(0)$ is a prime ideal of $A$ if only if $A$ is an integral domain. 
+\end{proposition}
+\begin{proof}
+    For the both directions, the main observation is that a product $ab = 0$ ($ab \in (0)$, equivalently) if and only if one of $a$ or $b$ is 0.
+\end{proof}
+\begin{example}
+    \cref{prop: zero-ideal-prime} allows us to give an example of an ideal that is {\it not} a prime ideal. Consider the ideal generated by $(x, 2).$ This is because $2$ is a unit in ${\R}$, and thus, is a unit in ${\R}[x]$. Consequently, the ideal $(x, 2)$ is the whole of ${\R}[x]$ and is not a prime ideal.
+\end{example}
+
+Let us now move on to maximal ideals.
+\begin{definition}[Maximal Ideals]\label{def: maximal}
+    A proper ideal $I$ is a {\it maximal ideal} if $\nexists J \subsetneq A$ and $I \subsetneq J$.
+    That is, if we cannot find a proper ideal containing $I$, then $I$ is called a maximal ideal.
+\end{definition}
+\begin{example}
+    A quick example of a maximal ideal from a ring we have already encountered is $p {\Z}$ in $\Z$.
+\end{example}
+
+Before discussing further examples of maximal ideals, we assert the following claim that characterizes both prime and maximal ideals.
+\begin{proposition}\label{prop: char-prime-maximal}
+    Let $A$ be a commutative ring with identity.
+    \begin{enumerate}
+        \item \label{item: char-prime}  An ideal $I \subsetneq A$ is a prime ideal iff $A / I$ is an integral domain.
+        \item \label{item: char-maximal} An ideal $I \subsetneq A$ is a maximal ideal iff $A / I$ is a field. 
+    \end{enumerate}
+\end{proposition}
+In order to prove \cref{prop: char-prime-maximal}, we need one more simple observation.
+\begin{observation}\label{obs: phi-preserves-prime}
+    For a ring homomorphism $\varphi: A \rightarrow B$ and a prime ideal $\mathfrak{p} \subsetneq B$, 
+    the inverse image $\varphi^{-1}(\mathfrak{p})$ is a prime ideal in $A$. Further, if $\varphi$ is surjective, then for a prime ideal $\mathfrak{q} \ss A$, the image $\varphi(\mathfrak{q})$ is a prime ideal in $B$.
+\end{observation}
+\begin{proof}
+    Due to \cref{obs: phi-preserves-ideal}, it suffices to prove only the preservation of primality. For the first claim, take $a\cdot b \in \varphi^{-1}(\mathfrak{p}),$ we know $\varphi(a\cdot b) \in \mathfrak{p},$ and hence, either $\varphi(a) \in \mathfrak{p}$ or $\varphi(b) \in \mathfrak{p}.$ In other words, $a \in \varphi^{-1}(\mathfrak{p})$ or $b \in \varphi^{-1}(\mathfrak{p})$ which implies that $\varphi^{-1}(\mathfrak{p})$ is a prime ideal in $A$.
+
+    Now, if $\varphi$ is surjective, then the same argument applies when looking at the preimage of two elements $ab \in \varphi(\mathfrak{q})$ so that we can assert that $\varphi(\mathfrak{q})$ is a prime ideal in $B$.
+\end{proof}
+\begin{proof}[Proof of \cref{prop: char-prime-maximal}]
+    Let us start with \eqref{item: char-prime}. For the forward direction, take a prime ideal $I \ss A$ and a surjective ring homomorphism given by the quotient map $\varphi: A \to A/I$. We know, using \cref{obs: phi-preserves-prime}, that $\varphi(A) = (0)$ must be an ideal in $A/I$. By \cref{prop: zero-ideal-prime}, $A/I$ must be an integral domain. Conversely, if $A/I$ is an integral domain, then $(0)$ is a prime ideal of $A/I$, and again, by applying \cref{obs: phi-preserves-prime}, we see that $\varphi^{-1}((0)) = I$ must be a prime ideal in $A$. 
+
+    Now, for the forward direction of \eqref{item: char-maximal}, take a maximal ideal $I \subsetneq A.$ Then, by \cref{thm: ideal-correspondence}, we see that $A / I$ has no non-zero proper ideal, and thus, the only ideals of $A / I$ are (0) and $A / I$. Hence, using \cref{prop: char-field}, $A / I$ must be a field. Conversely, if $A / I$ is a field, then the only ideals of $A / I$ are (0) and $A / I$, and hence, $A / I$ has no nonzero proper ideals. We again use the correspondence theorem to assert that there are no proper ideals containing $I$ and contained in $A$ which means $I$ is a maximal ideal. 
+\end{proof}
+
+\begin{example}
+    \cref{prop: char-prime-maximal} allows us to provide the following example of maximal ideal: $p\Z_n \in {\Z}_{n}$, where $p$ is a prime divisor of $n$. To see why, recall the first isomorphism theorem (\cref{thm: first-iso-ring}) and ${\Z}_{n} \cong {\Z} / n {\Z}$. We thus have
+    \[{\Z}_{n} / p {\Z}_{n} \cong({\Z} / n {\Z}) /(p {\Z} / n {\Z}).\]
+    Since $n\Z \ss p\Z \ss \Z$, by the \cref{thm: second-iso-ring}, we have
+    \[{\Z}_{n} / p {\Z}_{n} \cong {\Z} / p {\Z},\] which is a field.
+\end{example}
+
+\begin{example}
+    Indeed, we can also give a more interesting example of prime ideals as the ideal $\left(x^{2}+1\right) \in \R[x]$. To see why this is a prime ideal, we focus on one particular property of ${\R}[x]$. 
+    Define the homomorphism $\varphi: {\R}[x] \rightarrow {\C}$ such that $\varphi(f(x))=f(i)$. We claim that the kernel $\Ker{\varphi}$ is generated by $x^{2}+1$. To see this, recall the property of the division algorithm in ${\R}[x]$ that allows us to take $f(x) \in {\Ker}(\varphi)$ and express it as 
+    \[f(x)=p(x)(x^{2}+1)+r(x).\]
+    First, we know that no linear polynomials belong in the kernel $\Ker{\varphi}$ because $ax+b \in \Ker{\varphi}, a,b \in \R$ implies that $ai+b=0$. But, for a polynomial of higher degree, the remainder term $r(x)$ has degree strictly less than 2, and for $f(x) \in \Ker{\varphi}$, this implies that $r(x) = 0$. Therefore, $f(x) \in (x^2+1).$  By \cref{thm: first-iso-ring}, we can see that 
+    \[
+    \image{\varphi} = \varphi(\R[x]) = \C \cong \R[x]/(x^2+1),\]
+    and thus, $x^2+1$ must a maximal, and of course, a prime ideal.
+
+    Note that, in ${\R}[x]$, the ideals generated by polynomials of degree 3 are not prime ideals because by the intermediate value theorem, all such polynomials have a root in ${\R}$, and hence, the polynomials 
+    in such ideals factorize to polynomials not in the ideal.
+\end{example}
+
+\begin{example}
+    We now move on to prime ideals of ${\C}[x]$. In fact, the prime ideals of ${\C}[x]$ are precisely the ideals of the form
+    \[\{(x-\alpha) \mid \alpha \in {\C}\}.\]
+    It is easy to see, via the Fundamental Theorem of Algebra, that these are the only prime ideals as every polynomial will factorize into linear factors.
+\end{example}
+
+\begin{example}
+    For any set $S$, recall the set of all functions from $S$ to ${\R}$ given by $\mathcal{F}(S)\triangleq\{f: S \rightarrow {\R}\}$. We know that for a subset $A \subseteq S$, $I_{A}=\{f: S \rightarrow {\R} \mid \forall a \in A, f(a)=0 \}$ is an ideal of $\mathcal{F}(S)$. Here, we seek to find its maximal ideal. \AT{Need to come back here.} 
+    
+    If we put some additional structure on $\calF(S)$ and consider its sub ring of given by \[C[a, b]=\{f:[a, b] \rightarrow {\R} \mid f\text{ is continuous }\},\]
+    which is the set of all continuous functions. It is interesting to think about ideals of $C[a, b]$ since it has a little bit more structure as $[a,b]$ has a subspace topology coming from the usual topology of ${\R}$. For instance, take $S\triangleq[a,b]$ and define a function $f: [a,b] \to \R$ such that $f(x) = \iverson{x\text{ is irrational}}$ Then, $f \in \calF{[a,b]}, f \notin C[a,b]$. In fact, $\calF{[a,b]}$ not only avoids the pathological examples, but the ideals, in particular the maximal ideals, of $\calF{[a,b]}$ are of very particular form. We will come back to this point later.
+\end{example}
+
+\subsection{Existence of Maximal Ideals and Local Rings}
+Now, we study the existence of maximal and prime ideals in a commutative ring with identity $A \neq(0)$. For maximal ideals, it may happen that the ideals of $A$ form an interminable chain $I_{1} \subseteq I_{2} \subseteq \ldots$. The following result spares us from this possibility.
+\begin{theorem}\label{thm: exist-maximal}
+    If $A$ is a non-zero commutative ring with identity, then $A$ has a maximal ideal.
+\end{theorem}
+\begin{proof}
+    Take the collection of proper ideals of $A$:
+    \[\Sigma=\{I: I\text{ is a proper ideal of }A\}.\]
+    We know that $\Sigma$ is non-empty since $(0) \in \Sigma$. Further, since $\Sigma$ is the collection of all ideals, it has a natural partial order, that of inclusion. We want to show that $\Sigma$ has a maximal element. 
+    
+    The first result that comes to mind, when trying to prove assertions of this kind, is Zorn's lemma. In order to apply Zorn's lemma, we take a chain $I_{1} \subseteq I_{2} \subseteq \ldots$ in $\Sigma$. Here, a natural candidate for a maximal element is the union of this chain. However, in general, the union of two ideals need not be an ideal.\footnote{ Consider the ideals $2 {\Z}$ and $3 {\Z}$ in ${\Z}$. Then, their union is not an ideal since it does not satisfy the closure axiom for Abelian groups.} Nevertheless, if we have an increasing chain of ideals, then we can verify that their union  $\bigcup_{n=1}^{\infty} I_{n}$ must also be an ideal:
+    \begin{enumerate}
+        \item For $a,b \in I$, there exists some $n$ such that both $a,b \in I_n$, and hence, $a+b \in I_n \ss I$. 
+        \item Similarly, if $a\in I$, then $-a \in I$ as well.
+        \item Finally, for $a \in I, r \in A$, we again know that there exists $n$ such that $a\in I_n, ra \in I_n \ss I$. 
+    \end{enumerate}
+    We now ask if $I$ is a proper ideal. Assume, for the sake of contradiction, that $\bigcup_{n=1}^{\infty} I_{n} = A$. By \cref{prop: improper-ideal-unit}, a unit belongs to $\bigcup_{n=1}^{\infty} I_{n}$. This implies that there exists some $n$ such that $I_n$ contains a unit, however, this contradicts the assumption that all the $I_n$s are proper.  
+    
+    Overall, we have shown that the union $\bigcup_{n=1}^{\infty} I_{n} \in \Sigma$ and is an upper bound for the chain given by $I_{1} \subseteq I_{2} \subseteq \ldots$. Therefore, by Zorn's lemma, $\Sigma$ has a maximal element. Denoting this maximal element of $\Sigma$ by $\mathfrak{m}$, we expect $\mathfrak{m}$ to be a maximal ideal. Indeed, if there exists a proper ideal $J$ such that $\mathfrak{m} \subsetneq J$, then since $J \in \Sigma$ and $\mathfrak{m} \subsetneq J$, it contradicts the maximality of $\mathfrak{m}$.
+\end{proof}
+The above method of finding a maximal element by using Zorn's lemma is a standard tool in commutative algebra. We now assert some corollaries of \cref{thm: exist-maximal}.
+\begin{corollary}\label{cor: ideal-contained-maximal}
+    If $A$ is a commutative ring with identity and $I$ is a proper ideal of $A$, then $\exists$ a maximal ideal in $A$ containing $I$.
+\end{corollary}
+\begin{proof}
+    Consider the ring $A/I$, which is a non-zero commutative ring with identity as $I$ is a proper ideal. By \cref{thm: exist-maximal}, $A/I$ has a maximal ideal, and by \cref{thm: ideal-correspondence}, the corresponding ideal in $A$ is a maximal ideal containing $I$ in $A$.
+\end{proof} 
+\begin{corollary}\label{cor: nonunit-contained-maximal}
+    Let $x \in A$ be a non-unit element, then there exists a maximal ideal in $A$ containing $x$.
+\end{corollary}
+\begin{proof}
+    Apply \cref{cor: ideal-contained-maximal} to $(x)$, the ideal generated by $x$, which is a proper ideal since $1_A \notin (x)$.
+\end{proof}
+
+The previous corollary motivates the following question:
+\begin{displayquote}
+    If we collect all non-units of a commutative ring with identity, will that form an ideal?
+\end{displayquote}
+
+It is easy to see that this need not necessarily form an ideal. For instance, in ${\Z},$ such a set is ${\Z}\setminus \{-1,1\}$ and it does not form an ideal. However, {\it if} such a collection does indeed form an ideal, then it is natural to wonder what kind of ideal it will be. The following proposition answers this question.
+\begin{proposition}\label{prop: local-char-1}
+    Let $I$ be the set of all non-units. If $I$ forms an ideal in $A$, then $I$ is the unique maximal ideal in $A$.
+\end{proposition}
+\begin{proof}
+    It is easy to see that $I$ is a proper set of $A$. For an arbitrary maximal ideal $\mathfrak{m}$, take any $x \in \mathfrak{m}$, then by \cref{prop: improper-ideal-unit}, $x$ should be a non-unit, as otherwise, $1_A \in \mathfrak{m}$. Thus, we have $\mathfrak{m} = I$, and thus, $I$ must be a maximal ideal. Notice that we happen to take an arbitrary maximal ideal of $A$, and we showed that it is indeed equal to $I$. Thus, the only maximal ideal in $A$ must be $I$.
+\end{proof}
+We call such rings, where there is only one maximal ideal, a local ring.
+\begin{definition}[Local Ring]\label{def: local-ring}
+    A ring is said to be a {\it local ring} if it has only one maximal ideal. 
+\end{definition}
+\begin{example}
+    Obviously, for any field, it only has only two ideals: either (0) or the entire ring. Thus, (0) is the only maximal ideal there, and any field is a local ring. For a non-trivial example, we know that $\Z$ is not a local ring, however, we can make a local ring out of $\Z$. A basic example is the quotient ring ${\Z}_{9} \cong {\Z} / 9 {\Z}$, we know by \cref{thm: ideal-correspondence}, that the maximal ideals of this ring would be of the form $p {\Z} / 9 {\Z}$ where $p$ is a divisor of 9, and there is only one which is 3. Thus, the ideal $(3)$ is the only maximal ideal of ${\Z}_{9}$. More generally, ${\Z} / p^{n} {\Z}$, where $p$ is a prime, is an example of a local ring. 
+\end{example}
+
+Now, we provide one more characterization of local rings. 
+\begin{proposition}\label{prop: local-char-2}
+    Let $A$ be a commutative ring with identity and $\mathfrak{m}$ be a maximal ideal in $A$. If $1+x \in \mathfrak{m}$ is a unit for all $x \in \mathfrak{m}$, then $\mathfrak{m}$ is the unique maximal ideal of $A$.
+\end{proposition}
+\begin{proof}
+    Let $x$ be a non-unit, and assume that $x \notin \mathfrak{m}$. This implies that the ideal $I\triangleq(\mathfrak{m}, x)$ must be the entire ring: $\mathfrak{m}+(x)=A$. Hence, there exists $u \in \mathfrak{m}, r \in A$ such that we have
+    \[1 = u+r\cdot x \implies 1-u = r\cdot x.\]
+    By our assumption, $1-u = rx$, and consequently, $x$ is a unit in $\mathfrak{m}$. However, this is a contradiction, and thus, $\mathfrak{m}$ is the collection of all non-units. Therefore, by \cref{prop: local-char-1}, $\mathfrak{m}$ is the only maximal ideal in $A$.
+\end{proof}
+
+\subsection{Nilradicals}
+Now, we focus our attention to a sub-collection of non-units: for instance, the set of all nilpotents. Consider the set $\mathfrak{n}=\{x \in A: x$ is a nilpotent $\}$, referred to as the {\it nilradical}. We saw that the collection of all non-units do not necessarily form an ideal. In contrast, the following proposition assures us that $\mathfrak{n}$ forms a proper ideal of $A$.
+\begin{proposition}\label{prop: nilpotent-proper}
+    The nilradical of $A$, denoted by $\mathfrak{n}$, forms a proper ideal of $A$.
+\end{proposition} 
+\begin{proof}
+    We know that $\mathfrak{n} \subsetneq A$ since none of the units, in particular $1_A$, can be in $\mathfrak{n}$. Now, for $x, y \in \mathfrak{n}$, there exist $n,m \ge 1$ such that $x^{n}=0$ and $y^{m}=0$. We have
+    \[(x+y)^{n+m} = \sum_{i=0}^{n+m}x^{i}y^{n+m-i},\]
+    where either for $x^i$, $i \ge n$ or for $y^{n+m-i}$, $n+m-i \ge  m$. Thus, $(x+y)^{n+m} = 0$, and hence, $x+y \in \mathfrak{n}$.
+    Moreover, if $x \in \mathfrak{n}$, we must have $-x \in \mathfrak{n}$.
+    Finally, if $x \in \mathfrak{n}$ and $r \in A$, then $r x \in \mathfrak{n}$.
+\end{proof}
+Now, there is an interesting thing to observe here. If we take a nilpotent element $x \in \mathfrak{n}$, then $x^{n}=0$. In particular, since we know $0$ belongs to any ideal, if we take a prime ideal $\mathfrak{p}$, then $x^{n}$ belongs to the $\mathfrak{p}$. However, this implies that either $x$ belongs to $\mathfrak{p}$, or $x^{n-1}$ belongs to $\mathfrak{p}$. Carrying this reasoning forward, we can conclude that $x \in \mathfrak{p}$. In other words, what we have shown is the following:
+\begin{equation}\label{eq: nil-ss-prime-intersect}
+    \mathfrak{n} \subseteq \bigcap_{\mathfrak{p} \text{: prime ideal of } A} \mathfrak{p},
+\end{equation}
+Now, a natural question is whether there is an equality in \eqref{eq: nil-ss-prime-intersect}. The following proposition says that this is indeed the case.
+\begin{proposition}\label{prop: nilradical-prime}
+    The nilradical of $A$, denoted by $\mathfrak{n}$, is the intersection of all prime ideals in $A$.
+\end{proposition}
+\begin{proof}
+Due to \eqref{eq: nil-ss-prime-intersect}, it suffices to show that if $x \notin \mathfrak{n}$, then $x \notin \bigcap_{\mathfrak{p} \text{: prime ideal of } A} \mathfrak{p}$. We thus produce a prime ideal which avoids $x$. Since $x \notin \mathfrak{n}$, we know that $\forall n \geq 1, x^{n} \neq 0 $. Again, we seek to apply Zorn's lemma by looking at the following collection of ideals that do not contain any power of $x$:
+\[\Sigma \triangleq\left\{I \subsetneq A: I\text{ is an ideal such that }\forall n \in {\N}, x^{n} \notin I\right\}.\]
+Since $x^{n}$ is non-zero for every $n$, the ideal $(0) \in \Sigma$. Now, take any chain of ideals: $I_{1} \subseteq I_{2} \subseteq \ldots$ in $\Sigma$, and define the intersection of this chain as $I \triangleq \bigcup_{m=1}^{\infty} I_{m}$. We know that $I$ is a proper ideal of $A$ since $x \notin I_n$ for all $m \ge 1$. It remains to show that $I \in \Sigma$. Indeed, if $I$ is not in $\Sigma$, then there exists some power of $x$ in $I_{m}$ for some $m$. Thus, $I$ is an upper bound for the given chain, and by Zorn's lemma, there must exist a maximal element $\Sigma$ that we denote by $\mathfrak{p}$. 
+
+We now claim that $\mathfrak{p}$ is a prime ideal. To see this, take $a b \in \mathfrak{p}$, and assume that both  $a \notin \mathfrak{p}$ and $b \notin \mathfrak{p}$. Then, we have
+\[\mathfrak{p}+(a) \notin \Sigma,\ \mathfrak{p}+(b) \notin \Sigma.\]
+Since both are strictly bigger ideals, there exist $n$ and $m$ with $x^{n} \in \mathfrak{p}+(a)$ and $x^{m} \in \mathfrak{p}+(b)$. Thus, we can express
+\[x^{n}=z_{1}+r_{1} a,\ x^{m}=z_{2}+r_{2} b,\]
+for $z_1, z_2 \in \mathfrak{p}$ and $r_1, r_2 \in A$.
+However, the product of the two powers above yields
+\[x^{n+m}=z_{1} z_{2}+z_{1} r_{2} b+z_{2} r_{1} a+r_{1} r_{2} a b,\]
+where since $ab \in \mathfrak{p}$, we must have $x^{n+m} \in \mathfrak{p}$.
+This contradicts our assumption that $\Sigma$ is the collection of ideals that do not contain any power of $x$, and hence, we can assert that $\mathfrak{p}$ must be a prime ideal. Moreover, since $\mathfrak{p}$ does not contain any power of $x$, in particular, $x$ is not in $\mathfrak{p}$, and thus, we have obtained a prime ideal that avoids $x$. That is, if $x$ is not nilpotent, we can construct a prime ideal that avoids $x$. Taken together, we have shown the following inclusion:
+\begin{equation}\label{eq: nil-sp-prime-intersect}
+    \mathfrak{n} \supseteq \bigcap_{\mathfrak{p} \text{: prime ideal of } A} \mathfrak{p}.
+\end{equation}
+\cref{eq: nil-ss-prime-intersect} and \eqref{eq: nil-sp-prime-intersect} complete our proof.
+\end{proof}
+
+\subsection{Jacobson Radicals}
+Now, any maximal ideal is a prime ideal, so we ask an analogous question about the intersection of all maximal ideals of $A$, called the {\it Jacobson radical}, given by
+\[\mathfrak{J}(A)\triangleq \bigcap_{\mathfrak{m}\text {: maximal ideal }} \mathfrak{m}.\] 
+Of course, this is an intersection of ideals, and hence, this is again an ideal. Similar to the case of nilradicals, we now present a characterization of Jacobson radicals.
+\begin{proposition}\label{prop: char-jacobson}
+The Jacobson radical $\mathfrak{J}$ is given by
+    \[\mathfrak{J}(A)=\{x \in A\colon \forall y \in A, 1-x y\text{ is a unit}\}.\]
+\end{proposition}
+\begin{proof}
+    Take $x \in \mathfrak{J}(A)$. Since $x \in \mathfrak{m}$ for any maximal ideal $\mathfrak{m}$ in $A$, for any $y \in A$, we have
+    $x y \in \mathfrak{m}$. Thus, the element $1-x y \notin \mathfrak{m}$ for any maximal ideal $\mathfrak{m}$, whence we infer that $1-x y$ is a unit in $A$. Conversely, fix some $x \in A$ so that $1-xy$ is a unit in $A$ for every $y$ in $A$. Further, assume, for the sake of contradiction, that $x$ does not belong to any maximal ideal $\mathfrak{m}$. This implies that we must have
+    \(\mathfrak{m}+(x)=A.\) Equivalently, there exist $u \in \mathfrak{m}$ and $r \in A$ such that 
+    \[u+r x=1 \implies u = 1-rx.\]
+    Now, our assumption is that $1-x y$ is a unit for every $y \in A$, and hence, $u$ must be a unit as well, which contradicts our supposition that $u \in \mathfrak{m}$. Thus the element $x \in \mathfrak{m}$ for any maximal ideal $\mathfrak{m}$, and hence, $x \in \mathfrak{J}(A)$, the Jacobson radical.
+\end{proof}
+An immediate corollary relates Jacobson radicals to local rings .
+\begin{corollary}
+    Let $\mathfrak{m}$ be a maximal ideal in a commutative ring with identity $A$, and for all $x \in \mathfrak{m}$, $1+x$ be a unit in $A$. Then, $A$ is a local ring.
+\end{corollary} 
+\begin{proof}
+    Let $y$ be some non-unit in $A$, then for any $x \in \mathfrak{m}$, $-xy \in \mathfrak{m}$, and hence, $1-xy$ is a unit. By \cref{prop: char-jacobson}, $x \in \mathfrak{J}(A)$, and thus, $\mathfrak{m} = \mathfrak{J}(A)$. That is, $A$ has precisely one maximal ideal.
+\end{proof}
+
+\newpage
+\section{Exercises}
+\begin{exercise}
+State and justify whether each of the the following statements is {\tt True} or {\tt False}:
+\begin{enumerate}
+    \item The set $(\Z, +, \cdot)$ is a commutative ring with identity.
+    \item Let $M_n(R)$ denote the set of all $n \times n$ matrices with entries in $\R$ with the usual matrix addition and matrix multiplication. Then, $Mn(R)$ is a commutative ring with identity.
+    \item The function $\varphi : \Z \to \Z$ defined by $\varphi(n) = 2n$ is a ring homomorphism.
+    \item The set of all odd numbers in $\Z$ forms an ideal in $\Z$.
+    \item The set $\{\sum_{i=0}^n a_ix_i \in \Z[x] \colon a_0 = 1\}$ is an ideal in $\Z[x]$.
+    \item $(0)$ is a prime ideal in $\Q[x]$.
+\end{enumerate}
+\end{exercise}
+\begin{proof}[Solution] \ 
+    \begin{enumerate}
+    \item {\tt True}. This is trivial with the multiplicative identity given by $1\in \Z$.
+    \item {\tt False}. The matrix multiplication operation is not commutative.
+    \item {\tt False}. For non-zero elements $n, m \in \Z$, we have $f(nm) = 2nm \neq f(n)f(m) = 4nm$.
+    \item {\tt False}. For $n$ odd and $m$ even, $nm$ must be even.
+    \item {\tt False}. This is not an Abelian group with respect to addition since  it does not satisfy the closure property as the sum of two polynomials $p(x), q(x) \in \{\sum_{i=0}^n a_ix_i \in \Z[x] \colon a_0 = 1\}$ yields a polynomial $r(x) = p(x)+q(x)$ whose $0$th coefficient $a_0 = 2$.
+    \item {\tt True}. The quotient ring $\Q[x]/{(0)} \cong \Q[x]$ is an integral domain by \cref{prop: poly-integral-domain} since $\Q$ is an integral domain, and thus, by \cref{prop: char-prime-maximal}, $(0)$ must be a prime ideal in $\Q[x]$. 
+\end{enumerate}
+\end{proof}
+
+\begin{exercise}
+Let $S$ be a set and $\calF(S) \triangleq \{f : S \to R\}$ with pointwise
+addition and pointwise multiplication. Prove that $F(S)$ is a commutative ring with identity.
+\end{exercise}
+\begin{proof}
+$\calF(S)$ is a ring simply by inheriting the commutative ring properties of $\R$, where the additive and multiplicative identities are defined as $0_{\calF(S)}(s) = 0$ and $1_{\calF(S)}(s) = 1$ for all $s \in S$, respectively.
+\end{proof}
+
+
+\begin{exercise}
+Let $A$ be a ring. Prove that $I = \{p(x) \in A[x] \colon p(0) = 0\}$ is an ideal of $A[x]$.
+\end{exercise}
+\begin{proof}
+Take $p,q \in I$, then $(p+q)(0) = p(0) + q(0) = 0$, and hence, $p+q \in I$. Further, if $p \in I$, then since $-p(0) = 0$, $-p \in I$ as well. Finally, for $p \in I, q \in A[x]$, we have
+$pq(0) = p(0)q(0) = 0\cdot q(0) = 0$. Thus, $pq \in I$, whence we conclude that $I$ is an ideal of $A[x]$.
+\end{proof}
+
+
+\begin{exercise}
+If $A$ and $B$ are rings and $f : A \to B$ is a ring homomorphism, then prove
+that $\Ker{f}$ is an ideal of $A$.
+\end{exercise}
+\begin{proof}
+Here, taking $x, y \in \Ker{f}$, we have $f(x+y) = f(x)+f(y) = 0$, and for $x \in \Ker{f}$, we have $f(-x) = - 0$. Finally, for $x \in \Ker{f}, y \in A$, we have $f(xy) = f(x)f(y) = 0 \cdot f(y) = 0$. Thus, $\Ker{f}$ is an ideal of $A$.
+\end{proof}
+
+
+\begin{exercise}
+Let $A$ be a ring and $\mathfrak{p}$ be a prime ideal of $A$. Prove that
+\[
+\mathfrak{P} =
+\left\{ \sum_i^n a_ix^i \in A[x] \colon a_i \in \mathfrak{p}
+\right \}
+\]
+is a prime ideal of $A[x]$.
+\end{exercise}
+\begin{proof}
+It is easy to see that $\mathfrak{P}$ is proper in $A[x]$ since $\mathfrak{p}$ is proper in $A$. Now, for ${p}, {q} \in A[x]$ so that $pq \in \mathfrak{P}$, where ${p} = \sum_i^n p_ix^i$ and ${q} = \sum_i^m q_ix^i$, we must have either $p_i \in \mathfrak{p}$ for all $i\in [n]$ or $q_j \in \mathfrak{p}$ as each coefficient of $pq$ is in $\mathfrak{p}$. This is because both $p_i \in \mathfrak{p}, q_j \in \mathfrak{p}$ violates the fact that $p_iq_j \in \mathfrak{p}$ as $\mathfrak{p}$ is prime. Overall, only one of the polynomials $p$ or $q$ must be in $\mathfrak{P}$, and hence, $\mathfrak{P}$ is prime.
+\end{proof}
+\newpage
+
+\chapter{Ideals in Commutative Rings}
+\section{Operations on Ideals}
+We have already seen that the union of two ideals $I$ and $J$, $I \cup J$, need not be an ideal. Although the following proposition tells us when exactly this is an ideal.
+\begin{proposition}\label{prop: union-contained}
+    Let $I$ and $J$ be two ideals in $A$. Then, the union $I \cup J$ is an ideal if and only if $I$ is contained in $J$ or $J$ is contained in $I$.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+Another interesting operation on ideals $I$ and $J$ is the sum $I+J$ defined as
+\[I+J=\{x+y: x \in I, y \in J\}.\]
+This is certainly an ideal in $A$ because for $(x+y) \in I+J$ and $r \in A$, we have $rx+ry \in I+J$ since $rx \in I, ry\in J$. Similarly, we have also seen that the {\it intersection} of ideals $I$ and $J$ defined as
+\[I \cap J=\{x \in A: x \in I \text{ and } x \in J\}\]
+is always an ideal.
+
+\subsection{The Product of Ideals}
+
+Another operation that is not possible with vector spaces or groups, is the {\it product} ideal $I J$. A natural definition might be the product set $\{x y: x \in I, y \in J\}$. However, this is not necessarily an ideal\footnote{A counterexample \citep{stacknotproduct} is provided by looking at $I,J\lhd \Z[X]$ with $I=(2,X), J=(3,X)$ and the set $S = \{i j: i \in I, j \in J\}$. We know that $2+X, 4+x \in I$ and $3+X, 6+X \in J$, and hence, $(2+X)(6+X), (3+X)(4+X)\in S$. However, $(2+X)(6+X)+(3+X)(4+X)=24+15X+2X^2$ is an irreducible
+polynomial over $\Z$, and hence, there exist no $i \in I,j\in J$ s.t. $ij = 24+15X+2X^2.$}  Therefore, we define $I J$ to be the smallest ideal that contains the set of products $\{x y: x \in I, y \in J\}$. More precisely, we define the {\it product ideal} $IJ$ to be
+\[
+\begin{aligned}
+    I J 
+    &\triangleq\left\{\Sigma x y: x \in I, y \in J\right\},
+\end{aligned}
+\]
+where the summation $\Sigma$ is finite.
+\begin{example}
+    An example of the sum of two ideals is $m {\Z}+n {\Z}=\operatorname{gcd}(m, n) {\Z}$, and an example of the intersection of two ideals is  $m {\Z} \cap n {\Z} = \operatorname{lcm}(m, n) {\Z}$. Thus we have
+    \[(m {\Z}+n {\Z})(m {\Z} \cap n {\Z}) = mn \Z.\]
+\end{example}  
+The above examples motivates the question that, in general, does $(I+J)(I \cap J)=I J ?$. Unfortunately, ${\Z}$ is a beautiful ring, and we cannot expect everything that happens in ${\Z}$ to be true in general. Indeed, ${\Z}$ is not a suitable ring when taking an example and trying to pose a general theory. In fact, we may be misled even with $k[x]$ since $k[x]$ and $\Z$ are quite similar in many regards. However, we can find a counterexample in $k[x, y]$, the polynomial ring in two variables. Here, we take $I = , J = $ \AT{Need to come back to this.}
+
+The following proposition at least provides a necessary condition for the above to hold.
+\begin{proposition}\label{prop: coprime}
+    For a commutative ring with identity $A$ and ideals $I$ and $J$ in $A$, if $I+J = A$, then the following holds:
+    \[(I+J)(I \cap J)=I J.\]
+\end{proposition}
+\begin{proof}
+    We claim that the first inclusion holds in general. Indeed, it suffices to show that every generator of $(I+J)(I \cap J)$ belongs to $IJ$. To this end, take the generators $x+y$ of $(I+J)$ and $a$ of $I\cap J$, then $(x+y)a = xa + ya,$ where $xa \in IJ$ and $ya \in IJ$. Therefore, $(x+y)a \in IJ$, and hence, we have $(I+J)(I \cap J)=I J.$
+    
+    Now, for the other inclusion, we need the assumption that $I+J=A$ holds. Since $I+J = A$, we have $(I+J)(I\cap J) = I \cap J$. Here, taking any generator of $IJ$ of the form $xy$, where $x \in I$ and $y \in J$, we see that $xy \in I \cap J$, and thus, $IJ \ss I \cap J = (I+J)(IJ)$.
+\end{proof}
+Due to \cref{prop: coprime}, we say the ideals $I$ and $J$ are {\it coprime} if $I+J = A$. The terminology again came from the ring of integers, where two integers $m$ and $n$ are said to be {\it coprime} if $\operatorname{gcd}(m,n) = 1$ such that $m {\Z}+n {\Z}=\operatorname{gcd}(m, n) {\Z} = \Z$.
+
+\subsection{The Cartesian Product of Quotient Rings}
+For two rings $A_{1}$ and $A_{2}$, their {\it Cartesian product} is also a ring with addition and multiplication 
+ defined component-wise. Thus, for ideals $I$ and $J$, the Cartesian product $A / I \times A / J$ is a commutative ring with identity element $(\ol{1}, \ol{1})$, where the bar denotes the corresponding equivalence class. Recall that there is a quotient map given by
+    $$
+    \begin{aligned}
+    \varphi: A & \rightarrow A / I \times A / J \\
+    x & \mapsto(x+I, x+J)
+    \end{aligned}
+    $$
+ Further, there are the usual maps $\varphi_I: A \rightarrow A / I$
+ and $\varphi_J: A \rightarrow A / J$.
+Now, once we have a map like $\varphi$, we can clearly see that this is a ring homomorphism. In fact, we also see that the kernel of this map is $\Ker{\varphi} = I \cap J$. Moreover, we know that the maps $\varphi_I: A \rightarrow A / I$ and $\varphi_J: A \rightarrow A / J$ are surjective. Now, can we say that $\varphi$ is surjective? That is, given an element $(a+I, b+J) \in A / I \times A / J$, can we find $x \in A$ such that $x = a + I$ and $x = b + I$. In ${\Z}$, if $I = m\Z, J = n\Z$, where $m$ and $n$ are distinct primes, then the Chinese remainder theorem says that $\varphi$ must be surjective. 
+
+So, we ask an equivalent question: If $I$ and $J$ are coprime, then is $\varphi$ surjective? For this purpose, take $(a+I, b+J) \in A / I \times A / J$, then since $I$ and $J$ are coprime, we know that $I+J=A$. This implies that for some $x \in I, y \in J$ we have $x+y=1$, and consequently, the following equations hold:
+    $$
+    \begin{rcases}
+    b x=b-b y\\
+    ay = a-ax
+    \end{rcases} \implies
+    b x+a y=a+b-(a x+b y)
+    $$
+The above equation yields the following:
+    $$
+    b x+a y = a-a x+b(1-y),\quad b x+a y = b-b y+a(1-x).
+    $$
+Since, under the map $\varphi$, we have
+    $$
+    \varphi(b(1-y)-a x) \in I, \quad
+    \varphi(a(1-x)-b y)\in J,
+    $$
+the element $b x+a y \mapsto(a+I, b+J)$ and hence, $\varphi$ is surjective. In fact, we can characterize both surjectivity and injectivity of $\varphi$.
+\begin{proposition}\label{prop: quotient-sur-inj-two}
+    Let $A$ be a commutative ring with identity and let $I,J \lhd A$ be the ideals of A. Then, the quotient map $\varphi: A \to A/I \times A/J$ defined as $x \mapsto(x+I, x+J)$ is surjective iff $I$ and $J$ are coprime, and is injective iff $I \cap J=(0)$.
+\end{proposition}
+\begin{proof}
+    With regards to surjectivity, we have already proved the backward direction. For the forward direction, we take $(1+I, 0+J)$ whose preimage is taken to be some $x \in A$ so that we have
+    \[1 = x + (1-x) \in I+J,\]
+    which implies that $1 \in I+J$, and hence, by \cref{prop: improper-ideal-unit}, $I+J = A$.
+    The claim about injectivity follows due to the fact that $\Ker\varphi = I \cap J$. 
+\end{proof}
+
+The above result can be stated for $n$ ideals. 
+\begin{proposition}\label{prop: quotient-sur-inj-gen}
+Let $I_{1}, \ldots, I_{n} \lhd A$ be ideals of $A$, a commutative ring with identity. For the quotient map
+$
+\varphi: A \rightarrow A / I_{1} \times \cdots \times A / I_{n}, 
+$
+we have
+\begin{enumerate}
+    \item $\forall i \neq j, I_{i}+I_{j}=A \Rightarrow \prod_{i=1}^{n} I_{i}=\bigcap_{i=1}^{n} I_{i}$.
+    \item $\varphi$ is surjective if and only if $\forall i \neq j$, $I_{i}$ and $I_{j}$ are coprime.
+    \item $\varphi$ is injective if and only if $\bigcap_{i=1}^{n} I_{i}=(0)$.
+\end{enumerate}
+\end{proposition}
+
+The proof is similar to the proof that we gave for \eqref{prop: quotient-sur-inj-two}. 
+
+\section{Properties of Prime Ideals}
+We have seen that for two ideals $I_{1}$ and $I_{2}$, $I_{1} \cup I_{2}$ is not an ideal in general. Alternatively, we ask if an ideal is contained in the union of two ideals $I \subseteq I_{1} \cup I_{2}$, then is the ideal $I$ contained in either of the two ideals? The following proposition answers the question in the affirmative.
+\begin{proposition}\label{prop: contained-two-some}
+    Let $I_1$ and $I_2$ be ideals of $A$. If $I$ is an ideal such that $I \subseteq I_1 \cup I_2$, then $I \subseteq I_1$ or $I \subseteq I_2$.
+\end{proposition}
+\begin{proof}
+    Take an element $x \in I$. Assume $I \nsubseteq I_1$, then it suffices to show that $x \in I_2$. To this end, note that the supposition $I \nsubseteq I_1$ implies that there exists an element $y \in I \backslash I_1$ so that $y \in I_2$. Here, consider the element $x+y$, which is either in $I_1$ or in $I_2$. If $x+y$ is in $I_2$, then we are done as $x = (x+y) - y\in I_2$.  Otherwise, if $x+y$ is in $I_1$ and $x$ is in $I_1$, then this implies that $y=(x+y)-x \in I_1$, which is a contradiction. Thus, we must have $x \in I_2$, which completes the proof.
+\end{proof}
+
+Now, it is natural to ask whether we can extend this for any finitely many ideals.
+So, the general question is if $I \subseteq I_{1} \cup I_{2} \cup \cdots \cup I_{n}$, is $I \subseteq I_{i}$ for some $i$ ? A straightforward approach would proceed through induction, but it is easy to see that this approach would not work.\footnote{The trick of creating an element in $I$ that is not in other ideals and removing one of them does not work as in the proof for \cref{prop: contained-two-some} since there are more than two ideals.} Nevertheless, we can prove the general case if we assume that the ideals involved in the claim are prime. 
+\begin{proposition}\label{prop: contained-gen-prime}
+    If $\mathfrak{p}_{1}, \ldots, \mathfrak{p}_{n}$ are prime ideals of $A$, and $I$ is an ideal such that $I \subseteq \mathfrak{p}_{1} \cup \cdots \cup \mathfrak{p}_{n}$, then $I \subseteq \mathfrak{p}_{i}$ for some $i$.
+\end{proposition} 
+\begin{proof}
+    We proceed through induction. The base case is true due to \cref{prop: contained-two-some}. Then, assume that if $I \subseteq \mathfrak{p}_{1} \cup \cdots \cup \mathfrak{p}_{n-1}$, then we must have $I \subseteq \mathfrak{p}_{j}$ for some $j$. We then assume that $I \subseteq \mathfrak{p}_{1} \cup \cdots \cup \mathfrak{p}_{n}$ and $I \nsubseteq \mathfrak{p}_{i_{1}} \cup \cdots \cup \mathfrak{p}_{i_{n-1}}$ for  $\left\{i_{1}, \ldots, i_{n-1}\right\} \subseteq\{1, \ldots, n\}$. Otherwise, we are through by the induction hypothesis. 
+    Here, since $I$ is not contained in any one of the $n-1$ prime ideals, we can choose an element 
+    \[x_{i} \in I \backslash \bigcup_{\substack{j=1\\ j \neq i}}^{n} \mathfrak{p}_{j}.\]
+    Now, consider the element 
+    \[
+    y=\sum_{j\in [n]}\prod_{\substack{i \in [n]\\ i \neq j}} x_i,
+    \]
+    where, from each product, the corresponding $j$th element is omitted. Since $y \in I$, it must be the case that $y \in \mathfrak{p}_k$ for some $k \in [n]$. But, this implies that 
+    \[
+    \prod_{\substack{i \in [n]\\ i \neq k}} x_i = y - \sum_{\substack{j\in [n]\\j \neq k}}\prod_{\substack{i \in [n]\\ i \neq j}} x_i \in \mathfrak{p}_k,
+    \]
+    which contradicts the fact that $\mathfrak{p}_{k}$ is a prime ideal as none of the $x_i$s with $i \neq k$ can belong to $\mathfrak{p}_k$. Thus, we must have $I \subseteq \mathfrak{p}_{i_{1}} \cup \cdots \cup \mathfrak{p}_{i_{n-1}}$, and the principle of mathematical induction completes the proof.
+\end{proof}
+
+Let us now look at the case of inclusion of a prime ideal in the intersections of two ideals. For any ideal, we know that $I \subseteq I_{1} \cap I_{2}$ implies that $I \subseteq I_1$ and $I \subseteq I_2$. Alternatively, for a prime ideal, we can prove a stronger claim.
+\begin{proposition}\label{prop: prime-contained-one}
+    If $\mathfrak{p}$ is a prime ideal, and $I_{1}, I_{2}$ are ideals such that $\mathfrak{p} \supseteq I_{1} \cap I_{2}$ then, $\mathfrak{p} \supseteq I_{1}$ or $\mathfrak{p} \supseteq I_{2}$
+\end{proposition}
+\begin{proof}
+    Assume that $I_{1} \nsubseteq \mathfrak{p}$. Then, there exists an element 
+    $x \in I_{1} \backslash \mathfrak{p}$. Now, consider the element $xy$ for $y \in I_2$, which must be in $I_1 \cap I_2 \ss \mathfrak{p}$. But, since $\mathfrak{p}$ is prime, this implies that $y \in \mathfrak{p}$ as $x \notin \mathfrak{p}$, which completes the proof.
+\end{proof} 
+In fact, this begets an important corollary that one uses throughout their study of commutative algebra.
+\begin{corollary}\label{cor: prime-equals-one}
+    Let $A$ be a commutative ring with identity, and let $I_1, I_2$ be ideals in $A$. Further, let $\mathfrak{p}$ be a prime ideal in $A$, then if $\mathfrak{p}=I_{1} \cap I_{2}$, we must have $\mathfrak{p}=I_{1}$ or $\mathfrak{p}=I_{2}$.
+\end{corollary}
+
+\section{Colon and Radical of Ideals}
+
+In this section, we will look at a specific kind of set.
+\begin{definition}[Colon]
+Let $I$ be an ideal and $S$ be any set in $A$. Then we define a {\it colon} as
+\[
+I: S=\{x \in A\colon \forall s \in S, x s \in I\} = \{x \in A\colon x S \subseteq I\}.
+\]
+\end{definition}
+\begin{note}
+    If $x s$ is in $I, y s$ is in $I$, then $xs + ys \in I$, and hence, $x+y \in I:S$. Further, take an arbitrary element $a$ in $A$ and $x \in I:S$, then $x a s =  a (x s) \in I: S$ and $x a \in I$ : $S \forall a \in A$. Thus, $I:S$ is an ideal.
+\end{note}
+\begin{example}\ 
+\begin{enumerate}
+    \item If $S \subseteq I$, then $I: S=(1) = I$. 
+    \item Take $A=F[x]$ where $F$ is a field, take $I=\left(x^{2}\right)$ and $S=\{x\}$, then $I:S = (x)$.
+    \item Take $A=F[x, y]$, $I= \left(x^{2} y, x y^{2}\right)$, and $S=\left\{y^{2}\right\}$, then $I:S=(x)$.
+\end{enumerate}
+\end{example}
+\begin{proposition}\label{prop: contain-colon}\ 
+    \begin{enumerate}
+        \item \label{item: colon-1} If $S_{1} \subseteq S_{2}$, then $I: S_{1} \supseteq I: S_{2}$. 
+        \item \label{item: colon-2} Let $I$ be an ideal in $A$ and $S \ss A$. If  $J=\langle S\rangle$,\footnote{The ideal generated by a set $S$ consists of all $A$-linear combinations of elements of $S$.} then $I:J = I:S$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    For \eqref{item: colon-1}, take $x \in I:S_2$, then for all $s \in S_2$, $xs \in I$. Then, for all $s' \in S_1 \ss S_2$, we already have $xs' \in I$. Thus, we have $x \in I:S_1$.
+
+    For \eqref{item: colon-2}, we know $I: J \ss I: S$ by \eqref{item: colon-1} since $S \ss \angles{S}$. Now, if $x \in I:S$, then for any element $y \in J$, we have $y = \sum_{i=1} a_{i} s_{i}, a_{i} \in A, s_{i} \in S$. Thus, $y x = \sum_{i=1}^{n} a_{i} (x s_{i})$. Since $xs_i \in I$ for every $I$ and $I$ is an ideal, $yx \in I$ as well. Therefore, $I:S \ss I:J$.
+\end{proof}
+
+\begin{example}
+    For $6 {\Z}: 3 {\Z}$, we know $6 {\Z}: 3 {\Z} = 6 {\Z}: \{3\} = 2 {\Z}$ by \cref{prop: contain-colon} \eqref{item: colon-2}. Similarly, we have 
+    $24 {\Z}: 5 {\Z} = 24 {\Z}: \{5\} = 24 {\Z}$ and $8 {\Z}: 6 {\Z} = 8 {\Z}: \{6\} = 4 {\Z}$.
+\end{example}
+
+An important notion of colon is the annihilator.
+
+\begin{definition}
+    If $x \in A$ then this $0: x$ is called the {\it annihilator} of $x$.
+\end{definition} 
+
+\begin{example}
+    The annihilator of $\ol{3} \in \Z_6$ is  $0: \ol{3} = \{\ol{0}, \ol{2}, \ol{4}\}$. 
+\end{example}
+Let us now look at some more properties that relate $I$ and $I: S$.
+\begin{proposition}\label{prop: colon-properties}
+    For an ideal $I \lhd A$ and a subset $S \ss A$, we have
+    \begin{enumerate}
+        \item \label{item: colprop-1}$I \subseteq I: S$.
+        \item \label{item: colprop-2}For ideals $J_{1}, J_{2} \lhd A$, $\left(I: J_{1}\right): J_{2}=I: J_{1} J_{2}$.
+        \item \label{item: colprop-3}$I(I: S) \subseteq I$.
+        \item \label{item: colprop-4}For ideals $I_{1}, I_{2} \lhd A$, $\left(I_{1} \cap I_{2}\right): S=\left(I_{1}: S\right) \cap\left(I_{2}: S\right)$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}\AT{The proof below does not use the right definition of product of ideals.}
+\eqref{item: colprop-1} is trivial from the definition of ideals. For \eqref{item: colprop-2}, for both directions, if $x \in \left(I: J_{1}\right): J_{2}$ or $x \in I: J_{1} J_{2}$, for any $s \in J_1, t \in J_2$, we have $xst \in I$. For \eqref{item: colprop-3}, if $xy \in I(I:S), x \in I, y \in I:S$, since $x \in I$, it is obviously the case that $xy \in I$. Finally, for \eqref{item: colprop-4}, if $x \in (I_1\cap I_2):S$, then for all $s \in S$, we have $xs \in I_1\cap I_2$. Thus, $xs \in I_1, xs \in I_2$, and hence, $x \in \left(I_{1}: S\right) \cap\left(I_{2}: S\right)$. Now, if $x \in \left(I_{1}: S\right) \cap\left(I_{2}: S\right)$, for all $s \in S$, we have $xs \in I_1$ and $xs \in I_2$. This implies that $xs \in I_1 \cap I_2$, and hence, $x \in \left(I_{1} \cap I_{2}\right): S$. 
+
+So if I take an element $x$ which multiplies everything inside the intersection. This will so if $x \mathrm{~s}$ is contained in $I_{1} \cap I_{2}$ which means $x \mathrm{~s}$ is contained in $I_{1}$ and $x \mathrm{~s}$ is contained in $I_{2}$ therefore, it is in the intersection. Now suppose $x s$ is in the intersection which means $x s$ is in $I_{1}, x s$ is in $I_{2}$, therefore it is in the intersection, $x s$ is in $I_{1} \cap I_{2}$ therefore, it is here. So these two are equal. 
+\end{proof}
+We now move on to study another type of ideal called a radical ideal. 
+\begin{definition}[Radical]\label{def: radical}
+    Let $I$ be an ideal in $A$, then the {\it radical} of an ideal 
+    \[
+    r(I)=\left\{x \in A: x^{n} \in I\text{ for some }n \in {\N}\right\}.
+    \]
+\end{definition}
+Now, take the quotient map $\varphi: A \rightarrow A / I$, then we have
+\begin{equation}\label{eq: radical-nilradical}
+    r(I)=\varphi^{-1}\left(\mathfrak{n}_{A / I}\right),
+\end{equation}
+where $\mathfrak{n}_{A / I}$ is the nilradical of $A/I$. To see this, we can see that if $x \in r(I)$, then $x^n+I = (x+I)^n = 0 +I$. Similarly, if $x+I$ is in the nilpotent of $A / I$ so that $(x+I)^n = 0+I$, this immediately tells us that $x^n \in I$. Now, since the inverse image of an ideal in a ring homomorphism is also an ideal, we can see that the radical is an ideal as well. We now look at some simple examples.
+\begin{example}
+    Let us take ${\Z}$ itself and an ideal $I=9 {\Z}$. The nilpotent elements in ${\Z} / 9 {\Z} = {\Z}_9$ are $\mathfrak{n}_{{\Z}_{9}}=\{\ol{0}, \ol{3}, \ol{6}\} = 3\Z_9$. We know, by the correspondence theorem, that the ideal containing $9\Z$ are $\Z, 3\Z$, and $9\Z$. Thus, $\varphi^{-1}\left(\ol{3} {\Z}_{9}\right)=3 {\Z}$, which is the radical of $9\Z$.
+
+    In general, in the ring ${\Z}$, if $n=p_{1}^{\alpha_{1}} \cdots p_{r}^{\alpha_{r}}$, then $r(n {\Z}) = p_{1} \cdots p_{r} {\Z}$.
+\end{example}
+
+ We now focus on some basic properties of radicals.
+
+\begin{proposition}\label{prop: radical-properties}
+Let $I, J \lhd A$ be ideals of $A$.
+\begin{enumerate}
+    \item\label{item: radical-1} $I \subseteq r(I)$.
+    \item\label{item: radical-2} $I \subseteq J$ then $r(I) \subseteq r(J)$.
+    \item\label{item: radical-3} $r(r(I))=r(I)$.
+    \item\label{item: radical-4} $r(I)=(1)$ if and only if $I=(1)$.
+    \item\label{item: radical-5} $r(I J)=r(I \cap J)=r(I) \cap r(J)$.
+    \item\label{item: radical-6} $r(I+J)=r(r(I)+r(J)))$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+    For \eqref{item: radical-1}, we can see that $I \ss r(I)$ by simply taking $n=1$ from \cref{def: radical}.  \eqref{item: radical-2} is trivial, however, for $I \subsetneq J$, note that $r(I) \subsetneq r(J)$ does not hold. For \eqref{item: radical-3}, taking $x \in r(r(I))$, we know that $x^n \in r(I)$, and hence, $x^{2n} \in I$, which implies that $x \in r(I)$. Similarly, for $x \in r(I)$, we know $x^1 \in r(I)$ implies that $x \in r(r(I))$. For \eqref{item: radical-4}, if $I = (1)$, then we know $r(I) \ss (1)$ trivially and $(1) \ss r(I)$ due to \eqref{item: radical-1}. For the backward direction, if $r(I) = (1)$, we know that for $1 \in (1)$, we have $1^n = 1 \in I$. Thus, by \cref{prop: improper-ideal-unit}, $I = (1)$. Similarly, for \eqref{item: radical-5}, since $I\cap J \ss IJ$, we have $R(I\cap J) \ss R(IJ)$. Now, if $x \in r(I) \cap r(J)$, then $x^{n} \in I$ for some $n$ and $x^{m} \in J$ for some $m$. Thus, $x^{n+m} \in IJ$, and $x \in r(IJ)$. If $x \in r(I \cap J)$, $x^n \in I\cap J$ for some $n \in \N$. Since $x^n \in I$ and $x^n \in J$, $x \in r(I) \cap r(J)$. If $x \in r(I) \cap r(J)$, then $x^n \in r(I)$ for some $n \in \N$ and $x^m\in r(J)$ for some $n \in \N$. Now, $x^{n+m} \in I\cap J$, which implies that $x \in r(I \cap J)$. Finally, for \eqref{item: radical-6}, since $r(I)+r(J) \ss r(I+J)$, by \eqref{item: radical-2} and \eqref{item: radical-3}, we have $r(r(I)+r(J)) \ss r(I+J)$. Further, since $I\ss r(I+J), J \ss r(I+J)$, we have $I+J \ss r(I)+r(J)$. Again, by \eqref{item: radical-2} and \eqref{item: radical-3}, we have $r(I+J) \ss r(r(I)+r(J))$.
+\end{proof}
+
+Now, we discuss the radicals of prime ideals. 
+\begin{proposition}
+Let $\mathfrak{p}$ be a prime ideal. Then, we have
+    \[r(\mathfrak{p}^n) = \mathfrak{p}.\]
+\end{proposition}
+\begin{proof}
+    For $x \in \mathfrak{p}$, we know $x^n \in \mathfrak{p}^n$, and hence, $\mathfrak{p} \ss r(\mathfrak{p}^n)$. Now, by \cref{prop: radical-properties} \eqref{item: radical-5}, we have 
+    \[r(\mathfrak{p}^n) = r(\cap \mathfrak{p}) = r(\mathfrak{p}).\]
+    Also, by \cref{eq: radical-nilradical} and \cref{prop: nilradical-prime}, we have 
+    \[
+    r(\mathfrak{p}) = \varphi^{-1}\paren{\mathfrak{n}_{A/\mathfrak{p}}} = 
+    \varphi^{-1}\paren{\bigcap_{\ol{\mathfrak{p}}: \text{prime ideal in }A/I} \ol{\mathfrak{p}}} = \bigcap_{\ol{\mathfrak{p}}: \text{prime ideal in }A/I} \varphi^{-1}\paren{\ol{\mathfrak{p}}}.
+    \]
+    Finally, by \cref{thm: ideal-correspondence}, the ideal $\varphi^{-1}\paren{\ol{\mathfrak{p}}}$ is a prime ideal in $A$ containing $\mathfrak{p}$:
+    \[
+    r(\mathfrak{p}) = \bigcap_{\ol{\mathfrak{p}}: \text{prime ideal in }A/I} \varphi^{-1}\paren{\ol{\mathfrak{p}}} = \bigcap_{\hat{\mathfrak{p}}: \text{prime ideal in }A\text{ containing }\mathfrak{p}} \hat{\mathfrak{p}} \ss \mathfrak{p}.
+    \]
+\end{proof}
+Similarly, it is easy to see that the radical of a maximal ideal is the same ideal as well.
+\begin{proposition}
+    Let $\mathfrak{m}$ be a maximal ideal of a ring $A$. Then, we have
+    \[r(\mathfrak{m}) = \mathfrak{m}.\]
+\end{proposition}
+\begin{proof}
+    We know that $\mathfrak{m} \ss r(\mathfrak{m})$. And, by \cref{def: maximal}, we have $r(\mathfrak{m}) = \mathfrak{m}$ since $r(\mathfrak{m}) \subsetneq A$.
+\end{proof}
+
+\section{Extension and Contraction of Ideals}
+
+Now, we study the properties of ideals under ring homomorphism. Recall that for a ring homomorphism $f: A \rightarrow B$ and an ideal $I \in A$, $f(I)$ need not be an ideal. Indeed, such an example can be readily constructed using a homomorphism that is not surjective. However, the set $f(I)$ is still relevant, and we define extension.
+\begin{definition}[Extension]
+    Let $f: A \rightarrow B$ be a ring homomorphism and $I$ be an ideal of $A$. Then, the {\it extension} of $I$ under $f$, denoted by $I^e$, is the ideal of $B$ generated by $f(I)$. That is, we have
+    \[
+    I^{e}=\left\{\sum_{i=1}^{n} a_{i} f\left(x_{i}\right): a_{i} \in B, x_{i} \in I, n \in {\N}\right\} = Bf(I).
+    \]
+\end{definition}
+Similarly, we know that the preimage of an ideal under a ring homomorphism is an ideal. We define it explicitly as well.
+\begin{definition}[Contraction]
+    Let $f: A \rightarrow B$ be a ring homomorphism and $J$ be an ideal of $B$. Then, the {\it contraction} of $J$ under $f$, denoted by $J^c$, is simply the preimage of $J$ under $f$: 
+    \[J^c\triangleq f^{-1}(J).\]
+\end{definition}
+The following proposition examines the properties of extensions and contractions by treating them as operations on an ideal.
+\begin{proposition}\label{prop: ext-cont-ideal}
+Let $f: A\to B$ be a ring homomorphism, $I \lhd A$ be an ideal in $A$, and $J \lhd B$ be an ideal in $B$. Then, we have the following properties of extensions and contraction of ideals.
+    \begin{enumerate}
+        \item \label{item: ext-cont-1}$\left(I^{e}\right)^{c} \supseteq I$.
+        \item \label{item: ext-cont-2}$\left(J^{c}\right)^{e} = J$.
+        \item \label{item: ext-cont-3}$I^{\text {ece}}=I^{e}$.
+        \item \label{item: ext-cont-4}$J^{\text {cec}}=J^{c}$.
+        \item \label{item: ext-cont-5}If $C$ is the set of all contracted ideals of $A$ and $E$ is the set of all extended ideals of $B$, then $C=\left\{I: I^{e c}=I\right\}$ and $E=\left\{J: J^{c e}=J\right\}$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    \eqref{item: ext-cont-1} follows via the definitions. For \eqref{item: ext-cont-2}, we have  $\left(J^{c}\right)^{e} = Bf(f^{-1}(J)) = J$.  For \eqref{item: ext-cont-3}, we have
+    \(I^{e c e}=\left(I^{e}\right)^{c e} = I^{e},\)
+    by \eqref{item: ext-cont-2}. 
+    Again, for \eqref{item: ext-cont-4}, we have
+    \(J^{{cec}}= (J^{ce})^c = J^{c}\) by \eqref{item: ext-cont-2} as well. Property \eqref{item: ext-cont-5} follows trivially.
+\end{proof}
+
+\newpage
+\section{Exercises}
+\begin{exercise}
+Find the nilradical of $\Z_{36}$ and $\Z_9$.
+\end{exercise}
+\begin{proof}
+Recall that the nilradical of ring $A$ is the intersection of all the prime
+ideals of $A$. If $\mathfrak{p}$ is a prime ideal of $\Z_n$, then $Z_n/\mathfrak{p}$ is a finite integral domain, so it is
+a field, and hence $\mathfrak{p}$ is a maximal ideal. We only need to find the maximal ideals of
+$\Z_n$. We know that $\mathfrak{p}$ is a maximal ideal of $\Z_n$ if and only if $\mathfrak{p} = p\Z_n$ for some prime
+divisor $p$ of $n$. Therefore the maximal ideals of $\Z_{36}$ are $2\Z_{36}, 3\Z_{36}$ and the maximal
+ideal of $\Z_{9}$ is $3\Z_{9}$. Hence $\mathfrak{n}(\Z_{36}) = 2\Z_{36} \cap 3\Z_{36} = 6\Z_{36}$ and $\mathfrak{n}(\Z_{9}) = 3\Z_{9}$.
+\end{proof}
+
+
+\begin{exercise}
+Let $\F$ be a field and let $A = \F[x, y]$. If $I = (x^2, xy)$ and $S = \{x\}$, then compute $I : S$.
+\end{exercise}
+\begin{proof}
+We claim that that $I:S = (x,y)$. To see this, first note that $x$ and $y$ must be in $I : S$. Now, let $f \in I : S$, then, by definition, $f x \in I$. Let
+\[
+\begin{aligned}
+  &f x = \alpha_1 x^2 + \alpha_2 xy, where \alpha_1, \alpha_2 \in A.\\
+  &x(f - (\alpha_1 x + \alpha_2 y)) = 0.  
+\end{aligned}
+\]
+Since $A$ is integral domain, $f = \alpha_1 x + \alpha_2 y$. Hence, $f \in (x, y)$ and $I : S = (x, y)$.
+\end{proof}
+\newpage
+
+
+\chapter{Modules}
+
+\section{Introduction}
+We shall begin with the definition of modules. Modules are exactly the generalization of vector spaces over fields to rings, and in our case, to commutative rings. \footnote{In general, one can define what is called a left module and a right module since the ring need not be commutative. In our case, left modules and right modules are all the same.}
+\begin{definition}[Module]\label{def: module}
+    Let $A$ be a commutative ring with the identity. A set $M$ with a binary operation $+$ is said to be an $A$ module, if the following conditions are satisfied.
+    \begin{enumerate}
+        \item $(M,+)$ is an abelian group.
+        \item There exists a map
+            $$
+            \begin{gathered}
+            A \times M \rightarrow M \\
+            (a, m) \mapsto a m
+            \end{gathered}
+            $$
+            such that \(\forall m, m_{1}, m_{2} \in M\) and \(a, b \in A\), we have
+            \begin{enumerate}
+                \item  $a\left(m_{1}+m_{2}\right)=a m_{1}+a m_{2}$.
+                \item  $(a+b) m=a m+b m$.
+                \item $(a b) m=a(b m)$.
+                \item $1 \cdot m=m$.
+            \end{enumerate}
+    \end{enumerate}
+\end{definition}
+\begin{example}\ 
+    \begin{enumerate}
+    \setcounter{enumi}{-1}
+        \item The zeroth example is, obviously, $M=\{0\}$, which is an $A$-module for any $A$.
+        \item Certainly, any vector space over a field $\F$ is an $\F$-module.
+        \item For any ring $A$, an ideal $M$ in $A$ is an $A$-module as well. Notice that a subring need not be an ideal since it may not be closed under the map that takes $A \times M$ to $M$ above. For instance, take $k\left[x^{2}\right] \subseteq k[x]$, then $k\left[x^{2}\right]$ is not a subring with respect to the standard multiplication. 
+        \item Moreover, every ring is a module over itself, the polynomial ring $A[x]$ is an $A$-module with the standard operations, and the quotient ring $A / I$ is also an $A$-module.
+        \item Finally, let $G$ be any abelian group. Then, $G$ is an $\Z$-module via the following scalar multiplication.
+        $$
+        n \cdot g=\underbrace{g+\cdots+g}_{n \text {-times }}.
+        $$
+    \end{enumerate}
+\end{example}
+As an aside, we discuss another important example which is analogous to the structure theorem of finite abelian groups that concerns a vector space $V$ over a field $F$. Here, there exist linear operators of the form $T: V \rightarrow V$, and we can make $V$ a module over $F[x]$ by taking a polynomial $p(x) \in F[x]$ and defining the following map for $p(x) \in F[x]$ and $v \in V$: 
+\[p(x) \cdot v\triangleq p(T)v.\]
+One can now view $V$ as an $F[x]$-module and use structure theorem of modules over principle ideal domains to get a specific structure for $V$ and use the multiplication defined above to get a specific decomposition with respect to $T$ and so on. Briefly, we look at a substructure of modules called submodules.
+\begin{definition}[Submodule]
+    A subset $N$ of $M$ is a {\it submodule} if $N$ is an $A$-module with respect to the same addition and scalar multiplication defined on $M$.
+\end{definition}
+
+\section{Homomorphisms}
+Let us now look at maps between modules.
+\begin{definition}[Homomorphism]
+    Let $M$ and $N$ be $A$-modules. A map $f: M \rightarrow N$ is an {\it$A$-module homomorphism }if for all $a \in A, m, m_{1}, m_{2} \in M$, we have
+    \begin{enumerate}
+        \item $f\left(m_{1}+m_{2}\right)=f\left(m_{1}\right)+f\left(m_{2}\right)$.
+        \item $f(a m)=a \cdot f(m)$.
+    \end{enumerate}
+\end{definition}
+\begin{example}
+    If $M$ and $N$ are any two modules, then the zero map is a homomorphism.  Moreover, recall that a 
+    $\Z$-module homomorphism given by $f: \Z \rightarrow \Z$ is uniquely determined by the assignment $f(1) = m$ for some $m \in \Z$. Another example is given by the ring $A=\mathbb{R}$ and the modules $M=C^{1}[a, b]$ and $N=C[a, b]$, and the homomorphism given by $f \mapsto f^{\prime}$.
+\end{example}
+
+Here, suppose we fix two modules $M$ and $N$ over a ring $A$, and define 
+\[
+{\Hom}_{A}(M, N) \triangleq\{f: M \rightarrow N \mid f\text{ is a homomorphism}\}.
+\] 
+
+Recall that if we take $A$ to be a field and $M$ and $N$ as vector spaces, then this is denoted by $L(M, N)$, the set of all linear maps from $M$ to $N$, which, in turn, is also a vector space over the ground field. Fortunately, this generalizes to modules as well.
+\begin{proposition}
+    The set of all homomorphisms between two $A$-modules $M$ and $N$, given by ${\Hom}(A,B)$, is also an $A$-module.
+\end{proposition}
+\begin{proof}
+    We define the scalar multiplication as follows. For $a \in A, m \in M, f\in {\Hom}_{A}(M, N)$, define 
+    \[af(m) = f(am).\]
+    It is easy to see that this is an Abelian group, and that the axioms in \cref{def: module} are satisfied.
+\end{proof}
+
+Now, recall that for any $f \in {\Hom}(\Z, \Z)$, there exists a unique integer $n \in \Z$ that determines $f$ such that $f(1) = n$. In other words, there is a one to one correspondence or an isomorphism\footnote{A module homomorphism is an {\it isomorphism} if it is injective (one-one)and surjective (onto).} between ${\Hom}(\Z, \Z)$ to $\Z$ given by
+$$
+\begin{aligned}
+\varphi: {\Hom}_{\Z}(\Z, \Z) & \rightarrow \Z \\
+f & \mapsto f(1).
+\end{aligned}
+$$
+In fact, this correspondence holds in a more general setting as well (cf. \cref{ex: ch3-1}):
+Let $A$ be a ring and $M$ be an $A$-module, then ${\Hom}_{A}(A, M) \cong M$.
+
+Moreover, the interactions between these modules are also interesting. Let $f: M \rightarrow M^{\prime}$ be an $A$-module homomorphism and $N$ be an $A$-module. Then, we have two modules ${\Hom}_{A}(M, N)$ and ${\Hom}_{A}\left(M^{\prime}, N\right)$.
+So, if we take a homomorphism $h \in {\Hom}_{A}\paren{M' \rightarrow N}$, then we have a homomorphism $h \circ f \in {\Hom}_{A}\paren{M \rightarrow N}$. In the same manner, another ${\Hom}$ module associated with $f$ would be ${\Hom}_{A}(N, M)$ and ${\Hom}_{A}\left(N, M^{\prime}\right)$. We will study more properties of these maps a little bit later.  
+
+
+\section{Operations on Modules}\label{sec: op-modules}
+We will now define the familiar operations on modules.
+\subsection{Quotient Modules}
+Let $N$ be a submodule of $M$. Then, as we have done for the case for groups, rings, and vector spaces, we can define the following equivalence relation
+\[x \sim y \iff x-y \in N\]
+We then denote the set of equivalence classes as $M/N$ with a natural $A$-module structure given by 
+\[
+\begin{aligned}
+    &\ol{m}+\ol{n}\triangleq\ol{m+n},\\
+    &a \cdot \ol{m}\triangleq\ol{a m}.
+\end{aligned}
+\]
+for any $\ol{m}, \ol{n} \in M/N$. It can be easily checked that this is well-defined.
+
+Now, we are ready to state the isomorphism theorems. To this end, for an $A$-module homomorphism $f: M \rightarrow N$, define
+\[
+\begin{aligned}
+    &\Ker{f}\triangleq\{x \in M: f(x)=0\}\\
+    &\image{f}\triangleq\{f(x): x \in M\}\\
+    &\Coker{f}\triangleq N / \operatorname{Im} f.
+\end{aligned}
+\]
+\begin{remark}
+    For an $A$-module homomorphism $f: M \rightarrow N$, $\Ker{f}$ is a submodule of $M$, and $\operatorname{Im} f$ is a submodule of $N$.
+\end{remark}
+\begin{theorem}[First Isomorphism Theorem for Modules]\label{thm: first-iso-module}
+    Let $M$ and $N$ be $A$-modules. If $f: M \rightarrow N$ is an $A$-module homomorphism. Then, we have
+    \[ M / \Ker{f} \cong \image{f} .\]
+\end{theorem}
+\begin{proof}
+    Define $\varphi: M / {\Ker} f \rightarrow \operatorname{Im} f$ by $\varphi(\ol{x})=f(x)$. We first need to prove that $\varphi$ is well-defined because there could be many representatives for $\ol{x}$. If $\ol{x}=\ol{y}$, then $x-y \in {\Ker} f$, which implies that $f(x-y)=0$. Since $f$ is a module homomorphism, we then have $f(x)=f(y)$, and hence, $\varphi(\ol{x})=\varphi(\ol{y})$. Thus, $\varphi$ is well defined.
+    
+    We now show that $\varphi$ is a homomorphism because $f$ is a homomorphism. So, for all $\ol{x}, \ol{y} \in M / {\Ker} f$, we have
+    \[ \varphi(\ol{x}+\ol{y})=\varphi(\ol{x+y})=f(x+y)=f(x)+f(y)=\varphi(\ol{x})+\varphi(\ol{y}).
+    \]
+    Further, for $a \in A$ and $\ol{x} \in M / {\Ker} f,$ we have 
+    \[\varphi(a \cdot \ol{x})=\varphi(\ol{a x})=f(a x)=a f(x)=a \varphi(\ol{x}).\]
+    Therefore, $\varphi$ is an $A$-module homomorphism.
+    
+    Finally, we can immediately see that $\varphi$ is surjective since every element of $\operatorname{Im} f$ is of the form $f(x)$ for some $x \in M$, therefore, its representative in $M / {\Ker} f$ has $\varphi(\ol{x}) = f(x)$. Similarly, if $\varphi(\ol{x})=0$, then $f(x)=0$, and hence, $x \in {\Ker} f$, which implies that $\ol{x}=0$. Thus, $\varphi$ is injective.
+    
+    Overall, we have shown that $\varphi$ is an isomorphism.
+\end{proof}
+ 
+ Similarly, the following properties make the verification of injectivity and surjectivity of homomorphisms easier since, in general, one has to check the images agree for two arbitrary points that are the same.
+\begin{proposition}\label{prop: inj-sur-homo}
+     Let $f: M \rightarrow N$ be an $A$-module homomorphism. Then, we have
+     \begin{enumerate}
+         \item \label{item: inj-ker} $f$ is injective if and only if $\Ker{f}=\{0\}$.
+         \item \label{item: sur-coker} $f$ is surjective if and only if $\Coker{f}=\{0\}$.
+     \end{enumerate}
+\end{proposition}
+\begin{proof}
+    \eqref{item: sur-coker} immediately follows from the definition of cokernels. For \eqref{item: inj-ker}, the forward direction is trivial, and for the converse, if $\Ker{f}=\{0\}$, then by \cref{thm: first-iso-module}, we must have $M \cong \image{f}$.
+\end{proof}
+
+\subsection{Sum of Modules}
+\begin{definition}
+    Suppose two submodules $M_{1}, M_{2}$ submodules of $M$. Then, we can define the sum of modules $M_1$ and $M_2$ as 
+    \[M_{1}+M_{2}\triangleq\left\{x+y: x \in M_{1}, y \in M_{2}\right\}.\]
+\end{definition}
+We can readily see that the above is again an $A$-submodule of $M$. Further, if $\left\{M_{i}\right\}_{i \in I}$ is a family of $A$-submodules of $M$, then we can generalize this definition of sum of two modules to define
+$$
+\sum_{i \in I} M_{i}\triangleq\left\{\sum_{i \in I} x_{i}: x_{i}=0 \text { for all but finitely many } i\right\}.
+$$
+Now, one can talk about another application of the first isomorphism theorem. 
+\begin{proposition}\label{prop: div-sum-quotient}
+Let $M_{1}, M_{2}$ be two submodules of $M$. Then, we have
+\begin{enumerate}
+    \item \label{item: div-sum-quotient-1} If $M_{1} \subseteq M_{2} \subseteq M$ are $A$-modules, then $M_{2} / M_{1}$ is an $A$-submodule of $M / M_{1}$, and we have 
+    \[\frac{M / M_{1}}{M_{2} / M_{1}} \cong M / M_{2}.\]
+    \item \label{item: div-sum-quotient-2} If $M_{1}$ and $M_{2}$ are $A$-submodule of $M$, then we have
+    \[(M_{1}+M_{2})/M_{1} \cong M_{2}/(M_{1} \cap M_{2}).\]
+\end{enumerate}
+\end{proposition}
+Before we present the proof, recall that this is similar to what we have seen in groups as well as in rings. 
+\[H K / K \cong H / H \cap K,\quad I+J / I \cong J / J \cap I.\] 
+\begin{proof}[Proof of \cref{prop: div-sum-quotient}]
+    For \eqref{item: div-sum-quotient-1}, define $\varphi: M / M_{1} \rightarrow M / M_{2}$ by $\varphi\left(x+M_{1}\right)=x+M_{2}$. This is obviously well-defined: for two representatives $x+M_{1}=y+M_{1}$ so that $x-y \in M_{1}$, since $M_{1}$ is contained in $M_{2}$, we have $x-y \in M_{2}$, and hence, $x+M_{2}=y+M_{2}$. It is also easy to check that $\varphi$ is an $A$-module homomorphism.
+    
+    Now, we have 
+    \[{\Ker} \varphi=\left\{x \in M / M_{1}: x+M_{2}=0+M_{2}\right\}=\left\{x+M_{1} \in M / M_{1}: x \in M_{2}\right\}=M_{2} / M_{1}.\]
+    Further, we claim that $\phi$ is surjective. Indeed, take any $x+M_{2} \in M / M_{2}$, then we have $\varphi\left(x+M_{1}\right) = x+M_{2}.$
+    Thus, by the first isomorphism theorem (\cref{thm: first-iso-module}), we have
+    $M / M_{1} / M_{2} / M_{1} \cong M / M_{2}$.\\
+    
+    Similarly, for \eqref{item: div-sum-quotient-2}, define  $\varphi: M_{2} \rightarrow (M_{1}+M_{2}) / M_{1}$ by $\varphi(x)=\ol{x}$. Here, the map is certainly well-defined. Again, it is also easy to see that $\varphi$ is an $A$-module homomorphism. 
+    \[
+    \begin{aligned}
+        &\varphi(x+y)=\ol{x+y}=\ol{x}+\ol{y} = \varphi(x)+\varphi(y),\\
+        &\varphi(ax)=\ol{ax}=a\ol{x} = a\varphi(x).
+    \end{aligned}
+    \] 
+    Moreover, we have
+    \[{\Ker} \varphi=\left\{x \in M_{2}: \ol{x}=0\right\}=\left\{x \in M_{2}: x \in M_{1}\right\}=M_{2} \cap M_{1}.\]
+    Now, it remains to show that $\varphi$ is surjective. Take any element in $(M_{1}+M_{2})/M_1$, given by $\ol{x+y}$ for $x \in M_{2}$ and $y \in M_{1}$. Then, we have
+    $(x+y)+M_{1}=\left(x+M_{1}\right)+\left(y+M_{1}\right)=x+M_{1}=$ $\ol{x}$ so that $\varphi(x) = \ol{x+y}$.
+    
+    Again, by the first isomorphism theorem (\cref{thm: first-iso-module}), we have $\left(M_{1}+M_{2}\right) / M_{1} \cong M_{2} / M_{2} \cap M_{1}$,
+\end{proof}
+
+\subsection{(Scalar) Product of Modules}
+Now that we have defined summation, then next thing to define is the product. However, modules do not have an explicit product defined, even though they do have scalar multiplication which we can use to define the set $SM$ for $S \subset A$ as
+\[
+SM\triangleq \left\{\sum_{i\in [n]} a_i x_i\colon a_i \in S, x_i \in M \right\} ,
+\]
+which is precisely the product of $M$ and $I$, the ideal generated by $S$. To see this, let $I$ be the ideal generated by $S$, then there is immediately an inclusion $S M \subseteq I M$. Further, take an element $\sum a_{i} x_{i} \in IM$ such that $a_{i} \in I, x_{i} \in M$. Here, we must have $a_{i}=\sum \alpha_{i j} s_{i j}$, which implies that $\sum a_{i} x_{i}=\sum \alpha_{i j} s_{i j} x_{i}$. Since $\alpha_{i j} x_{i} \in M$, we have $\sum \alpha_{i j} s_{i j} x_{i} \in S M$. Therefore, we have $I M \ss S M$, and hence, $IM = SM$. So, we usually talk about $IM$ instead of $SM$. Nevertheless, if $S=\{a\}$, we still write $a M$ instead of the ideal generated by $\{a\}$. 
+
+Indeed, this product is a submodule of $M$, where the proof is a straightforward verification.
+\begin{proposition}
+    Let $A$ be a commutative ring with identity and $M$ be an $A$- module. Further, for $S \subset A$, let $I$ be the ideal generated by $S$. Then, $IM$ is an $A$-submodule of $M$. 
+\end{proposition}
+
+\subsection{Colons and Annihilators}
+Again, going back to the theory that we developed in the case of ideals, another object that we studied was the colon of two ideals. We can define it analogously in the case of modules.
+\begin{definition}[Colon of Modules]\label{def: colon-modules}
+    Let $N$ and $P$ be submodules of $M$. Then, we define the colon $N: P$ as
+    \[
+    N:P \triangleq \{a \in A: a P \subseteq N\}.
+    \]
+\end{definition}
+However, note that this is a set in $A$, not a set in $N$. Moreover, we have  $0 \in N: P$. For $x,y \in N:P$, we know that for any $p \in P$, we have $xp + yp \in N$. However, $xp+yp = (x+y)p \in N$, and hence, we have $(x+y) P \subseteq N$, which implies that $x+y \in N: P$. Further, for $a\in A, x \in N:P$, we have
+$axP \ss N$ since $N$ is a submodule, and hence, $N:P$ is an ideal. We will see that this ideal plays an important role in the structure of modules.
+
+A special case of colon can be used to define the annihilators of $M$.
+\begin{definition}[Annihilator]
+   If $M$ is an $A$-module, then $0: M$ is called the {\it annihilator} of $M$, denoted by $\operatorname{Ann}(M)$. 
+\end{definition}
+
+Now, suppose $A$ is a ring, and $I$ is an ideal of $A$. Of course, $M$ is an $A$ module. But, we ask when can we say that $M$ is an $A / I$ module in a natural way; that is, since $A/I$ is an abelian group, we only need to define scalar multiplication, and a natural way to do this is as follows: 
+\[\ol{x} m=x m.\]
+However, this  might not be well-defined as two representatives of $\ol{x}$ may not be equal. Hence, the condition we require is $\ol{x}=\ol{y} \implies x m=y m$ for any $m \in M$. However, notice that it suffices to have $(x-y) m=0$ for all $m \in M$. That is, we need $x-y \in \operatorname{Ann} M$, and since $x-y \in I$ already, we require that $I$ is contained in annihilator of $M$. Overall, we have made the following observation.
+\begin{observation}
+    Let $M$ be an $A$-module and $I$ be an ideal of $A$. If $I \subseteq \operatorname{Ann}M$ then $M$ is an A/I-module. 
+\end{observation}
+
+\section{Generating Sets}
+
+Now, let us look at some more properties of modules. First, we define the analogue of basis from the theory of vector spaces.
+\begin{definition}[Generating Set]
+    A set of elements $S=\left\{x_{\lambda} : \lambda \in \Lambda \right\} \subseteq M$ is said to be a {\it generating set} (or the set of generators) for $M$ if
+    \[M=\left\{\sum_{\text{finite }} a_{\lambda} x_{\lambda}: a_{\lambda} \in A, x_{\lambda} \in S, \lambda \in \Lambda\right\}.\]
+
+    Here, if $S$ is finite, then $M$ is said to be {\it finitely generated}. 
+\end{definition}
+Recall that, with vector spaces, we had the notion of linear independence: the finite linear combination above is $0$ if and only if all the coefficients are $0$. In the case of modules, one can define it to be the same, and the first question we ask is if we can have a generating set which is linearly independent. That is, can we get a maximal linearly independent set that generates the whole module? Unfortunately, we will see it is not possible to do this in general for modules. For instance, if we take ${\Z}$ and a module ${\Z}$ over ${\Z}$ itself, then $\{1\}$ is a generating set, and is also linearly independent: $\alpha \cdot 1=0$ if and only if $\alpha=0$. However, in the theory of vector spaces, we can take any generating set and get a generating set which is linearly independent. However, if we take the generating set $\{2,3\}$ for the module $\Z$ over $\Z$, then we can see that this is not linearly independent: $(-3) \cdot 2+2 \cdot 3=0$. However, we cannot throw out $3$ or $2$ and still get a generating set. Therefore, $\{2,3\}$ is a minimal generating set of $\Z$ which is not linearly independent. Further, a maximal linearly independent set need not be a generating set as well. For example, take the set $\{2\}$ which is a maximal linearly independent set, but does not generate $\Z$. In conclusion, the theory of modules is slightly more general, but it is does not behave as nicely as in the case of vector spaces over fields.
+
+\begin{example}
+We now look at some examples of generating sets. 
+    \begin{enumerate}
+        \item Take the ring $A=k[x]$, where $k$ is a field, and the ideal $I=\{p(x)$ : $p(0)=0\}$. This is certainly A module over A with the following generating set $\{x\}$. Here, $I$ is a finitely generated module over $A[x]$.
+        \item A simple example of a module that is  not finitely generated module is if we take $A=k$ and a module $M=k[x]$ over $k$. Then, it is not possible to find a finite generating set for $M$.
+        \item Suppose we take $A=k\left[x^{2}, x y, x y^{2}, x y^{3}, \ldots\right]$ and $I=\left(x^{2}, x y, x y^{2}, x y^{3}, \ldots\right)$. It is easy to see that this is infinitely generated since no pure power of $y$ is in the ring. So, none of the elements in $M$ can be obtained from any other elements. Therefore, $M$ is an infinitely generated $A$-module.
+    \end{enumerate}
+\end{example}
+
+\section{Direct Sums and Finitely Generated Modules}
+\begin{definition}
+ Suppose we have a collection of $A$-modules, $\left\{M_{\lambda}\right\}_{\lambda \in \Lambda}$, then we define the {\it direct sum} as the product
+$$
+\oplus_{\lambda \in \Lambda} M_{\lambda}:=\left\{\left(x_{\lambda}\right)_{\lambda \in \Lambda}: x_{\lambda} \in M_{\lambda}, x_{\lambda}=0 \text { for all but finitely many } \lambda\right\}.
+$$   
+\end{definition}
+
+Further, we can also form another product, called the {\it Cartesian product}, that is given by
+$$
+\Pi_{\lambda \in \Lambda} M_{\lambda}:=\left\{\left(x_{\lambda}\right)_{\lambda \in \Lambda}: x_{\lambda} \in M_{\lambda}\right\}.
+$$
+
+\begin{remark}
+    The direct sum $\oplus M_{\lambda}$ and $\Pi M_{\lambda}$ are $A$-modules with component wise addition and scalar multiplication.
+\end{remark}
+
+Observe that if $\Lambda$ is finite, then $\oplus M_{\lambda}=\Pi M_{\lambda}$. Otherwise, there would be an infinite nonzero sequence in $\Pi M_{\lambda}$, which are not present in $\oplus M_{\lambda}$.
+
+Again, recall that in the theory of vector spaces, a vector space has either infinity or a unique integer assigned to it, which is the cardinality of minimal generating set or a maximal linearly independent set. But, in the case of modules, we have already seen that there is nothing like that. That is, in general, there is no ``dimension'' in some sense. However, for a certain subclass of modules, one has an analogue to this desired property. We call these classes of modules, the free modules. Indeed, we define free module to be modules that look exactly like a vector space. That is, if we take any any vector space, then it is a direct sum of the ground field. If the vector space $V$ over a field $F$ is finite dimensional, then we know that $V \cong F^{n}$ where $n$ is the dimension of $V$. And, even if $V$ is infinite dimensional, it is still a product of $F$. Here, we will define a module to be free module if it is exactly of this form. 
+\begin{definition}[Free Modules]
+    A module $M$ over $A$ is said to be {\it free} if 
+    \(
+    M=\oplus_{\lambda \in \Lambda} M_{\lambda}
+    \text{ with each }
+    M_{\lambda} \cong A\text{ for all }\lambda \in \Lambda. 
+    \)
+    
+    We use the notation $M \cong A^{\oplus \Lambda}$ to denote that $M$ is direct sum of as many copies of $A$ as the cardinality of $\Lambda$.
+\end{definition}
+
+Here, an example of module over ${\Z}$ which is free is the module $p {\Z}$. A simple argument for why this is a free module over $\Z$ is by defining an isomorphism from $p {\Z}$ to $\Z$. 
+$$
+\begin{aligned}
+& {\Z} \stackrel{\phi}{\rightarrow} p {\Z} \\
+& n \mapsto p n .
+\end{aligned}
+$$
+It is easy to see that this a $\Z$-module isomorphism. Indeed, for any ${n}$, every ideal $n\Z$ is a free ${\Z}$-module. In fact, we can assert a more general statement.
+\begin{proposition}
+    If $A$ is a principle ideal domain (PID), and $M$ is a non-zero ideal in $A$, then $M$ is free.
+\end{proposition} 
+\begin{proof}
+    Since $A$ is PID, $M$ is of the form $(m)$ for some $m \in A, m \neq 0$. Thus, we can define the following  map
+    \[
+    \begin{aligned}
+    & {A} \stackrel{\phi}{\rightarrow} {M} \\
+    & a \mapsto m a .
+    \end{aligned}
+    \]
+    This is a $A$-module homomorphism since follows from the properties of $M$ as an ideal. It is also easy to see that $\phi$ is surjective.  Further, the kernel of this map is trivial since $a\cdot m = 0 \iff a = 0$ as $A$ is an integral domain. 
+\end{proof}
+
+\begin{example} 
+Let us again discuss some examples of free and not free modules.
+\begin{enumerate}
+    \item  Let $A={\Z}$ and $M={\Z}[x]$, then it is easy to see that $M \cong {\Z}^{\oplus {\N}}$ using the map 
+    \[
+    a_{0}+a_{1} x+\ldots a_{n} x^{n} \mapsto (a_{0}, a_{1}, \ldots, a_{n}).
+    \]
+    \item Note, however, that the ideal ${\Z}_{5}$, which is finite over $\Z$ is not free simply by using properties of cardinality from basic set theory since we cannot have an injective map from an infinite set to a finite one.
+    \item If we take $\oplus_{i=1}^{r} {\Z}_{n_{i}} , n_{i} \in {\N}$, then there cannot exist an isomorphism $\oplus^{\Lambda} {\Z} \rightarrow \oplus_{i=1}^{\infty} {\Z}_{n_{i}}$ (cf. \cref{ex: ch3-2}).
+\end{enumerate}
+\end{example}  
+
+Let $M$ be a finitely generated $A$-module and let $\left\{x_{1}, \ldots, x_{n}\right\}$ be a generating set. Recall that, in the case of vector spaces, if we have a basis of a vector space $V$ over $\F$ with dimension $n$, where $n$ is unieqly determined, then there exists a map from $V$ to $\F^{n}$ given by 
+$$
+\begin{aligned}
+\F^{n} & \rightarrow V \\
+\left(a_{1}, \ldots, a_{n}\right) & \mapsto a_{1} v_{1}+\cdots+a_{n} v_{n}
+\end{aligned}
+$$
+where $\left\{v_{1}, \ldots, v_{n}\right\}$ is an $\F$-basis of $V$. 
+We now ask if an analogous property holds for modules. Indeed, if $M$ is finitely generated, then one can define a map 
+$A^{n} \longrightarrow M$ that takes $e_{i} \mapsto m_{i}$. In other words, we can define $\varphi: A^{n} \longrightarrow M$ by 
+\[
+\varphi\left(a_{1}, \ldots, a_{n}\right)= a_{1} m_{1}+\cdots+a_{n} m_{n}.
+\] 
+First, it is easy to see that $\varphi$ is an $A$-module homomorphism via the fact that $M$ is a module, and each $a_i \in A$. Further, it is easy to see that $\varphi$ is surjective. However, $\varphi$ need not necessarily be injective. For instance, if we define a map from ${\Z} \longrightarrow Z_{5}$, which is a finitely generated ${\Z}$-module with generator 1, which takes $1 \mapsto \ol{1}$, then the kernel ${\Ker}(\varphi)$ here is $5 {\Z}$. Thus, $\varphi$, in general, need not be injective, however, we can still claim that if $M$ is a  finitely generated $A$-module, then there exists an onto $A$-module homomorphism $A^{n} \longrightarrow M$. Here, note that $A^{n}$ is a finitely generated free module.
+
+Conversely, suppose there exists a finitely generated free $A$-module, say $F$, and an $A$ module homomorphism $\varphi: F \longrightarrow M$ which is onto. Then, we claim that 
+$M$ has to be finitely generated. To see this, let $F \stackrel{\psi}{\simeq} A^{n}$, $f_{i}=\psi\left(e_{i}\right)$, and $m_{i}=\varphi\left(f_{i}\right)$, then $\left\{m_{1}, \ldots, m_{n}\right\}$ is a generating set for $M$. Overall, we have proved the following proposition that characterizes finitely generated modules.
+\begin{proposition}\label{prop: char-fg-modules}
+    Let $M$ be an $A$-module, then $M$ is finitely generated if and only if\footnote{For the converse part, we do not need the free condition here: if we have a finitely generated module $F$ and a surjective homomorphism then $M$ is also finitely generated.} there exists finitely generated free $A$-module $F$ and a surjective homomorphism $\varphi: F \longrightarrow M$.
+\end{proposition} 
+
+\subsection{Nakayama's Lemma}
+We start with an important property of finitely generated $A$-modules. 
+\begin{proposition}\label{prop: lin-dep-fg-module}
+    Let $M$ be a finitely generated $A$-module, $I$ be an ideal of $A$, and $\varphi$ : $M \longrightarrow M$ be an $A$-module homomorphism such that $\varphi(M) \subseteq I M$. Then, there exist $a_{1}, \ldots, a_{n} \in I$ such that 
+    \[
+    \varphi^{n}+a_{1} \varphi^{n-1}+\cdots+a_{n-1} \varphi+a_{n}=0.
+    \]
+\end{proposition} 
+
+Before we present the proof, we briefly discuss the statement of the proposition. First, note that $\phi^i \in {\Hom}_A(M,M)$, which is called the set of endomorphisms of $M$, denoted by $\operatorname{End}_A(M)$. Recall that, for any modules $\mathrm{M}, {\Hom}_{A}(M, M)$ is an $A$-module. In fact, $\operatorname{End}_{A}(M)$ has a natural multiplication operation given by the composition of endomorphisms.
+Therefore, $\operatorname{End}_{A}(M)$ is in fact a ring, that may not be commutative, with respect to the natural addition and multiplication operations. Thus, the above proposition says that we get a set of maps $\{\id_M, \varphi, \varphi^{2}, \ldots, \varphi^{n}\}$ in the endomorphism ring, whose linear combination is the 0 map. Moreover, the hypotheses themselves are not hard to satisfy. For instance, if we have a map $\varphi: {\Z} \longrightarrow {\Z}$ by $m \mapsto k m$ (fixing a $\mathrm{k}$, this is a ${\Z}$-module homomorphism), then $\varphi({\Z}) \subseteq k {\Z}$. Thus, if we take $I=(k)$, then $\varphi({\Z}) \subseteq I {\Z}$. 
+
+\begin{proof}[Proof of \cref{prop: lin-dep-fg-module}]
+    Let $\left\{x_{1}, \ldots, x_{n}\right\}$ be a generating set for $M$ so that we can write 
+    \[
+    \varphi\left(x_{i}\right)=\sum_{j=1}^{n} a_{i j} x_{j},\quad a_{ij} \in I, x_i \in M.
+    \] 
+    Collect all these expressions for each $i \in [n]$, we get
+    \begin{equation}\label{eq: syst-linear}
+        \sum_{j=1}^{n}\left(\varphi \delta_{i j}-a_{i j}\right) x_{j}=0,
+    \end{equation}
+    where $\delta_{i j}$ is the Kronecker's delta. Further, $a_{i j}$ can be thought of as the homomorphism $M \longrightarrow M$ by defining $a_{i j}(x)=a_{i j} x$. Then, we can think of $\left(\varphi \delta_{i j}-a_{i j}\right)$ as an element in $A^{\prime}[\varphi]$, where $A^{\prime}[\varphi]$ is the smallest subring of $\operatorname{End}_{A}(M)$ containing containing all the constant multiplication maps and the homomorphism $\varphi$. More explicitly\footnote{We are denoting the subring of multiplication maps as $A^{\prime}$ because it need not be isomorphic to $A$ as the multiplication map can be 0: If the module $M$ has a non-trivial annihilator, and if we take an element $a$ from the annihilator, then the multiplication map by $a$ would be 0.}, we have
+    \[
+    A^{\prime}[\varphi]=\left\{\sum_{i=0}^{n} a_{i} \varphi^{i} \mid n \in {\N}, a_{i} \in A\right\}.
+    \]
+    Now, recall that $\operatorname{End}_{A}(M)$ is, in general, not a commutative ring. However, we see that $\varphi^{n} \circ \varphi^{m}=\varphi^{m} \circ \varphi^{n}$. Hence, $A^{\prime}[\varphi]$ is a commutative subring of $\operatorname{End}_{A}(M)$.
+
+    At this point, we remind the reader of a theorem in the theory of vector spaces over fields called the Cayley-Hamilton theorem that says that a matrix $A \in M_{n}(\F)$ and a polynomial $p(X)=\operatorname{det}(A-X I)$ have the property that $p(A)=0$. However, the proof only uses the fact that $\F$ is commutative. In fact, the proof can be summarized as follows. We look at a new matrix $B$ that contains the cofactors of $A$.\AT{Do this.} We now use the same argument here.
+
+    Consider the matrix $B=\left(\varphi \delta_{i j}-a_{i j}\right) \in M_{n}\left(A^{\prime}[\varphi]\right)$. Let $b_{i k}$ denote the cofactors of $B$, the determinant of the matrix obtained by removing the $i$-th row and $k$-th column. Using \eqref{eq: syst-linear} and the cofactors, we get
+    $$
+    \sum_{i} b_{i k}\left(\sum_{j=1}^{n}\left(\varphi \delta_{i j}-a_{i j}\right)\right)\left(x_{j}\right)=0 \implies \det{B}\cdot x_j = 0.
+    $$
+    
+   Therefore, $\operatorname{det} B$ as an element in $A^{\prime}[\varphi]$ is the 0 map. Now, we look at the expansion of determinant of $B$, where $B$ can be schematically represented as follows.
+    $$
+    \left[\begin{array}{cccc}
+    \varphi-a_{11} & -a_{12} & \ldots & -a_{1 n} \\
+    -a_{21} & \varphi-a_{22} & \ldots & -a_{2 n} \\
+    \vdots & \vdots & \ldots & \vdots \\
+    -a_{n 1} & -a_{n 2} & \ldots & \varphi-a_{n n}
+    \end{array}\right]
+    $$
+    We can now readily see that the determinant of $B$ is given by
+    $$
+    \operatorname{det} B=\varphi^{n}+a_{1} \varphi^{n-1}+\cdots+a_{n-1} \varphi+a_{n}=0,
+    $$
+    where $a_{i} \in I$. This completes the proof.
+\end{proof}
+In the statement of the proposition, we have mentioned that $a_{i} \in I$, but one can see that $a_{i} \in I^{i}$. Indeed, if we look at the coefficient of $\varphi^{i}$, then it will be $i$-many $\varphi$'s times $n-i$-many $a_{i j}$s.
+
+The above proposition has a very important corollary.
+\begin{corollary}\label{cor: for-nakayama}
+    Let $M$ be finitely generated $A$-module and I be an ideal in $A$ such that $M=I M$ then there exists an element $x \in A$ such that $x-1 \in I$ and $x M=0$.
+\end{corollary} 
+\begin{proof}
+    Take $\varphi=\mathrm{id}: M \longrightarrow M$, then there exist $a_{1}, \ldots, a_{n} \in I$ such that
+    $$
+    \left(1+a_{1}+\cdots+a_{n}\right) x=0 \forall x \in M .
+    $$
+    Now, this is an element in $A$ and $x-1 \in I$ and $x M=0$.
+\end{proof} 
+
+We can now use the results above to assert one of the most important elementary results in commutative algebra called Nakayama's lemma.
+\begin{theorem}[Nakayama's Lemma]\label{thm: nakayama-m=0}
+    Let $I$ be an ideal contained in the Jacobson radical of $A$, and let $M$ be a finitely generated $A$-module. If $IM =M$, then $M=0$.
+\end{theorem}
+
+To better understand the claim, we can think of a local, where every ideal is contained in the Jacobson radical. Then, \cref{thm: nakayama} implies that, for a non-zero module $M$ and an ideal in $A$, $I M$ can never be equal to $M$. Note that the hypothesis imposes some constraint as this is not true in general. For instance, if we take ${\Z}_{5}$ over ${\Z}$, then taking $I = 3{\Z}$ yields $I{\Z}_{5} = {\Z}_{5}$. This is because the Jacobson radical of ${\Z}$ is $(0)$.
+
+\begin{proof}[Proof of \cref{thm: nakayama-m=0}]
+    Due to \cref{cor: for-nakayama}, we obtain an element $x \in A$ such that $x-1 \in I$ and $x M=0$. Now, recall from \cref{prop: char-jacobson} that $x \in J(A)$ if and only if $1-x y$ is a unit for all $y \in A$. Here, since $1-x\in I\ss J(A)$, taking $y=1$ implies that $1-(1-x)$ is a unit in $A$. Therefore, $x$ is a unit in $A$, and since $x M=0$, we have $M=0$.
+\end{proof} 
+
+
+
+We now obtain corollaries that are equivalent forms of Nakayama's Lemma.
+\begin{corollary}\label{cor: nakayama-n=m}
+    Let $A$ be a local ring with unique maximal ideal $\mathfrak{m}$, and $M$ be a finitely generated $A$-module. If $N$ is a submodule of $M$ such that $M=N+\mathfrak{m} M$, then $N=M$.
+\end{corollary} 
+The statement looks a bit unnatural, however, this turns out to be useful when trying to prove certain equalities of ideals: For an ideal $I$ and an ideal $J \subseteq I$, we can prove $I=J+\mathfrak{m} I$ in order to prove that $I=J$. The proof here directly follows from the statement.
+\begin{proof}[Proof of \cref{cor: nakayama-n=m}]
+    Consider the module $M / N$, and take the module $\mathfrak{m} \cdot(M / N)$. By \cref{ex: ch3-5}, we have
+    \[
+    \mathfrak{m} \cdot(M / N)=(\mathfrak{m} M+N) / N,
+    \]
+    and since $M=N+\mathfrak{m}M$, we have
+    \[
+    (\mathfrak{m} M+N) / N=M / N .
+    \]
+    Thus, by \cref{thm: nakayama-m=0}, we get
+    \[M / N=0,\] 
+    whence it follows that $M=N$.
+\end{proof}
+
+Another corollary of Nakayama's Lemma relates to an analogue for basis in some special cases for modules. Recall, in the general case, that there can be two different minimal generating sets of different cardinalities. We will start with the following proposition.
+\begin{proposition}
+    Let $M$ be a finitely generated $A$-module, and $I \subseteq A$ be an ideal. Then. we know that $M / I M$ is a finitely generated $A$-module.
+\end{proposition}
+\begin{proof}
+    Since $M$ is a finitely generated $A$-module, there exists $\left\{m_{1}, \ldots, m_{n}\right\} \subseteq M$ such that
+    \[
+    M=\left\{\sum_{i=1}^{n} a_{i} m_{i} \mid a_{i} \in A\right\}.
+    \] 
+    Here, $M/IM$ will then have a generating set $\ol{m}_{1}, \ol{m}_{2}, \ldots, \ol{m}_{n}$ as an $A$-module, where the natural map $\phi : M \to M/IM$ takes $m_i \mapsto \ol{m}_i$\AT{Verify}. Further, since $I \ss \operatorname{Ann}(M/IM)$, we know that $M/IM$ is an $A/I$-module by \REF.
+
+    We now show that $M / I M$ is a finitely generated $A / I$-module. 
+    Note that the multiplication as an $A$-modile in $M/IM$ takes linear combinations with elements in $A$. However, since $I$ is contained in the annihilator, $I \subseteq \operatorname{Ann}(M / I M)$, the linear combinations with elements from $I$ will vanish. In fact, for any two elements $a,b \in A$ such that $a+I = b+I$, we have 
+    $(a+b)(x) = ax + bx$
+    \AT{Complete}
+    . Therefore, the same set $\ol{m}_{1}, \ol{m}_{2}, \ldots, \ol{m}_{n}$ will generate $M / I M$ over $A / I$. 
+\end{proof}
+
+Now, take $(A, \mathfrak{m})$ to be a local ring with $\mathfrak{m}$ being the unique maximal ideal. Let $M$ be a finitely generated $A$-module. Then, for the module $M / \mathfrak{m} M$, the maximal ideal $\mathfrak{m}$ is precisely the annihilator of this module, and therefore, $M / \mathfrak{m} M$ is a module over $A / \mathfrak{m}$ In fact, since $A / \mathfrak{m}$ is a field (cf. \cref{prop: char-prime-maximal}), $M / \mathfrak{m} M$ is a finite-dimensional vector space with a basis. So, let us take $\left\{\ol{m}_{1}, \ldots, \ol{m}_{n}\right\}$ be an $A / \mathfrak{m}$-basis for $M / \mathfrak{m} M$.
+
+\begin{proof}
+Now, let $m_{i}$ be a pre-image of $\ol{m}_{i}$, and $N$ be the submodule generated by $\left\{m_{1}, \ldots, m_{n}\right\}$. 
+Here, the image of elements of $N$ in $M / \mathfrak{m} M$ must be equal to $M / \mathfrak{m} M$, because $N$ is generated by $m_{1}, \ldots, m_{n}$. Thus, for $\varphi: M \longrightarrow M / \mathfrak{m} M$, by \cref{ex: ch3-6}, $\varphi(N)=(N+\mathfrak{m} M) / \mathfrak{m} M$. This implies that 
+\[
+M / \mathfrak{m} M=(N+\mathfrak{m} M) / \mathfrak{m} M,
+\]
+which further implies that 
+\[
+(M / \mathfrak{m} M) /((N+\mathfrak{m} M) / \mathfrak{m} M)=0.
+\]
+Therefore, we must have $M=N+\mathfrak{m} M$, and hence by \cref{cor: nakayama-n=m}, we can conclude that $M=N$. Overall, we have shown that the inverse images of a $A / \mathfrak{m}$ generating set of $M / \mathfrak{m} M$ will also generate $M$. 
+
+Finally, we show that such a generating set is a minimal generating set. Assume that $\left\{\ol{m}_{1}, \ldots, \ol{m}_{n}\right\}$ is not a minimal generating set, then there exists a $m_{i}$ which can be written as linear combination of $m_{1}, \ldots, m_{i-1}, m_{i+1}, \ldots, m_n$. Now, the image into $M / \mathfrak{m} M$ will have at least one coefficient of $m_{n}$ that remains non-zero. Since a linear combination of generating sets leads to 0, this is a contradiction.
+\end{proof}
+
+ Here, let $\mu(M)$ denote the cardinality of a minimal generating set of $M$ over a local ring $A$. Note that this is a well defined due to \REF. Thus, we have an appropriate notion of dimension of a module in a slightly more general case thatn vector spaces.
+\newpage
+\section{Exercises}
+\begin{exercise}\label{ex: ch3-1}
+If $M$ is an $A$-module, then prove that ${\Hom}_A(A, M ) \cong M$.
+\end{exercise}
+\begin{proof}
+We define an $A$-module homomorphism from $\Hom_A(A,M)$ to $M$ as follows:
+\[
+\begin{aligned}
+    \phi: \Hom_A(A,M) &\to M\\
+f &\mapsto f(1)
+\end{aligned}
+\]
+To see that this is a homomorphism, take any $f,g \in \Hom_A(A,M), a \in A$, then we have
+\[
+\begin{aligned}
+\phi(f+g) = (f+g)(1) = f(1) + g(1) \\
+a\phi(f) = a\cdot f(1) = \phi(a\cdot f).
+\end{aligned}
+\]
+Now, it is easy to see that $\phi$ is surjective. Indeed, take any $m \in M$, then the multiplication homomorphism $x \mapsto m\cdot x$ is mapped by $\phi$ to $m$. Finally, the kernel of $\phi$ consists of functions that take $1_A$ to $0_M$. However, we claim that the kernel is trivial: $\Ker\phi = \{0: A \to M\}$ since a nonzero map $f$ that takes $1_A$ to $0_M$ but some nonzero element $a \neq 1$ to a nonzero element $m \neq 0_M$ in $M$ cannot satisfy the following axiom for homomorphisms:
+\[
+f(a\cdot 1_A) = af(1_A) = 0_M \neq f(1_A \cdot a) = 1_Af(a) = m.
+\] Overall, we have shown that $\phi$ is an isomorphism.
+\end{proof}
+
+\begin{exercise}\label{ex: ch3-2}
+ Is $\oplus_{i=1}^{\infty} {\Z}_{n_i}$, where $n_i \in {\N}$ a free ${\Z}$ module ?
+\end{exercise}
+\begin{proof}
+Assuming that $\oplus_{i=1}^{\infty} {\Z}_{n_i}$ is free yields an isomorphism from $\phi: \oplus_{i=1}^{\infty} {\Z}_{n_i} \to \oplus_{\lambda \in \Lambda} {\Z}$. We know that the order of $e_1$ is $n_1$, and hence, the order of $\phi(e_1)$ must divide $n_1$. Therefore, $\phi(e_1) = 0$, which contradicts the fact that $\phi$ is injective.
+\end{proof}
+
+
+\begin{exercise}
+Let $M$ be a finitely generated $A$ module and $\phi: M \rightarrow A^n$ be a surjective homomorphism.
+\begin{enumerate}
+    \item If $\phi\left(m_i\right)=e_i$ for $i=1, \ldots, n$, then prove that $M=\left\langle m_1, \ldots, m_n\right\rangle \oplus {\Ker} \phi$.
+    \item Deduce that ${\Ker} \phi$ is a finitely $A$-submodule of $M$.
+\end{enumerate}
+\end{exercise}
+\begin{proof}
+For (1), since $\left\langle m_1, \ldots, m_n\right\rangle$ and $\operatorname{ker} \phi$ are submodule of $M,\left\langle m_1, \ldots, m_n\right\rangle \oplus$ ker $\phi$ is submodule of $M$. Let $m \in M$. Therefore $\phi(m) \in A^n$. We have
+$$
+\begin{aligned}
+\phi(m) & =\lambda_1 e_1+\cdots+\lambda_n e_n, \text { where } \lambda_i \in A \\
+& =\lambda_1 \phi\left(m_1\right)+\cdots+\lambda_n \phi\left(m_n\right) \\
+& =\phi\left(\lambda_1 m_1+\cdots+\lambda_n m_n\right) .
+\end{aligned}
+$$
+and $\phi\left(m-\lambda_1 m_1+\cdots+\lambda_n m_n\right)=0$. Therefore $m \in\left\langle m_1, \ldots, m_n\right\rangle+\operatorname{ker} \phi$. We can observe that $\left\langle m_1, \ldots, m_n\right\rangle \cap \operatorname{ker} \phi=0$. Hence $M$ is a submodule of $\left\langle m_1, \ldots, m_n\right\rangle \oplus \operatorname{ker} \phi$.
+
+For (2), from \cref{prop: div-sum-quotient}, we have an isomorphism
+$$
+\frac{\operatorname{ker} \phi+\left\langle m_1, \ldots, m_n\right\rangle}{\left\langle m_1, \ldots, m_n\right\rangle} \cong \frac{\operatorname{ker} \phi}{\left\langle m_1, \ldots, m_n\right\rangle \cap \operatorname{ker} \phi}
+$$
+Note that $\frac{\operatorname{ker} \phi+\left\langle m_1, \ldots, m_n\right\rangle}{\left\langle m_1, \ldots, m_n\right\rangle}$ is finitely generated and $\left\langle m_1, \ldots, m_n\right\rangle \cap \operatorname{ker} \phi=\{0\}$. Therefore $\operatorname{ker} \phi$ is finitely generated.
+\end{proof}
+
+\begin{exercise}
+Let $R=k\left[x^2, x y, x y^2, x y^3, \ldots\right]$ be polynomial ring over a field $k$. Prove that $\left\langle x^2, x y, x y^2, x y^3, \ldots\right\rangle$ is not finitely generated over $k$.
+\end{exercise}
+\begin{proof}
+
+\end{proof}
+
+\begin{exercise}\label{ex: ch3-5}
+    For any ideal $I$ and modules $M,N$, we have
+    \[I \cdot(M / N)=(I M+N) / N.\]
+\end{exercise}
+\begin{proof}
+Look at the definition of this, what is the definition of this? This is by definition
+
+$$
+I \cdot(M / N)=\left\{\sum_{\text {finite }} a_{i} \ol{m}_{i}: a_{i} \in I\right\}=\left\{\sum \ol{a_{i} m_{i}}: a_{i} \in I\right\}=\left\{\ol{\sum a_{i} m_{i}}: a_{i} \in I\right\} .
+$$
+
+But now what is meant by. So, this one will tend to express it as $I M / N$, but there is nothing like this. Let me explain this, because I feel that you are not very comfortable with that. So, it is better not to deal with only with elements.
+
+Look at this natural map $M \stackrel{\phi}{\longrightarrow} M / N$. So, I have this $I \cdot(M / N)$, this is a submodule of $M / N$. Now what would be the; so this is the natural map, what would be it's inverse; $\phi^{-1}(I \cdot(M / N))$ See this is a submodule, and certainly this contains 0 , so, inverse image will certainly have $N$ there, and this will certainly contain $I M$, because we are taking inverse images of all elements of this form. So, $N+I M \subseteq \phi^{-1}(I \cdot(M / N))$. So, if I take any element; for example, if I look at any element of the form $\ol{\sum a_{i} m_{i}}$; what is it's inverse? The inverse of this, $\phi^{-1}\left(\ol{\sum a_{i} m_{i}}\right)$ is precisely; it is not an element in here, because there could be several elements that will be mapped to this one. What are the elements? If I take any $a_{i} m_{i}+n$ where $n \in N$, this will be here. So,
+
+$$
+\phi^{-1}\left(\ol{\sum a_{i} m_{i}}\right)=\left\{\sum a_{i} m_{i}+n: n \in N\right\}=\sum a_{i} m_{i}+N \in I M+N .
+$$
+
+and that implies that $N+I M \supseteq \phi^{-1}(I \cdot(M / N))$. So, what we have shown is that $N+I M=\phi^{-1}(I \cdot(M / N))$. Is this clear? So, that is the solution for this exercise $I \cdot(M / N)=(I M+N) / N$.    
+\end{proof}
+
+\begin{exercise}\label{ex: ch3-6}
+    Let $K$ be a submodule of $M$, and $\varphi: M \longrightarrow M / K$ is the natural map. If $N$ is a submodule of $M$, then $\varphi(N)=(N+K) / K$. 
+\end{exercise}
+\newpage
+
+\chapter{Exact Sequences and Tensor Products}
+\section{Exact Sequences}
+We now study sequences of modules and homomorphisms between them. More specifically, we study sequences with the following property.
+\begin{definition}[Exact Sequences]\label{def: exact}
+Let $\{M_i\}_{i\in I}$ be a family of modules, and suppose
+\[
+\cdots \longrightarrow M_{i} \stackrel{f_{i}}{\longrightarrow} M_{i-1} \stackrel{f_{i-1}}{\longrightarrow} M_{i-2} \rightarrow \cdots
+\]
+is a sequence of $A$-module homomorphisms, then we call this sequence {\it exact} if, for all $i$, we have 
+\[
+\operatorname{Im}\left(f_{i}\right)= {\Ker}\left(f_{i-1}\right).
+\] 
+\end{definition}
+Additionally, an exact sequence of the form $0 \longrightarrow M^{\prime} \longrightarrow M \longrightarrow M^{\prime \prime} \longrightarrow 0$ is called a {\it short exact sequence}.
+
+We now go over some examples to get more familiar with exact sequences.
+\begin{example}
+First, we can characterize properties of homomorphism by their exactness as follows. 
+    \begin{enumerate}
+        \item The sequence $0 \longrightarrow N \stackrel{f}{\longrightarrow} M$ is exact if and only if $f$ is injective. This is because we have \(\ker{f_i} = \{0\}\) in both cases.
+        \item Similarly, the sequence $N \stackrel{f}{\longrightarrow} M \longrightarrow 0$ is exact if and only if $f$ is surjective. Again, this is because we must have $\image{f} = \Ker{0} = M$.
+        \item Finally, the sequence $0 \longrightarrow N \stackrel{f}{\longrightarrow} M \longrightarrow 0$ is exact if and only if $f$ is an isomorphism.
+    \end{enumerate}
+\end{example}
+
+\begin{example}
+    The following short exact sequence is one of the natural examples for any commutative ring $A$ :
+    $$
+    0 \longrightarrow A \stackrel{x \mapsto(x, 0)}{\longrightarrow} A \oplus A \stackrel{(a, b) \mapsto b}{\longrightarrow} A \longrightarrow 0 .
+    $$
+    To see that this is an exact sequence, first notice that the map $x \mapsto(x, 0)$ is injective and the map $(a, b) \mapsto b$ is surjective. Further, the kernel of the map $(a, b) \mapsto b$ is precisely $\{(a,0)\colon a \in A\} = \image\{x \mapsto(x, o)\}$
+\end{example}
+ \begin{example}
+     The next one is one of the most basic important examples in the area of commutative algebra. Take ring $A=k[x, y]$, and look at this exact sequence:
+        $$
+        0 \longrightarrow A \stackrel{\left[\begin{array}{c}
+        y \\
+        -x
+        \end{array}\right]}{\longrightarrow} A \oplus A \stackrel{\left[\begin{array}{ll}
+        x & y
+        \end{array}\right]}{\longrightarrow} A \longrightarrow 0 .
+        $$
+        
+        In other words, $A \ni a \mapsto(a y,-a x)$, and any $A \oplus A \ni (r, s) \mapsto r x+s y \in A$.
+        This is one of the most basic examples of a resolution of the ideal $(x, y)$ that one encounters in an advanced course in commutative algebra. We will simply show that the above sequence is exact. Again, note that the map $a \mapsto(a y,-a x)$ is injective and $(r, s) \mapsto r x+s y$ is surjective. Finally, $r x+s y = 0 \implies rx = -sy$ is satisfied by $r=ay, s = -ax$ for $a \in A$, which is precisely the image of the map $a \mapsto(a y,-a x)$.
+ \end{example}
+
+We now look at some of the properties of exact sequences.
+\begin{proposition}[Left-Exactness of $\Hom$]\label{prop: left-exact-hom}
+       Let $N$ be an A-module. Let $M^{\prime} \stackrel{f}{\longrightarrow} M \stackrel{g}{\longrightarrow} M^{\prime \prime} \longrightarrow 0$ be an exact sequence of $A$-modules. Then
+        $$
+        0 \longrightarrow \Hom\left(M^{\prime \prime}, N\right) \stackrel{\ol{g}}{\longrightarrow} \Hom(M, N) \stackrel{\ol{f}}{\longrightarrow} \Hom\left(M^{\prime}, N\right)
+        $$
+        is an exact sequence, where $\ol{f}(h):= h \circ f$ for $h \in \Hom\left(M^{\prime}, N\right)$ and $\ol{g}(k) = k \circ g$ for $k \in \Hom\left(M^{\prime \prime}, N\right)$.
+\end{proposition}
+
+Notice that for a short exact sequence $0 \longrightarrow M^{\prime} \longrightarrow M \longrightarrow M^{\prime \prime} \longrightarrow 0$, applying Hom need not necessarily lead to the short exact sequence like $0 \longrightarrow \Hom\left(M^{\prime \prime}, N\right) \longrightarrow$ $\Hom(M, N) \longrightarrow \Hom\left(M^{\prime}, N\right) \longrightarrow 0$. However, exactness on the left side is preserved by the Hom functor.
+\begin{proof}[Proof of \cref{prop: left-exact-hom}]
+    Here, it suffices to show that $\ol{g}$ is injective and ${\Ker}(\ol{f})=\operatorname{Im}(\ol{g})$. To this end, take $h \in \Hom_{A}\left(M^{\prime \prime}, N\right)$ such that $\ol{g}(h)=0$. Now, since $h \circ g=0$, this must imply that $h \circ g(M)=\{0\}$. Moreover, since $g$ is surjective, $g(M)=M^{\prime \prime}$. That is, $h\left(M^{\prime \prime}\right)=0$. Hence, $\Ker{\ol{g}}$ is trivial, and $\ol{g}$ must be injective.
+    
+    For the second part, since we have ${\Ker}(g)=\operatorname{Im}(f)$ and $g \circ f=0$, for any $h \in\Hom_{A}\left(M^{\prime \prime}, N\right)$, we get 
+    \[
+    \ol{f} \circ \ol{g}(h)=h \circ g \circ f=0,
+    \] which further implies that 
+    \(
+    \operatorname{Im}(\ol{g}) \subseteq {\Ker}(\ol{f}).\)
+    Next, let us start with an element $h \in {\Ker}(\ol{f})$ so that $h \circ f=0$. Here, it suffices to show that there exists some $h^{\prime} \in \Hom\left(M^{\prime \prime}, N\right)$ such that $\ol{g}\left(h^{\prime}\right)=h$. That is, we want to show that the following diagram commutes.
+    \[
+    \xymatrix{
+    M \ar[d]_{h} \ar[r]^{g} & M^{\prime \prime} \ar@{-->}[dl]^{h'} \ar[r] & 0\\
+    N & & &
+    }
+    \]
+    
+    We define $h'\colon M^{\prime \prime} \to N$ as follows.
+    For every $x^{\prime \prime} \in M^{\prime \prime}$, there exists $x \in M$ such that $g(x)=x^{\prime \prime}$ since $g$ is surjective. We then define 
+    \[
+    h^{\prime}\left(x^{\prime \prime}\right)=h(x).
+    \]
+    It is not immediately clear that this is well-defined. So, we choose $x_{1}, x_2 \in g^{-1}(x'')$ so that  $g\left(x_{1}\right)-g\left(x_{2}\right)=0$. Since $g\left(x_{1}-x_{2}\right)=0$, we have $x_{1}-x_{2} \in {\Ker}(g)=\operatorname{Im}(f)$. Hence, there exists some $x^{\prime} \in M^{\prime}$ such that $x_{1}-x_{2}=f\left(x^{\prime}\right)$. This implies that $x_{1}=x_{2}+f\left(x^{\prime}\right)$, and we have
+    \[
+    h\left(x_{1}\right)=h\left(x_{2}\right)+h\left(f\left(x^{\prime}\right)\right)= h\left(x_{2}\right)+(h \circ f)\left(x^{\prime}\right)=h\left(x_{2}\right)
+    \] as $h \circ f=0$, and thus, $h^{\prime}$ is well-defined. 
+    
+    Further, by construction, $h^{\prime} \circ g=h$ i.e., $\ol{g}\left(h^{\prime}\right)=h$. So, it is easy to see that $h^{\prime}$ is an $A$-module homomorphism.
+    Overall, $h^{\prime} \in \Hom_{A}\left(M^{\prime \prime}, N\right)$, which implies that $\operatorname{Im}(\ol{g}) \supseteq {\Ker}(\ol{f})$. This completes the proof.
+\end{proof}
+
+A similar claim holds for right exactness as well.
+\begin{proposition}[Right-Exactness of $\Hom$]\label{prop: right-exact-hom}
+    Let $0 \longrightarrow N^{\prime} \stackrel{f}{\longrightarrow} N \stackrel{g}{\longrightarrow} N^{\prime \prime}$ be an exact sequence of $A$-modules, then
+    $$
+    0 \longrightarrow \Hom_{A}\left(M, N^{\prime}\right) \stackrel{\ol{f}}{\longrightarrow} \Hom_{A}(M, N) \stackrel{\ol{g}}{\longrightarrow} \Hom_{A}\left(M, N^{\prime \prime}\right)
+    $$
+    
+    is exact, where $\ol{f}(h)=f \circ h$ and $\ol{g}\left(h^{\prime}\right)=g \circ h^{\prime}$ for $h \in \Hom_{A}\left(M, N^{\prime}\right)$ and $h^{\prime} \in$ $\Hom_{A}(M, N)$. 
+\end{proposition}
+\begin{proof}
+    Exercise.
+\end{proof}
+We will assert another important property of exact sequences.
+\begin{proposition}
+    Let
+    \[
+    \xymatrix{
+    0 \ar[r] & M' \ar[d]_{f'} \ar[r]_{u_1}& M\ar[d]_{f}  \ar[r]_{v_1}& M'' \ar[d]_{f''} \ar[r]& 0 \\
+    0 \ar[r] & N' \ar[r]_{u_2}& N \ar[r]_{v_2}& N'' \ar[r]& 0
+    }
+    \]
+    be a commutative diagram of $A$-modules and homomorphisms, i.e., $f \circ u_{1}=u_{2} \circ f^{\prime}$, $f^{\prime \prime} \circ v_{1}=v_{2} \circ f$ with rows being exact. Then, the sequence
+    $$
+    \xymatrix{
+    0 \ar[r] & {\Ker} \left(f^{\prime}\right) \ar[r]^{\ol{u}_{1}}&{\Ker}(f) \ar[r]^{\ol{v}_{1}}& {\Ker}\left(f^{\prime \prime}\right) \ar[r]^{d}& {\Coker}\left(f^{\prime}\right) \ar[r]^{\ol{u}_{2}}& {\Coker}(f) \ar[r]^{\ol{v}_{2}}& {\Coker}\left(f^{\prime \prime}\right) \ar[r] & 0
+    }
+    $$
+    is exact for some map $d: {\Ker}\left(f^{\prime \prime}\right) \stackrel{d}{\rightarrow} {\Coker}\left(f^{\prime}\right)$.
+\end{proposition}
+\begin{proof}
+    We first define $d: {\Ker}\left(f^{\prime \prime}\right) \longrightarrow {\Coker}\left(f^{\prime}\right)$. Here, since we want to define a map from a submodule of $M^{\prime \prime}$ to a quotient module of $N^{\prime}$, we need to start ``chasing'' the diagram. Take $x^{\prime \prime} \in {\Ker}\left(f^{\prime \prime}\right) \ss M''$, then since ${\Ker}\left(f^{\prime \prime}\right)$ is a submodule of $M^{\prime \prime}$ and $v_{1}$ is surjective, there exists $x \in M$ such that $v_{1}(x)=x^{\prime \prime}$. Thus, we must have 
+    \[f^{\prime \prime}\left(v_{1}(x)\right)=0 \Longrightarrow v_{2}(f(x))=0\]
+    as the diagram is commutative. Further, since $f(x) \in {\Ker}\left(v_{2}\right)=\operatorname{Im}\left(u_{2}\right)$, there exists some $z^{\prime} \in N^{\prime}$ such that $u_{2}\left(z^{\prime}\right)=f(x)$. Now, we define $d: {\Ker}\left(f^{\prime \prime}\right) \longrightarrow {\Coker}\left(f^{\prime}\right)$ as
+    \[d\left(x^{\prime \prime}\right):=\ol{z}^{\prime}.\]
+    Again, we need to check that the $\operatorname{map} d$ is well-defined. Let $x_{1}, x_{2} \in v_1^{-1}(x'')$ so that $v_{1}\left(x_{1}-x_{2}\right)=0$, which further implies that $x_{1}-x_{2} \in {\Ker}\left(v_{1}\right)=\operatorname{Im}\left(u_{1}\right)$. Thus, there exists $y^{\prime} \in M^{\prime}$ such that $x_{1}-x_{2}=u_{1}\left(y^{\prime}\right)$. That is, we have $x_{1}=x_{2}+u_{1}\left(y^{\prime}\right)$.
+    
+    Moreover, we need to prove that $f\left(x_{1}-x_{2}\right) \in \Coker{N^{\prime}}$. Accordingly, we have 
+    \[
+f\left(x_{1}\right)=f\left(x_{2}\right)+f\left(u_{1}\left(y^{\prime}\right)\right) \Longrightarrow f\left(x_{1}-x_{2}\right)=f\left(u_{1}\left(y^{\prime}\right)\right)=u_{2}\left(f^{\prime}\left(y^{\prime}\right)\right).
+    \]
+    Now, for $x_{1}, x_2$, there exists $z_{1}, z_{2} \in N^{\prime}$ such that $u_{2}\left(z_{1}\right)=f\left(x_{1}\right)$ and $u_{2}\left(z_{2}\right)=f\left(x_{2}\right)$.
+    This then implies that 
+    \[u_{2}\left(z_{1}-z_{2}\right)=f\left(x_{1}-x_{2}\right)=u_{2}\left(f^{\prime}\left(y^{\prime}\right)\right).\]
+    Finally, since $u_{2}$ is injective, we have 
+    \[z_{1}-z_{2}=f^{\prime}\left(y^{\prime}\right) \Longrightarrow z_{1}=z_{2}+f^{\prime}\left(y^{\prime}\right).\]
+    Since $\Coker\left(f^{\prime}\right) = N^{\prime} / \operatorname{Im}\left(f^{\prime}\right)$, we have
+    \[
+    \ol{z_{1}}=\ol{z_{2}} \in N^{\prime} / \operatorname{Im}\left(f^{\prime}\right)={\Coker}\left(f^{\prime}\right).\]
+    Hence, the map $d$ is well-defined.\AT{Need to check the details above.}
+\end{proof}
+
+
+\newpage
+\section{Exercises}
+\begin{exercise}\label{ex: c43-}
+    
+\end{exercise}
+\begin{proof}
+    
+\end{proof}
+
+\newpage

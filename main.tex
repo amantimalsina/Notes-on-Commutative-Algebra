@@ -1,0 +1,35 @@
+\documentclass[a4paper]{report}
+\usepackage[toc,page]{appendix}
+\usepackage{timalsina}
+
+\begin{document}
+\begin{titlepage}
+    \begin{center}
+        \vspace*{1cm}
+            
+        \Huge
+        \textbf{Notes on Commutative Algebra}\footnote{The following notes are based on my study of commutative rings using Atiyah and MacDonald's {\it Introduction to Commutative Rings}~\citep{atiyah2018introduction} and lectures from~\citep{commalgebra2021}. I have also included the solutions to the assigned problems from \citep{commalgebra2021} at the end of every chapter. All the errors in these notes, including almost all opinions, are definitively mine.}
+            
+        \vspace{0.5cm}
+        \Large
+        Aman Timalsina
+    \end{center}
+\end{titlepage}
+
+%\tableofcontents
+{\let\clearpage\relax \tableofcontents}
+%\listoffigures
+%\listofalgorithms
+
+\setlength\parindent{0pt}
+
+\import{src/}{nptel.tex}
+
+\newpage
+
+\bibliographystyle{IEEEtranN}
+\bibliography{timalsina}
+\newpage
+
+\import{src/}{appendix.tex}
+\end{document}

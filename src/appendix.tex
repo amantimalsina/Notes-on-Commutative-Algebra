@@ -1,0 +1,579 @@
+\appendix
+\chapter{Integral Domains: EDs, PIDs, and UFDs}
+As in the notes, we will be using $A$ to denote a commutative ring with identity. Further, we use $A^{*}:= A \setminus \{0\}$ to denote the set of all nonzero elements of $A$ and $U(A)$ to denote the set of all units of ring $A$.
+
+\section{Integral Domains: Some Properties}
+As the name suggests, integral domains have properties that are similar to the ring of integers. For instance, we expect the cancellation law to hold in integral domains. 
+
+ \begin{proposition}[Cancellation Law]
+     Let $A$ be an integral domain, and let $a, b, c \in A$ such that $a b=a c$. If $a \neq 0$, one has $b=c$.
+ \end{proposition}
+\begin{proof}
+    Since $A$ has no zero divisors, $a(b-c)$ necessarily implies that $b=c$ as $a\neq 0$.
+\end{proof}
+\AT{Need to fix the stuff below:}
+We know that every subring of a field is an integral domain. Actually, the converse is also true, i.e. for any integral domain $R$ we can find a field $Q$ such that $R$ is a subring of $Q$
+
+\begin{theorem}
+    [Field of fractions] Let $R$ be an integral domain, then there is a field $Q$ satisfying the following properties: (1) $R \leq Q$ subring,
+
+    (2) Every $q \in Q$ can be written as $q=a b^{-1}$ for some $a, b \in R, b \neq 0$.
+    
+    The field $Q$ is unique (up to isomorphism) and receives the name of field of fractions (or field of quotients) of $R$.
+\end{theorem} 
+\begin{proof}
+    The proof is constructive, giving an explicit description of the field $Q$. Actually, the construction mimics the procedure of constructing the rational numbers from integers. More precisely, we define $Q$ as
+
+    $$
+    Q:=\left\{(a, b) \mid a \in R, b \in R^{*}\right\} / \sim,
+    $$
+    
+    where we define the equivalence relation
+    
+    $$
+    (a, b) \sim(c, d) \Longleftrightarrow a d=b c .
+    $$
+    
+    If the equivalence class of a pair $(a, b)$ under the above equivalence relation is denoted by $\overline{(a, b)}$, we define the operations in $Q$ as
+    
+    $$
+    \begin{array}{r}
+    \overline{(a, b)}+\overline{(c, d)}:=\overline{(a d+b c, b d)} \\
+    \overline{(a, b)(c, d)}:=\overline{(a c, b d)} .
+    \end{array}
+    $$
+    
+    With these operations, $Q$ is a field.
+\end{proof} 
+
+\section{Ideals and divisibility}
+\begin{definition}[Divisibility]
+     Let $R$ a ring, $a, b \in R$. We say that a divides $b$, or that $b$ is $\boldsymbol{a}$ multiple of $a$, or that $b$ is divisible by $a$, and write $a \mid b$ if there is some $r \in R$ such that $b=a r$.
+\end{definition}
+Divisibility can be nicely described in terms of ideals, since $a \mid b$ if and only if $b=a r$ for some $r \in R$, if and only if $b \in(a)$, if and only if $(b) \subseteq(a)$.
+
+\begin{definition}[Associates]
+    Let $a, b \in R$ for some ring $R$, we say that $b$ is associated to $a$, or that $a$ and $b$ are {\it associates} if there is some unit $u \in U(R)$ such that $b=u a$. If $a$ and $b$ are associates, we will write $a \sim b$.
+\end{definition} 
+
+\begin{theorem}
+     Let $R$ be an integral domain, $a, b \in R$. The following properties hold:
+
+    (1) $a \sim b$ if and only if $a \mid b$ and $b \mid a$, if and only if $(a)=(b)$.
+    
+    (2) $a \sim 1$ if and only if $a \in U(R)$, if and only if $(a)=(1)=R$.
+    
+    (3) $a \sim 0$ if and only if $a=0$, if and only if $(a)=(0)=0$.
+    
+    (4) "Being associates" is an equivalence relation on $R$.
+\end{theorem}
+\begin{proof}
+    (1). $\Rightarrow$ If $a \sim b$ then $b=a u$ for some $u \in U(R)$, so $a \mid b$, but also $a=b u^{-1}$, so $b \mid a$.
+
+    $\Leftarrow$ If $a|b, b| a$ there are some $c, d \in R$ such that $b=a c, a=b d$, and thus one gets $b=a c=b d c$. By the cancellative law it follows that $c d=1$, so both $c, d \in U(R)$ and we get $a \sim b$. Also, $a \mid b$ and $b \mid a$ if and only if $(a) \subseteq(b)$ and $(b) \subseteq(a)$, if and only if $(a)=(b)$. (2). If $a \sim 1$ then $a=u 1=u \in U(R)$. Conversely, if $a \in U(r)$, as $a=a 1$ we get $a \sim 1$. (3). $a \sim 0$ if and only if $(a)=(0)$, if and only if $a=0$.
+    
+    (4). By (1), $a \sim b$ if and only if $(a)=(b)$, so being associates is an equivalence relation.
+\end{proof}
+
+\begin{example}
+    (1) $U(\mathbb{Q})=Q^{*}$, or more generally for any field $\mathbb{F}$ one has $U(\mathbb{F})=\mathbb{F}^{*}$, and the only classes of associates are $\{0\}$ and $\mathbb{F}^{*}$.
+
+    (2) Let $R$ be an ID, then $U(R[x])=U(R)$. So for instance $(x+1) \sim 2(x+1)$ in $\mathbb{Q}[x]$, but not in $\mathbb{Z}[x]$, as $U(\mathbb{Z}[x])=U(\mathbb{Z})=\{-1,1\}$.
+    
+    (3) $U\left(\mathbb{Z}_{n}\right)=\{a \in\{1, \ldots, n-1\} \mid \operatorname{gcd}(a, n)=1\}$.
+\end{example}
+
+
+\section{Primes and Irreducibles}
+\begin{definition}[Prime]
+    For a (commutative) integral domain with identity $A$. An element $a \in A$ is said to be a {\it prime}, or a prime element of $R$ if:
+
+    (1) $a \neq 0, a \notin U(R)$, i.e. $a$ is neither 0 nor a unit of $R$.
+    
+    (2) Whenever $b, c \in R$ are such that $a \mid b c$, then either $a \mid b$ or $a \mid c$.
+    
+    The above conditions can be rewritten in terms of the principal ideal generated by $a$ as follows:
+    
+    (1') $(0) \subsetneq(a) \subsetneq R$
+    
+    (2') If $b c \in(a)$, then either $b \in(a)$ or $c \in(a)$.
+\end{definition}
+
+In other words, for $a \in R^{*}$, we have that $a$ is prime if and only if the principal ideal $(a)$ is a prime ideal.
+
+\begin{definition}
+     Let $R$ be an ID, $a \in R$. We say that $b \in R$ is a {\it proper divisor} of $a$ if $b \mid a$ and $b$ is neither a unit or an associate of $a$, i.e. if $(a) \subsetneq(b) \subsetneq R$.
+\end{definition} 
+
+\begin{definition}
+    Let $R$ be an ID. We say that an element $a \in R$ is an irreducible element (also called an atom) if
+
+    (1) $a \neq 0, a \notin U(R)$,
+    
+    (2) $a$ has no proper divisors, i.e. if $b \mid a$ then either $b \in U(R)$ or $b \sim a$.
+\end{definition}
+In terms of ideals, $a$ is irreducible if whenever $(a) \subseteq(b)$ then either $(a)=(b)$ or $(b)=R$. In other words, $a$ is irreducible if the principal ideal $(a)$ is maximal among proper principal ideals.
+
+\begin{example}
+    (1) 2 and 3 are irreducible in $\mathbb{Z}$ (actually, in $\mathbb{Z}$ irreducible elements an primes are the same thing).
+
+    (2) $x^{2}+1$ is irreducible in $\mathbb{R}[x]$, but not in $\mathbb{C}[x]$, as one has $\left(x^{2}+1\right)=(x-i)(x+i)$.
+    
+    (3) 6 is not irreducible in $\mathbb{Z}$, as $6=2 \cdot 3$.
+\end{example}
+
+The notion of irreducibility admits several equivalent descriptions:
+
+\begin{proposition}
+    Let $a \in R$ a nonzero, nonunit element of an ID $R$. The following are equivalent:
+
+    (1) a is irreducible.
+    
+    (2) If $a=b c$ for some $b, c \in R$, then either $b \in U(R)$ or $c \in U(R)$.
+    
+    (3) If $a=b c$ for some $b, c \in R$, then either $b \sim a$ or $c \sim a$.
+\end{proposition} 
+
+The proof is completely straightforward.
+
+\begin{proposition}
+    Let $R$ be an integral domain. Then every prime element $a \in R$ is also irreducible.
+\end{proposition} 
+
+\begin{proof}
+    Let $\in R$ be a prime, and suppose $a=b c$, then one has $b|a, c| a$. As $a \mid b c$ and $a$ is prime, then either $a \mid b$ or $a \mid c$, yielding either $a \sim b$ or $a \sim c$.
+\end{proof} 
+
+\section{Principal ideal domains}
+
+\begin{definition}
+    Let $R$ be an ID. One says that $R$ is a {\it principal ideal domain} (PID for short) if every ideal is a principal ideal, i.e. for any $I \unlhd R$ there is some $a \in R$ such that $I=(a)$.
+\end{definition} 
+
+\begin{remark}
+    If $R$ is a PID and $I=(a)$, then the element $a$ is unique up to associates, as for any integral domain one has $(a)=(b)$ if and only if $a \sim b$.
+\end{remark} 
+
+\begin{example}
+    (1) Let $\mathbb{F}$ be a field. If $I \unlhd R$ ideal, then either $I=0=(0)$ or $I=R=(1)$, so $\mathbb{F}$ is a principal ideal domain.
+
+    (2) Let $I \unlhd \mathbb{Z}$, as $\mathbb{Z}$ is a cyclic group, every additive subgroup is also cyclic, and thus $I=(n)$ for some $n$; hence, $\mathbb{Z}$ is a PID.
+\end{example}
+
+
+\begin{proposition}
+    Let $R$ be a PID, then every irreducible $a \in R$ is also prime.
+\end{proposition} 
+
+\begin{proof}
+    Let $a \in R$ be irreducible, we will show that $a$ is prime by showing the ideal (a) is a maximal ideal, and thus a prime ideal. Let $I$ be an ideal such that $(a) \subseteq I$. As $R$ is a PID, it must be $I=(b)$ for some $b \in R$, thus we have $a \in(b)$ and hence $a=b c$ for some $c \in R$. As $a$ is irreducible, either $b \in U(R)$, and hence $(b)=R$, or $c \in U(R)$, in which case $a \sim b$ and thus $(a)=(b)=I$. So, $(a)$ is a maximal ideal and by Corollary 2.1.16 it follows that $(a)$ is a prime ideal, and hence $a$ is prime.
+\end{proof} 
+
+ \begin{corollary}
+     In a PID the notions of prime and irreducible are equivalent.
+ \end{corollary}
+ 
+ Note that from the proof of Proposition 2.4.3 it follows that if $R$is a PID and $a \in R$ is irreducible, then $(a)$ is a maximal ideal and thus $R /(a)$ is a field.
+
+We know already that $\mathbb{Z}$ is a $P I D$, and we will show later in this chapter that for any field $\mathbb{F}$ the polynomial ring $\mathbb{F}[x]$ is also a PID. As we will see, the technique that proves $\mathbb{F}[x]$ is PID is very similar to the one that allow us to prove that $\mathbb{Z}$ is a PID:
+
+- There is some kind of norm or measure of "how big" nonzero elements are.
+
+- There is a "division with remainder" with the remainder being strictly smaller than the divisor.
+
+These properties can be axiomatized, leading to a family of particularly nice rings.
+
+\begin{definition}
+    An Euclidean domain (ED for short) is an ID $R$ endowed with a $\operatorname{map} N: R^{*} \rightarrow \mathbb{N}$ such that
+    
+    ED1 For $a, b \in R^{*}$, if $a \mid b$ then $N(a) \leq N(b)$.
+
+    ED2 For any $a, b \in R$, with $b \neq 0$, there exist $q, r \in R$ such that $a=b q+r$ and either $r=0$ or $N(r)<N(a)$
+\end{definition} 
+
+\begin{example}
+    If $(R, N)$ is a $\mathrm{ED}$, since for all $a \in R$ one has $1 \mid a$, one must have $N(1) \leq N(a)$. In other words, the norm of the unit element is the smallest amont the norms of all the elements in the ring.
+\end{example} 
+
+\begin{example}
+    (1) $\mathbb{Z}$, with the map $N$ defined as $N(a):=|a|$ for all $a \neq 0$. The division is the usual one.
+
+    (2) For any field $\mathbb{F}$, the polynomial ring $\mathbb{F}[x]$ is and $\mathrm{ED}$, with norm map $N(f):=$ $\operatorname{deg}(f)$. Here we use the usual division of polynomials.
+    
+    (3) The ring of Gaussian integers $\mathbb{Z}[i]=\{a+b i \mid a, b \in \mathbb{Z}\}$, with norm $N(z)=$ $z \bar{z}=a^{2}+b^{2}$ for any $z=a+b i \in \mathbb{Z}[i]$, is an ED.
+\end{example}
+\begin{proof}
+    The ring $\mathbb{Z}[i]$ is an integral domain because we have $\mathbb{Z}[i] \subseteq \mathbb{C}$, and $\mathbb{C}$ is a field.
+
+ED1. If $z \mid w$, then $w=z t$, and then
+
+$$
+N(w)=N(z t)=z t \overline{z t}=z \bar{z} t \bar{t}=N(z) N(t),
+$$
+
+thus $N(z) \leq N(w)$
+
+ED2. Let $z, w \in \mathbb{Z}[i]$, with $w \neq 0$. As $\mathbb{Z}[i] \subseteq \mathbb{Q}(i)$ and $\mathbb{Q}(i)$ is a field we can take $z w^{-1}=a+b i$ in $Q(i)$. Pick now integers $u, v \in \mathbb{Z}$ such that $|a-u| \leq 1 / 2$, $|b-v| \leq 1 / 2$ ( $u$ and $v$ are the "rounding" of $a$ and $b$, respectively); the element $q=u+v i$ belongs to $\mathbb{Z}[i]$. Now let $s=(a-u)+(b-v) i \in \mathbb{Q}(i)$, and define $r:=s w$. Note that
+
+$q w+r=q w+s w=(q+s) w=(a+b i) w=z w^{-1} w=z \in \mathbb{Z}[i]$,
+
+and thus $r=z-q w \in \mathbb{Z}[i]$. Finally observe that
+
+$$
+\begin{aligned}
+N(r) & =N(s) N(w)=s \bar{s} N(w)=\left((a-u)^{2}+(b-v)^{2}\right) N(w) \\
+& \leq\left(\frac{1}{4}+\frac{1}{4}\right) N(w)<N(w),
+\end{aligned}
+$$
+
+so $q$ and $r$ satisfy the required properties.
+\end{proof}
+
+\begin{proposition}
+    If $R$ is an ID with a map $N: R^{*} \rightarrow \mathbb{N}$ satisfying ED2, then $R$ is a PID. In particular, every Euclidean Domain is a PID.
+\end{proposition} 
+
+\begin{proof}
+    Let $I \unlhd R$ be a (nonzero) ideal. Then there is some $a \in I, a \neq 0$, such that $N(a)$ is minimal. Let $b \in I$; by ED2, there are some $q, r \in R$ such that $b=a q+r$ and wither $r=0$ or $N(r)<N(a)$, but $r=b-q a \in I$ (as both $a, b \in I$ ) and since $N(a)$ is minimal, we must have $r=0$, and hence $b=q a$ is a multiple of $a$, henceforth $I=(a)$ COROLLARY 2.4.9. The rings $\mathbb{Z}, \mathbb{F}[x], \mathbb{Z}[i]$ are all PDIs.
+\end{proof} 
+
+\begin{proposition}
+    Let $R$ be an $E D, a \in R^{*}$, then $a \in U(R)$ if and only if $N(a)=$ $N(1)$.
+\end{proposition} 
+
+\begin{proof}
+    $\Rightarrow$ Let $a \in U(R)$, then there is some $b \in R$ such that $a b=1$, thus $a \mid 1$ and by ED1, $N(a) \leq N(1)$. But one always has $1 \mid a$ and thus $N(1) \leq N(a)$. Henceforth $N(a)=N(1)$. $\Leftarrow$ Using the division algorithm, write $1=a q+r$. If it were $r \neq 0$ one would have $N(r)<N(a)=N(1)$ but that is not possible, since $1 \mid r$ and thus $N(1) \leq N(r)$; thus, it must be $r=0$, and hence $1=a q$, implying $a \in U(R)$.
+\end{proof}
+
+\begin{example}
+    (1) $U(\mathbb{Z})=\{u \in \mathbb{Z}|| u \mid=1\}=\{1,-1\}$
+
+    (2) $U(\mathbb{F}[x])=\{f \in \mathbb{F}[x] \mid \operatorname{deg} f=\operatorname{deg} 1=0\}=\mathbb{F}^{*}$,
+    
+    (3) $U(\mathbb{Z}[i])=\left\{a+b i \in \mathbb{Z}[i] \mid a^{2}+b^{2}=1\right\}=\{1,-1, i,-i\}$.
+\end{example}
+
+\section{Unique Factorization Domains}
+
+\begin{definition}
+    An ID $R$ is said to be a unique factorization domain (UFD for short) if every nonzero, nonunit element $a \in R^{*} \backslash U(R)$ can be written as a product of irreducible elements $a=p_{1} \cdots p_{s}$, and such a expression is unique up to reordering of the factors and associates.
+\end{definition} 
+
+\begin{proposition}
+    Let $R$ be an ID. The following are equivalent:
+
+    (1) $R$ is a UFD.
+    
+    (2) Every $a \in R^{*} \backslash U(R)$ can be written as a product of primes.
+    
+    (3) Every irreducible in $R$ is prime, and every $a \in R^{*} \backslash U(R)$ can be written as a product of irreducibles.
+\end{proposition} 
+\begin{proof}
+$1 \Rightarrow 3$ By definition of UFD, every $a \in R^{*} \backslash U(R)$ can be written as a product of irreducibles. Let $a \in R$ be an irreducible element, and suppose that $a \mid b c$, then there is some $d \in R$ such that $a d=b c$. If $b c=0$ then either $b=0$ or $c=0$, and trivially $a \mid 0$, so either $a \mid b$ or $a \mid c$. So let us assume $b c \neq 0$. If either $b$ or $c$ are units, we immediately get that $a$ divides the other one, so we can also assume $b, c$ nonunits. Write $b=\prod b_{i}, c=\prod c_{j}$, $d=\prod d_{k}$ where $b_{i}, c_{j}, d_{k}$ irreducibles. Then we get
+
+$$
+a d_{1} \cdots d_{r}=b_{1} \cdots b_{s} c_{1} \cdots c_{t} .
+$$
+
+Since $R$ is a UFD, it must be $a \sim b_{i}$ or $a \sim c_{j}$ for some $i$ or $j$; in the first case, $a$ divides $b$, in the second $a$ divides $c$, thus $a$ is prime.
+
+$3 \Rightarrow 2$ Obvious.
+
+$2 \Rightarrow 1$ Let $a \in R^{*} \backslash U(R)$. By (2), $a=p_{1} \cdots p_{r}$ for $p_{i}$ primes. Every prime is also irreducible, so $a$ is a product of irreducibles. Suppose $p_{1} \cdots p_{r}=q_{i} \cdots q_{s}$ for some irreducibles $q_{1}, \ldots, q_{s}$. We will show by induction that $r=s$, and after some relabelling we get $p_{i} \sim q_{i}$.
+
+- For $r=1$, one has $a=p_{1}$ irreducible; if $p_{1}=q_{1} \cdots q_{s}$, as $p_{1}$ is irreducible we must have $s=1$ and $q_{1}=p_{1}$.
+
+- Assume now (inductive hypothesis) the property holds for $r-1$, with $r>1$, and any $s$, and let $a=p_{1} \cdots p_{r}=q_{1} \cdots q_{s}$.
+
+One has $p_{r} \mid q_{1} \cdots q_{s}$, and as $p_{r}$ is prime then $p_{r}$ divides some $q_{j}$. After relabelling we can assume $p_{r} \mid q_{s}$; then, as $q_{s}$ is irreducible, it must be $q_{s}=u p_{r}$ for some $u \in U(R)$, i.e. $p_{r} \sim q_{s}$, and hence
+
+$$
+p_{1} \cdots p_{r}=q_{1} \cdots q_{s}=q_{1} \cdots q_{s-1} p_{r} u \text {. }
+$$
+
+Applying the cancellation law, one gets $p_{1} \cdots p_{r-1}=q_{1} \cdots q_{s-1} u$, and the result follows by the inductive hypothesis.    
+\end{proof}
+
+\section{Chain conditions}
+
+Our goal now is to show that every PID is also a UFD. We have already shown that in a PID every ireducible is prime, so we only have to check that every element $a \in R^{*} \backslash U(R)$ in a PID can be written as a product of irreducibles.
+
+\begin{definition}
+    A ring $R$ is said to satisfy the {\it ascending chain condition} on principal ideals (ACC on principal ideals) if whenever we have an ascending chain of principal ideals
+    $$
+    I_{1} \subseteq I_{2} \subseteq \cdots \subseteq I_{n} \subseteq I_{n+1} \subseteq \cdots
+    $$
+    
+    then there is some $N \in \mathbb{N}$ such that $I_{n}=I_{N}$ for all $n \geq N$.
+\end{definition} 
+
+\begin{remark}
+    For some rings, the ascending chain condition can be satisfied for all ideals, not just principal ones. When this happens, we say that the ring is noetherian. Noetherian rings are an important topic in other areas of mathematics such as Number Theory and Algebraic Geometry.
+\end{remark} 
+
+\begin{proposition}
+    Let $R$ be a ring satisfying the ACC on (principal) ideals, and let $\mathcal{S}$ be a nonempty family of (principal) ideals of $R$, then $\mathcal{S}$ has a maximal element, i.e. there exists some $J \in \mathcal{S}$ such that for all $I \in \mathcal{S}$ satisfying $J \subseteq I$ one has $I=J$.
+\end{proposition}
+\begin{proof}
+    By contradiction, assume that $\mathcal{S}$ does not have such a maximal element. As $\mathcal{S}$ is not empty, let $I_{1} \in \mathcal{S}$. By our assumption, $I_{1}$ is not maximal in $\mathcal{S}$, so there is some $I_{2} \in \mathcal{S}$ such that $I_{1} \subsetneq I_{2}$. Again, $I_{2}$ cannot be maximal in $\mathcal{S}$ so there must exist $I_{3} \in \mathcal{S}$ such that $I_{1} \subsetneq I_{2} \subsetneq I_{3}$. By proceeding along the same lines, we end up providing an infinite chain
+    $$
+    I_{1} \subsetneq I_{2} \subsetneq \cdots \subsetneq I_{n} \subsetneq \cdots
+    $$
+    of (principal) ideals of $R$, contradicting the ACC for (principal) ideals. Thus, if $R$ satisfies $\mathrm{ACC}$, then $\mathcal{S}$ must have a maximal element.
+\end{proof} 
+
+\begin{remark}
+    The converse of the result is also true (the proof is an easy exercise). We have only stated the result for principal ideals, but the same proof works verbatim for any family of ideals if $R$ is noetherian.
+\end{remark} 
+
+\begin{example}
+    Let $R$ be a UFD,$a \in R^{*} \backslash U(R)$, and write $a=a_{1} \cdots a_{s}$ for some irreducible elements $a_{i} \in R$. Suppose that $(a) \subseteq(b)$, then $b \mid a=a_{1} \cdots a_{s}$. As $R$ is a UFD, it must be $b \sim a_{i_{1}} \cdots a_{i_{t}}$ for some $1 \leq i_{1}<\cdots<i_{t} \leq s$, thus there are only a finite number of principal ideals containing $(a)$, namely the ones generated by some product of the irreducibles appearing in the factorization of $a$. Thus, every UFD satisfies the ACC on principal ideals.
+\end{example}
+
+\begin{proposition}
+    Let $R$ be an ID. If $R$ satisfies the ACC on principal ideals, then every nonzero, nonunit element of $R$ can be written as a product of irreducibles.
+\end{proposition} 
+\begin{proof}
+    Suppose there is an element $a \in R^{*} \backslash U(R)$ which is not a product of irreducibles, then the family
+
+    $$
+    \mathcal{S}:=\{(a) \mid a \text { is not a product of irreducibles }\}
+    $$
+    
+    is non-empty and since $R$ satisfies ACC for principal ideals, by Proposition $2.6 .3$ we can pick $a$ such that $(a)$ is maximal in $\mathcal{S}$. In particular, $a$ cannot be irreducible, so there are some $b, c \in R^{*} \backslash U(R)$ such that $a=b c$, where $b, c$ are proper divisors of $a$, and thus one gets $(a) \subsetneq(b) \subsetneq R$ and $(a) \subsetneq(c) \subsetneq R$. Since $(a)$ is maximal in $\mathcal{S}$, bith $b$ and $c$ must be written as a product of irreducibles, $b=b_{1} \cdots b_{s}, c=c_{1} \cdots c_{s}$, but then we get $a=b_{1} \cdots b_{s} c_{1} \cdots c_{t}$ product of irreducibles, which is a contradiction. 
+\end{proof} 
+
+\begin{proposition}
+    Any PID satisfies the ACC on (principal) ideals.
+\end{proposition}
+
+\begin{proof}
+    Let $I_{1} \subseteq I_{2} \subseteq \cdots$ an ascending chain of ideals of $R$. Consider $I=\bigcup_{n \geq 0} I_{n}$. We claim that $I \unlhd R$ is an ideal of $R$ :
+
+    - $0 \in I_{1} \subseteq I$, hence $0 \in I$ and I1 is satisfied.
+    
+    - Let $a, b \in I$, then $a \in I_{r}, b \in I_{s}$ for some $r, s$, and then $a, b \in I_{\max }\{r, s\}$, hence $a+b \in I_{\max \{r, s\}} \subseteq I$, thus $I$ is an additive subgroup of $R$.
+    
+    - Let $a \in I, r \in R$, then $a \in I_{n}$ for some $n$, and since $I_{n}$ is an ideal, $a r \in I_{n} \subseteq I$, hence the absorbency property is also satisfied, and thus $I$ is an ideal of $R$.
+    
+    Now, since $R$ is a PID, the ideal $I$ must be principal, i.e. there must exist some $a \in R$ such that $I=(a)$. But then $a \in I=\bigcup I_{n}$, so there must be some $N \in \mathbb{N}$ such that $a \in I_{N}$, and hence $I_{N} \supseteq(a)=I$, and it follows $I_{N}=I$. Consequently, for all $n \geq N$ one has
+    
+    $$
+    (a) \subseteq I_{N} \subseteq I_{n} \subseteq I=(a),
+    $$
+    
+    and thus $I_{n}=I_{N}$ for all $n \geq N$, so $R$ satisfies ACC on (principal) ideals.
+\end{proof} 
+
+\begin{corollary}
+    $$
+E D \Rightarrow P I D \Rightarrow U F D
+$$.
+\end{corollary}
+
+
+\section{GCD, LCM, and Factorization}
+
+Definition 2.7.1. Let $R$ be a UFD, and let $a, b \in R$. An element $d \in R$ is said to be a greatest common divisor (gcd for short) of $a$ and $b$ if the following conditions are satisfied:
+
+(1) $d|a, d| b$
+
+(2) For any $e \in R$ such that $e \mid a$ and $e \mid b$ one has $e \mid d$.
+
+These conditions can be restated in terms of ideals as follows:
+
+(1') $(a) \subseteq(d),(b) \subseteq(d)$,
+
+(2') For any $e \in R$ such that $(a) \subseteq(e)$ and $(b) \subseteq(e)$ one has $(d) \subseteq(e)$.
+
+Note that if both $d$ and $d^{\prime}$ are gcd's of $a$ and $b$, by the second property one gets $(d) \subseteq$ $\left(d^{\prime}\right)$ and $\left(d^{\prime}\right) \subseteq(d)$, thus $(d)=\left(d^{\prime}\right)$ and thus $d \sim d^{\prime}$. Henceforth, the greatest common divisor (if it exists at all!) is unique up to associates.
+
+REMARK. In some particular UFDs we can make canonical choices for gcd's. For instance in the ring of integers $\mathbb{Z}$ we can always pick the positive gcd, or in a polynomial ring $\mathbb{F}[x]$ with coefficients in a field we can choose the monic one. For more general UFDs, there is no way of making a canonical choice.
+
+EXAMPLES 2.7.2.
+
+(1) If $a=0$, then for any $b \in R$ one has $\operatorname{gcd}(a, b)=b$.
+
+(2) If $a \in U(R)$, for any $b \in R$ one has $\operatorname{gcd}(a, b)=1 \sim a$.
+
+(3) If $R$ is a UFD, and $a, b \in R^{*} \backslash U(R)$, then we can write $a=u p_{1}^{\alpha_{1}} \cdots p_{r}^{\alpha_{r}}$ and $b=v p_{1}^{\beta_{1}} \cdots p_{r}^{\beta_{r}}$ where $u, v \in U(R)$ are units, $p_{i} \in R$ are distinct primes, and $\alpha_{i}, \beta_{i} \geq 0$. In this case, the element $d=p_{1}^{\gamma_{1}} \cdots p_{r}^{\gamma_{r}}$ is a greatest common divisor of $a$ and $b$. In particular, gcd's always exist in a UFD.
+
+(4) Let $R$ be a PID (and hence a UFD), $a, b \in R$. The ideal $(a)+(b)=\{r a+$ $s b \mid r, s \in R\}$ must be principal, so there must exist $d \in R$ such that $(a)+$ $(b)=(d)$. Then $d$ is a greatest common divisor of $a$ and $b$, and moreover, since $d \in(d)=(a)+(b)$ there must exist $h, k \in R$ such that $d=h a+k b$. In other words, we have a Bézout's identity for gcd's in a PID. (5) Let $R$ be an ED with norm map $N$ (in particular, $R$ is a PID); then we know that $\operatorname{gcd}(a, b)$ exists for all $a$ and $b$ and can be written as $d=a h+b k$ for some $h, k \in R$. In this case, both $d, h$ and $k$ can be explicitly computed by repeated use of the division algorithm. The resulting algorithm is exactly the same as the well-known Euclidean algorithm for computing the gcd of integers.
+
+Definition 2.7.3. Let $R$ be an ID, $a, b \in R$. An element $e \in R$ is a least common multiple (lcm) of $a$ and $b$ if the following properties are satisfied:
+
+(1) $a|e, b| e$,
+
+(2) For any $f \in R$ such that $a \mid f$ and $b \mid f$ one has $e \mid f$.
+
+Or in terms of ideals:
+
+(1') $(e) \subseteq(a),(e) \subseteq(b)$
+
+(2') For any $f \in R$ such that $(f) \subseteq(a)$ and $(f) \subseteq(b)$ one has $(f) \subseteq(e)$.
+
+Proposition 2.7.4.
+
+(1) If $a=0$, then for any $b \in R$ one has $\operatorname{lcm}(a, b)=0$.
+
+(2) If $a \in U(R)$, then for any $b \in R$ one has $\operatorname{lcm}(a, b)=b$.
+
+(3) If $R$ is a UFD, a, $b \in R^{*} \backslash U(R)$ elements that can be written as a $=u p_{1}^{\alpha_{1}} \cdots p_{t}^{\alpha_{t}}$ and $b=v p_{1}^{\beta_{1}} \cdots p_{t}^{\beta_{t}}$, where $u, v \in U(R)$ are units, $p_{i} \in R$ are distinct primes, and $\alpha_{i}, \beta_{i} \geq 0$, and denote $\delta_{i}:=\max \left\{\alpha_{i}, \beta_{i}\right\}$. Then $\operatorname{lcm}(a, b)=p_{1}^{\gamma_{1}} \cdots p_{t}^{\gamma_{t}}$.
+
+(4) If $R$ is a UFD, $a, b \in R$, then $(a) \cap(b)=(\operatorname{lcm}(a, b))$.
+
+DEFINITION 2.7.5. Let $R$ be a UFD, we say that elements $a, b \in R$ are coprime if $\operatorname{gcd}(a, b)=1$, i.e. if $(a)+(b)=R$.
+
+Proposition 2.7.6. Let $R$ be a UFD, $r \in R$. The one has $\operatorname{gcd}\left(r a_{1}, \ldots, r a_{k}\right)=$ $r \operatorname{gcd}\left(a_{1}, \ldots, a_{k}\right)$. In particular, if $d=\operatorname{gcd}\left(a_{1}, \ldots, a_{k}\right)$ then one has $\operatorname{gcd}\left(\frac{a_{1}}{d}, \ldots, \frac{a_{k}}{d}\right)=$ 1.
+
+\section{Properties of polynomial rings over domains}
+
+We already know some properties of the ring of polynomials for certain types of rings of coeeficients. For instance:
+
+(1) If $\mathbb{F}$ is a field, then $\mathbb{F}[x]$ is NOT a field. In fact, the polynomial ring $R[x]$ is never a field.
+
+(2) If $R$ is an ID, then $R[x]$ is also an ID.
+
+(3) If $\mathbb{F}$ is a field, then $\mathbb{F}[x]$ is a $E D$, and hece a PID.
+
+Our goal in this section is to show that $R$ is a UFD if and only if $R[x]$ is also a UFD. The "only if" part is fairly trivial, but the "if" part, i.e. showing that if $R$ is a UFD then $R[x]$ is also a UFD, is trickier. The main idea that we will use for this proof will be to go from the ring $R[x]$ to the ring $Q[x]$, where $Q$ is the field of fractions of $R$, and then take advantage of the fact that $Q[x]$ is a PID and in particular a UFD.
+
+Note that a polynomial $f \in R[x]$ might be irreducible in $Q[x]$ but not in $R[x]$, for instance $f(x)=2 x^{2}+4$ is irreducible in $\mathbb{Q}[x]$, but in $\mathbb{Z}[x]$ we have $f(x)=2\left(x^{2}+2\right)$. This happens because 2 is a unit in $\mathbb{Q}$ but not in $\mathbb{Z}$. To look at irreducibles $f \in R[x]$ we will need to chack that $f$ does not have a non-unit constant factor in $R$.
+
+DEFINITION 2.8.1. Let $R$ be a UFD, $0 \neq f=a_{0}+a_{1} x+\cdots+a_{n} x^{n} \in R[x]$. The polynomial $f$ is said to be primitive if $\operatorname{gcd}\left(a_{0}, \ldots, a_{n}\right)=1$, i.e. if there isn't any prime $p \in R$ such that $p \mid a_{i}$ for all $i=0, \ldots, n$.
+
+\section{EXAMPLES 2.8.2.}
+
+(1) If $f=x^{n}+a_{n-1} x^{n-1}+\cdots+a_{0}$ is monic, then $f$ is also primitive.
+
+(2) The polynomial $3+4 x+2 x^{2}$ is primitive in $\mathbb{Z}[x]$, but $4+4 x-2 x^{2}+10 x^{3}+20 x^{4}$ is not, since $\operatorname{gcd}(4,4,-2,10,20)=2$. (3) If $f \in R[x]$ is irreducible, then $f$ is primitive.
+
+LEMMA 2.8.3. Let $R$ be a UFD with field of fractions $Q=\left\{\frac{a}{b} \mid a, b \in R, b \neq 0\right\}$, and let $f \in Q[x]$ a non-zero polynomial. The $f$ can be written as $f=\lambda \tilde{f}$ where $\lambda \in Q^{*}$ and $\tilde{f} \in R[x]$ is primitive. Moreover $\lambda$ and $\tilde{f}$ are unique up to multiplication by units in $R$.
+
+PROOF. Let $f=\frac{a_{0}}{b_{0}}+\cdots+\frac{a_{n}}{b_{n}} x^{n} \in Q[x]$. Take $r=b_{0} \cdots b_{n} \in R^{*}$, and $a_{i}^{\prime}=a_{i} r / b_{i}$. Let $d=\operatorname{gcd}\left(a_{0}^{\prime}, \ldots, a_{n}^{\prime}\right)$, and denote $c_{i}:=a_{i}^{\prime} / d \in R$. We then have
+
+$$
+f=\frac{d}{r}\left(c_{0}+\cdots+c_{n} x^{n}\right)
+$$
+
+Obviously $d / r \in Q^{*}$. By Proposition 2.7.6, $\operatorname{gcd}\left(c_{0}, \ldots, c_{n}\right)=1$, thus $\tilde{f}:=c_{0}+\cdots+c_{n} x^{n}$ is primitive.
+
+Assume now that $f=\lambda \tilde{f}=\mu \tilde{g}$ where $\tilde{f}$ and $\tilde{g}$ are primitive. Write $\lambda=a / b, \mu=c / d$, where $a, b, c, d \in R^{*}$, and let $\tilde{f}=a_{0}+\cdots+a_{n} x^{n}, \tilde{g}=b_{0}+\cdots+b_{n} x^{n}$. From the equality $\lambda \tilde{f}=\mu \tilde{g}$ we get
+
+$$
+a d\left(a_{0}+\cdots+a_{n} x^{n}\right)=b c\left(b_{0}+\cdots+b_{n} x^{n}\right),
+$$
+
+thus $a d a_{i}=b c b_{i}$ for all $i=0, \ldots, n$. One then has
+
+$$
+\begin{aligned}
+a d & \sim a d \operatorname{gcd}\left(a_{0}, \ldots, a_{n}\right) \\
+& =\operatorname{gcd}\left(a d a_{0}, \ldots, a d a_{n}\right) \\
+& =\operatorname{gcd}\left(b c b_{0}, \ldots, b c b_{n}\right) \\
+& =b c \operatorname{gcd}\left(b_{0}, \ldots, b_{n}\right) \\
+& \sim b c,
+\end{aligned}
+$$
+
+where we are using the fact $\tilde{f}$ and $\tilde{g}$ are primitive. Since the gcd is only defined up to a unit in $R$, we get that there must exist $u \in U(R)$ such that $b c=u a d$, and therefore $\mu=u \lambda$.
+
+Now, since we have $a d a_{i}=b c b_{i}=u a d b_{i}$, and $a, d \neq 0$, we obtain $b_{i}=u^{-1} a_{i}$, and thus $\tilde{g}=u^{-1} \tilde{f}$, so $\lambda$ and $\tilde{f}$ are unique up to multiplication by a unit of $R$.
+
+DEFINITION 2.8.4. If $f \in Q[x]$ is written as $f=\lambda \tilde{f}$ as in the previous lemma, the element $\lambda \in Q^{*}$ is called the content of $f$, and denoted by $\lambda=c(f)$, and the polynomial $\tilde{f}$ is called the primitive part of $f$.
+
+EXAMPLE 2.8.5. Let $f=\frac{4}{3}+\frac{8}{21} x+2 x^{2} \in \mathbb{Q}[x]$, then $c(f)=\frac{2}{21}$ and $\tilde{f}=14+4 x+$ $21 x^{2}$
+
+Proposition 2.8.6. Let $R$ be a UFD with field of fractions $Q, f \in Q[x], f \neq 0$. The following properties hold:
+
+i) If $\lambda \in Q^{*}$, then $c(\lambda f)=\lambda c(f)$ and $\widetilde{\lambda f}=\tilde{f}$.
+
+ii) $f \in R[x]$ if and only if $c(f) \in R$.
+
+iii) $f \in R[x]$ is primitive if and only if $c(f)=1$.
+
+iv) If $f, g \in R[x]$ are primitive, and $f \sim g$ in $Q[x]$, then $f \sim g \in R[x]$.
+
+PROOF. i) $f=c(f) \tilde{f}$, where $\tilde{f}$ primitive. Thus $\lambda f=\lambda c(f) \tilde{f}$. By uniqueness of the content and the primitive part, $c(\lambda f)=\lambda c(f)$ and $\widetilde{\lambda f}=\tilde{f}$.
+
+ii) $\Rightarrow$ If $f=a_{0}+\cdots+a_{n} x^{n}$, and $d=\operatorname{gcd}\left(a_{0}, \cdots, a_{n}\right)$, then $f=d\left(\frac{a_{0}}{d}+\cdots+\frac{a_{n}}{d} x^{n}\right)$, and $\operatorname{gcd}\left(a_{0} / d, \ldots, a_{n} / d\right)=1$, thus $c(f)=d \in R$.
+
+$\Leftarrow$ If $c(f) \in R$, as $\tilde{f} \in R[x]$, then obviously $f=c(f) \tilde{f} \in R[x]$.
+
+iii) If $f$ is primitive, then $\tilde{f}=f=c(f) \tilde{f}$, thus $c(f)=1$. Conversely, if $c(f)=1$, then $f=c(f) \tilde{f}=f$, and thus $f$ is primitive.
+
+iv) Let $f, g$ be primitive, then $c(f)=c(g)=1$. If $f \sim g$ in $\mathbb{Q}[x]$ there is some $\lambda \in$ $U(Q[x])=Q^{*}$ such that $g=\lambda f$, but then
+
+$$
+1=c(g)=c(\lambda f)=\lambda c(f)=\lambda
+$$
+
+so $\lambda=1$ (up to units in $R$ ), and thus $f \sim g$ in $R[x]$.
+
+THEOREM 2.8.7 (Gauss' lemma). Let $R$ be a UFD, if $f, g \in R[x]^{*}$ are primitive, then $f g$ is also primitive.
+
+ProOF. Write $f=a_{0}+\cdots+a_{n} x^{n}, g=b_{0}+\cdots+b_{m} x^{m}$; then $f g=c_{0}+\cdots+$ $c_{m+n}+x^{m+n}$, where $c_{i}=\sum_{j+k=i} a_{j} b_{k}=a_{0} b_{i}+\cdots a_{i} b_{0}$. Suppose that $f g$ is not primitive, then there must exist $p \in R$ prime such that $p \mid c_{i}$ for all $i$. Now, since $f$ and $g$ are primitive, they must have a first coefficient which is not divisible by $p$, i.e. there are some $i, j$ such that $p\left|a_{0}, \ldots, p\right| a_{i-1}, p \nmid a_{i}$, and $p\left|b_{o}, \ldots, p\right| b_{j-1}, p \nmid b_{j}$. But then one has
+
+$$
+c_{i+j}=\underbrace{a_{0} b_{i+j}+\cdots a_{i-i} b_{j+1}}_{A}+a_{i} b_{j}+\underbrace{a_{i+1} b_{j-1}+\cdots+a_{i+j} b_{0}}_{B} .
+$$
+
+Now, $p$ divides $A$ because it divides $a_{0}, \ldots, a_{i-1}$, and $p$ divides $B$ because it divides $b_{0}, \ldots, b_{j-1}$. By assumption $p$ divides $c_{i+j}$, and as $a_{i} b_{j}=c_{i+j}-A-B$, one gets that $p$ divides $a_{i} b_{j}$, since $p$ is prime, it must divide either $a_{i}$ or $b_{j}$ which is a contradiction. Henceforth, $f g$ must be primitive.
+
+Proposition 2.8.8. Let $R$ be a UFD with field of fractions $Q$, and let $f, g \in Q[x]^{*}$, then one has $\widetilde{f g}=\tilde{f} \tilde{g}$ and $c(f g)=c(f) c(g)$.
+
+PROOF. As $f=c(f) \tilde{f}$ and $g=c(g) \tilde{g}$, one gets $f g=c(f) \tilde{f} c(g) \tilde{g}=c(f) c(g) \tilde{f} \tilde{g}$. By Gauss' Lemma, $\tilde{f} \tilde{g}$ is primitive, so it is the primitive part of $f g$, i.e. $\widetilde{f g}=\tilde{f} \tilde{g}$, and by the uniqueness of the content-primitive part decomposition we get $c(f g)=c(f) c(g)$.
+
+By using the previous results, we can describe the irreducibles in $R[x]$ in terms of the irreducibles in $Q[x]$ :
+
+PROPOSITION 2.8.9. Let $R$ be a UFD with field of fractions $Q$, and let $f \in R[x]$, $f \neq 0$. The following properties hold:
+
+i) If $\operatorname{deg} f=0$ (so $f \in R^{*}$ ) then $f$ is irreducible in $R[x]$ if and only if it is irreducible in $R$.
+
+ii) If $\operatorname{deg} f \geq 1$, then $f$ is irreducible in $R[x]$ if and only if $f$ is primitive and is irreducible in $Q[x]$.
+
+ProOF.
+
+i) If $f$ is not irreducible in $R[x]$, then $f=g h$ for some $g, h \in R[x]$. As deg $f=0$ we must have $\operatorname{deg} g=\operatorname{deg} h=0$ as well, but then $g$ and $h$ are also elemets of $R$, and thus $f$ is not irreducible in $R$. The converse statement is immediate.
+
+ii) If $f$ is irreducible in $R[x]$, then $f$ is primitive. Assume $f$ is not irreducible in $Q[x]$, then we can write $f=g h$ for some $g, h \in Q[x]$, and then we have
+
+$$
+f=\tilde{f}=c(g) c(h) \tilde{g} \tilde{h} .
+$$
+
+As by Gauss' Lemma $\tilde{f} \tilde{g}$ is primitive, we get $c(g) c(h)=1$, and hence $f=\tilde{g} \tilde{h}$ with $\tilde{g}, \tilde{h} \in R[x]$, contradicting the irreducibility of $f$ in $R[x]$. Hence, $f$ must be irreducible in $Q[x]$. The converse statement is obvious.
+
+THEOREM 2.8.10. If $R$ is a UFD, then $R[x]$ is also a $U F D$.
+
+PROOF. Let $f \in R[x]$ a nonzero, nonunit element of $R[x]$. If $\operatorname{deg} f=0$, then $f \in R$, and since $R$ is a UFD we can write $f=p_{1} \cdots p_{s}$ where $p_{i}$ are irreducible in $R$. By Proposition $2.8 .9, p_{i}$ are also irreducible in $R[x]$.
+
+If $\operatorname{deg} f \geq 1$, as $R[x] \subseteq Q[x]$ we can look at $f$ as an element in $Q[x]$. SInce $Q$ is a field, $Q[x]$ is a PID (in particular a UFD), and hence we can write $f=f_{1} \cdots f_{k}$ where $f_{i}$ are irreducible in $Q[x]$. By taking content-primitive part we get
+
+$$
+f=c(f) \tilde{f}=c\left(f_{1}\right) \cdots c\left(f_{k}\right) \tilde{f}_{1} \cdots \tilde{f}_{k},
+$$
+
+where now each $\tilde{f}_{i}$ is primitive and belongs to $R[x]$. As $f_{i}$ are irreducible in $Q[x]$ and $\tilde{f}_{i} \sim f_{i}$ in $Q[x]$, we have $\tilde{f}_{i}$ irreducible in $Q[x]$; by proposition $2.8 .9$, we obtain that $\tilde{f}_{i}$ are irreducible in $R[x]$. Now, as $f \in R[x]$ then $c(f) \in R$, so we can write $c(f)=$ $p_{1} \cdots p_{s}$, with $p_{i}$ irreducible in $R$ (and thus in $R[x]$ ). Putting everything together, we can write
+
+$$
+f=p_{1} \cdots p_{s} \tilde{f}_{1} \cdots \tilde{f}_{k},
+$$
+
+where each term is irreducible in $R[x]$. Thus, every nonzero, nonunit element of $R[x]$ can be written as a product of irreducibles.
+
+Now we need to show uniqueness of the factorization. Suppose that
+
+$$
+f=p_{1} \cdots p_{s} f_{1} \cdots f_{k}=q_{1} \cdots q_{s^{\prime}} g_{1} \cdots g_{k^{\prime}}
+$$
+
+where $p_{i}, q_{j}$ are irreducibles in $R$ and $f_{i}, g_{j}$ are irreducibles in $R[x]$ of degree bigger than 0. As every irreducible is primitive, taking content and primitive part we get
+
+$$
+p_{1} \cdots p_{s}=q_{1} \cdots q_{s^{\prime}}, \quad \text { and } \quad f_{1} \cdots f_{k}=g_{1} \cdots g_{k^{\prime}}
+$$
+
+Now, using the fact that $R$ is a UFD we obtain that $s=s^{\prime}$ and (after possibly some reordering) $p_{i} \sim q_{i}$ for all $i=1, \ldots, s$. Now since all $f_{i}$ and $g_{j}$ are irreducible in $R[x]$, by $2.8 .9$ they are also irreducible in $Q[x]$, so we have two equal decompositions as products of irreducibles $f_{1} \cdots f_{k}=g_{1} \cdots g_{k^{\prime}}$ in $Q[x]$. Since $Q$ is a field, $Q[x]$ is a UFD, so we have $k=k^{\prime}$ and, up to reordering, $f_{i} \sim g_{i}$ in $Q[x]$. As $f_{i}$ and $g_{i}$ are primitive, by proposition 2.8.6 $f_{i} \sim g_{i}$ in $R[x]$.
+
+REMARK 2.8.11. By repeated use of the previous theorem, we obtain that for any UFD $\mathrm{R}$ the multivariate polynomial ring $R\left[x_{1}, \ldots, x_{n}\right] \mathrm{s}$ also a UFD.
